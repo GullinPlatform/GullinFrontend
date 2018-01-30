@@ -1,0 +1,32 @@
+// ------- ACCOUNT --------
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILED = 'LOGIN_FAILED'
+export const LOGOUT = 'LOGOUT'
+export const LOG_IP = 'LOG_IP'
+
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const REGISTER_FAILED = 'REGISTER_FAILED'
+
+export const REFRESH_SUCCESS = 'REFRESH_SUCCESS'
+export const REFRESH_FAILED = 'REFRESH_FAILED'
+
+export const LOAD_ME = 'LOAD_ME'
+export const UPDATE_ME = 'UPDATE_ME'
+
+export const CONFIRM_EMAIL_SUCCESS = 'CONFIRM_EMAIL_SUCCESS'
+export const SEND_PHONE_CODE_SUCCESS = 'SEND_PHONE_CODE_SUCCESS'
+export const CONFIRM_PHONE_SUCCESS = 'CONFIRM_PHONE_SUCCESS'
+export const ADD_WALLET_ADDRESS_SUCCESS = 'ADD_WALLET_ADDRESS_SUCCESS'
+
+// ----- PROJECT -----
+export const GET_COMPANY = 'GET_COMPANY'
+export const LIST_COMPANIES = 'LIST_COMPANIES'
+
+// ----- Wallet ----
+export const LOAD_WALLET = 'LOAD_WALLET'
+export const SYNC_BALANCE = 'SYNC_BALANCE'
+export const LOAD_TRANSACTIONS = 'LOAD_TRANSACTIONS'
+export const SYNC_TRANSACTIONS = 'SYNC_TRANSACTIONS'
+
+// ----- Utils ----
+export const FOLLOW_UP_STEP = 'FOLLOW_UP_STEP'
