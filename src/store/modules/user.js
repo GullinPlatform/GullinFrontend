@@ -71,6 +71,17 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  keepLogin({ commit }) {
+    userApi.refresh()
+      .then(() => {
+        commit(types.REFRESH_SUCCESS)
+        return Promise.resolve()
+      })
+      .catch((error) => {
+        commit(types.REFRESH_FAILED)
+        return Promise.reject(error)
+      })
+  },
 
   // Load Data
   getMe({ commit }) {
@@ -183,7 +194,6 @@ const mutations = {
   },
   [types.REGISTER_SUCCESS](state) {
     state.is_login = true
-    router.push({ name: 'user_signup_followup' })
   },
   [types.REGISTER_FAILED](state) {
     state.is_login = false
@@ -192,7 +202,6 @@ const mutations = {
   // load data
   [types.LOAD_ME](state, response) {
     state.me = response
-    router.push({ name: 'dashboard' })
   },
   [types.UPDATE_ME]() {
   },
