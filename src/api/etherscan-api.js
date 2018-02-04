@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import { EHTERSCAN_API_KEY } from '../config'
+import { web3 } from '../utils'
 
 const apiCall = (method, url, form_data, params) => {
   return axios({
@@ -20,21 +21,19 @@ const apiCall = (method, url, form_data, params) => {
         console.log(error.response.data)
         console.log(error.response.status)
         console.log(error.response.headers)
+        return Promise.reject(error.response)
       } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
         console.log(error.request)
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message)
+        return Promise.reject(error.request)
       }
-      console.log(error.config)
-      return Promise.reject(error)
     })
 }
 
 export default {
+  // Balances
   getETHBalanceByAddress(wallet_address) {
     const params = {
       module: 'account',
@@ -45,55 +44,47 @@ export default {
     }
     return apiCall('get', 'api', null, params)
   },
-  getETHTransactionsByAddress(wallet_address) {
-    const params = {
-      module: 'account',
-      action: 'txlist',
-      address: wallet_address,
-      startblock: 0,
-      endblock: 'lastest',
-      sort: 'desc',
-      apikey: EHTERSCAN_API_KEY,
-    }
-    return apiCall('get', 'api', null, params)
-  },
-  getOutTokenTransactionsByAddress(wallet_address, contract_address) {
-    const params = {
-      module: 'logs',
-      action: 'getLogs',
-      address: contract_address,
-      fromBlock: 0,
-      toBlock: 'lastest',
-      topic0: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
-      topic1: 'wallet_address',
-      sort: 'desc',
-      apikey: EHTERSCAN_API_KEY,
-    }
-    return apiCall('get', 'api', null, params)
-  },
-  getInTokenTransactionsByAddress(wallet_address, contract_address) {
-    const params = {
-      module: 'logs',
-      action: 'getLogs',
-      address: contract_address,
-      fromBlock: 0,
-      toBlock: 'lastest',
-      topic0: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
-      topic2: 'wallet_address',
-      sort: 'desc',
-      apikey: EHTERSCAN_API_KEY,
-    }
-    return apiCall('get', 'api', null, params)
-  },
-  getTokenBalanceByAddress(wallet_address, contract_address) {
+  getTokenBalanceByAddress(wallet_address, token_address) {
     const params = {
       module: 'account',
       action: 'tokenbalance',
-      contractaddress: contract_address,
+      contractaddress: token_address,
       address: wallet_address,
       tag: 'latest',
       apikey: EHTERSCAN_API_KEY,
     }
     return apiCall('get', 'api', null, params)
   },
+
+  // Transactions
+  getETHTransactionsByAddress(wallet_address) {
+    const params = {
+      module: 'account',
+      action: 'txlist',
+      address: wallet_address,
+      startblock: 5006059,
+      endblock: 'lastest',
+      sort: 'desc',
+      apikey: EHTERSCAN_API_KEY,
+    }
+    return apiCall('get', 'api', null, params)
+  },
+  getTokenTransactionsByAddress(wallet_address, contract_address) {
+    const params = {
+      module: 'logs',
+      action: 'getLogs',
+      address: contract_address,
+      fromBlock: 5006059,
+      toBlock: 'lastest',
+      topic0: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+      topic1: web3.utils.padLeft(wallet_address, 30),
+      topic0_1_opr: 'or',
+      topic2: web3.utils.padLeft(wallet_address, 30),
+      sort: 'desc',
+      apikey: EHTERSCAN_API_KEY,
+    }
+
+    return apiCall('get', 'api', null, params)
+  },
 }
+
