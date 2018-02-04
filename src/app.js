@@ -25,9 +25,12 @@ export const app = new Vue({
   router: router,
   store: store,
   render(createElement) {
-    return createElement(RootLayout);
+    return createElement(RootLayout)
   },
   beforeCreate() {
     store.dispatch('refresh')
+    setInterval(function () {
+      store.dispatch('keepLogin')
+    }, 100000)
   },
 })
