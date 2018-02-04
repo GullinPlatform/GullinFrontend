@@ -35,7 +35,8 @@
           <div class="col-12">
             <div class="input-group">
               <span class="input-group-addon"><i class="mdi mdi-key"></i></span>
-              <input class="form-control" type="password" name="password" v-model="password" v-validate="'required'" placeholder="Password">
+              <input class="form-control" type="password" name="password" v-model="password" v-validate="'required'" placeholder="Password"
+                     @keyup.enter="register()">
             </div>
           </div>
         </div>
@@ -142,9 +143,6 @@
       // onExpired() {
       //   this.$refs.recaptcha.reset()
       // },
-    },
-    created() {
-      if (this.is_login) this.$router.push({ name: 'dashboard' })
     },
   }
 

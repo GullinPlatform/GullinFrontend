@@ -94,8 +94,5 @@
         this.error_message = ''
       },
     },
-    created() {
-      if (this.is_login) this.$router.push({ name: 'dashboard' })
-    },
   }
 </script>

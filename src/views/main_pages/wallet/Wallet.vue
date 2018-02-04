@@ -105,8 +105,6 @@
     },
     methods: {},
     created() {
-      if (!this.is_login) this.$router.push({ name: 'user_login' })
-      if (this.me.verification_level < 1 && !this.me_wallet.eth_address) this.$router.push({ name: 'user_signup_followup' })
       this.$store.dispatch('syncEthBalance')
       this.$store.dispatch('syncTransactions')
     },

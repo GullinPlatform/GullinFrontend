@@ -1,7 +1,8 @@
 <template>
   <template>
     <div class="m-grid m-grid--hor m-grid--root m-page">
-      <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-2" id="m_login" style="background-image: url(../../../assets/app/media/img//bg/bg-3.jpg);">
+      <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-2" id="m_login"
+           style="background-image: url(../../../assets/app/media/img//bg/bg-3.jpg);">
         <div class="m-grid__item m-grid__item--fluid	m-login__wrapper">
           <div class="m-login__container">
             <div class="m-login__logo">
@@ -49,7 +50,7 @@
         complement: 'Forget Password',
       }
     },
-    data () {
+    data() {
       return {
         email: '',
         sent: false,
@@ -57,7 +58,7 @@
       }
     },
     methods: {
-      forgetPasswordSendEmail () {
+      forgetPasswordSendEmail() {
         if (!this.email) {
           this.error_message = 'Please provide email'
           return
@@ -70,18 +71,12 @@
             this.loaded = true
             this.error_message = 'We are unable to find the account with this email provided, are you sure you put the right email address?'
           })
-      }
+      },
     },
     computed: {
-      is_login () {
+      is_login() {
         return this.$store.getters.is_login
       },
     },
-    beforeCreate () {
-      // redirect login user
-      if (this.$store.getters.is_login) {
-        this.$router.push({name: 'landing'})
-      }
-    }
   }
 </script>
