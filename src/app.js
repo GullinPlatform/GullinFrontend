@@ -18,12 +18,6 @@ Vue.use(VeeValidate, VeeValidateConfig)
 
 sync(store, router)
 
-// Move page to top after every url change
-router.beforeEach((to, from, next) => {
-  window.scrollTo(0, 0)
-  next()
-})
-
 // The root vue app
 export const app = new Vue({
   el: '#app',
