@@ -31,7 +31,7 @@
               </a>
               <!-- End mobile menu toggle-->
             </li>
-            <li class="list-inline-item dropdown notification-list" >
+            <li class="list-inline-item dropdown notification-list">
               <a class="nav-link dropdown-toggle waves-effect nav-user" data-toggle="dropdown" href="">
                 <img src="/static/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
                 <span class="m-l-5"> {{me_name}}</span>
@@ -126,7 +126,7 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    name: 'DashboardHeader',
+    name: 'Header',
     methods: {
       logout() {
         this.$store.dispatch('logout')
