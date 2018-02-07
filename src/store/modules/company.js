@@ -4,14 +4,13 @@ import * as types from '../mutation-types'
 // initial state
 const state = {
   company_list: [],
-
   current_company: {},
-  current_tokensale: {},
 }
 
 const getters = {
   company_list: state => state.company_list,
   current_company: state => state.current_company,
+  current_token_detail: state => state.current_company.token_detail,
 }
 
 const actions = {

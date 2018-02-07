@@ -18,7 +18,7 @@
           </a> -->
         </div>
         <!-- End Logo container-->
-        <div class="menu-extras topbar-custom" v-if="is_login">
+        <div class="menu-extras topbar-custom" v-show="is_login">
           <ul class="list-inline float-right mb-0">
             <li class="menu-item list-inline-item">
               <!-- Mobile menu toggle-->
@@ -61,7 +61,7 @@
             </li>
           </ul>
         </div>
-        <div class="menu-extras topbar-custom" v-else>
+        <div class="menu-extras topbar-custom" v-show="!is_login">
           <ul class="list-inline float-right mb-0">
             <li class="list-inline-item dropdown notification-list">
               <router-link class="nav-link nav-user" :to="{name:'user_login'}" role="button">
@@ -93,19 +93,19 @@
             </li>
             <li class="has-submenu" :class="{active: $route.name === 'token_sale_list' || $route.name === 'token_sale_detail'}">
               <router-link :to="{name:'token_sale_list'}">
-                <i class="ti-home"></i>Token Sales
+                <i class="ti-star"></i>Token Sales
               </router-link>
             </li>
 
             <li class="has-submenu" :class="{active: $route.name === 'wallet'}">
               <router-link :to="{name:'wallet'}">
-                <i class="ti-home"></i>My Wallet
+                <i class="ti-wallet"></i>My Wallet
               </router-link>
             </li>
 
             <li class="has-submenu" :class="{active: $route.name === 'settings'}">
               <router-link :to="{name:'settings'}">
-                <i class="ti-home"></i>Settings
+                <i class="ti-settings"></i>Settings
               </router-link>
             </li>
           </ul>
