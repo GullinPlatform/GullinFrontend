@@ -36,6 +36,9 @@ export default {
   login(form_data) {
     return apiCall('post', 'auth/login/', form_data)
   },
+  login_2factor(form_data) {
+    return apiCall('patch', 'auth/login/', form_data)
+  },
   logout() {
     return apiCall('post', 'auth/logout/')
   },

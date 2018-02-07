@@ -43,12 +43,23 @@ const actions = {
     return userApi.login(form_data)
       .then(() => {
         commit(types.LOGIN_SUCCESS)
+        return Promise.resolve()
+      })
+      .catch(error => {
+        commit(types.LOGIN_FAILED)
+        return Promise.reject(error)
+      })
+  },
+  login_2factor({ commit, dispatch }, form_data) {
+    return userApi.login_2factor(form_data)
+      .then(() => {
+        commit(types.LOGIN_2FACTOR_SUCCESS)
         dispatch('getMe')
         dispatch('getWallet')
         return Promise.resolve()
       })
       .catch(error => {
-        commit(types.LOGIN_FAILED)
+        commit(types.LOGIN_2FACTOR_FAILED)
         return Promise.reject(error)
       })
   },
@@ -172,7 +183,9 @@ const actions = {
 // mutations
 const mutations = {
   // auth
-  [types.LOGIN_SUCCESS](state) {
+  [types.LOGIN_SUCCESS]() {
+  },
+  [types.LOGIN_2FACTOR_SUCCESS](state) {
     state.is_login = true
   },
   [types.LOGIN_FAILED](state) {

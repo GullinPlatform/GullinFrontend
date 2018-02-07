@@ -4,7 +4,7 @@
     <div class="text-center">
       <p class="logo-lg"><span> Login to Gullin</span></p>
     </div>
-    <div class="card-box">
+    <div class="card-box" v-if="!login_success">
       <div class="form-horizontal m-t-20">
         <div class="form-group row">
           <div class="col-12">
@@ -47,6 +47,44 @@
         </div>
       </div>
     </div>
+    <div class="card-box" v-else>
+      <div class="alert alert-success">
+        We have sent a verification code to your phone, please verify
+      </div>
+      <div class="form-horizontal m-t-20">
+        <div class="form-group row">
+
+          <div class="col-12">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="mdi mdi-cellphone-iphone"></i></span>
+              <input class="form-control" type="email" name="email" v-model="code" v-validate="'required'" placeholder="2 Factor Code">
+            </div>
+            <span class="text-danger" v-show="errors.has('email')">{{ errors.first('email') }}</span>
+          </div>
+        </div>
+
+        <div class="form-group text-center m-t-20">
+          <div class="col-xs-12">
+            <button class="btn btn-primary btn-custom waves-effect waves-light w-md" @click="login_2factor($event)" :disabled="errors.any()">
+              Verify
+            </button>
+          </div>
+          <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
+        </div>
+
+        <div class="form-group row m-t-30">
+          <div class="col-sm-7">
+            <a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot
+              password?</a>
+          </div>
+          <div class="col-sm-5 text-right">
+            <router-link class="text-muted" :to="{name:'user_signup'}">
+              Sign Up
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -61,6 +99,10 @@
       return {
         email: '',
         password: '',
+
+        login_success: false,
+        code: '',
+
         error_message: '',
       }
     },
@@ -81,10 +123,28 @@
 
         this.$store.dispatch('login', form_data)
           .then(() => {
+            this.login_success = true
             this.resetState()
           })
           .catch(() => {
             this.error_message = 'Unable to login using provided email and password'
+            this.password = ''
+          })
+      },
+      login_2factor(e) {
+        e.preventDefault()
+        if (this.errors.any()) return
+
+        const form_data = {
+          verification_code: this.code,
+        }
+
+        this.$store.dispatch('login_2factor', form_data)
+          .then(() => {
+            this.resetState()
+          })
+          .catch((error) => {
+            this.error_message = error.data.error
             this.password = ''
           })
       },

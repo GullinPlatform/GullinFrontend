@@ -1,8 +1,11 @@
 // ------- ACCOUNT --------
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
+
+export const LOGIN_2FACTOR_SUCCESS = 'LOGIN_2FACTOR_SUCCESS'
+export const LOGIN_2FACTOR_FAILED = 'LOGIN_2FACTOR_FAILED'
+
 export const LOGOUT = 'LOGOUT'
-export const LOG_IP = 'LOG_IP'
 
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAILED = 'REGISTER_FAILED'
