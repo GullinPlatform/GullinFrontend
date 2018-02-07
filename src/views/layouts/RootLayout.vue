@@ -58,4 +58,10 @@
 </script>
 
 
-
+<style>
+  @media (min-width: 992px) {
+    .container-fluid {
+      width: 75%;
+    }
+  }
+</style>

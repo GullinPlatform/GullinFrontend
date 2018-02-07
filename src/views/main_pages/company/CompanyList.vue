@@ -42,16 +42,17 @@
 
           <div class="card m-b-20">
             <!--<img :src="company.display_img">-->
-            <img class="card-img-top img-fluid" src="/static/images/gallery/2.jpg" alt="Card image cap">
+            <img class="card-img-top img-fluid" :src="company.display_img" alt="Card image cap">
             <div class="card-body">
-              <h5 class="card-title"> {{company.name}}</h5>
-              <p class="card-text"> {{company.short_description}}</p>
+              <h4 class="m-0"> {{company.name}}</h4>
             </div>
             <ul class="list-group list-group-flush">
+              <li class="list-group-item">{{company.short_description}}</li>
+
               <li class="list-group-item"> {{company.token_detail.end_datetime}}</li>
-              <li class="list-group-item">Dapibus ac facilisis in</li>
             </ul>
-            <div class="card-body">
+
+            <div class="card-body text-center">
               <router-link :to="{name: 'token_sale_detail', params:{id:company.id}}" class="btn m-btn--pill btn-secondary m-btn m-btn--hover-brand m-btn--custom">
                 See Detail
               </router-link>

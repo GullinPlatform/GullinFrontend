@@ -8,76 +8,274 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="card-box widget-user">
-            <div>
-              <img :src="current_company.logo">
-              <div class="wid-u-info">
-                <h5 class="mt-0 m-b-5 font-16"> {{current_company.name}}</h5>
-                <p class="text-muted m-b-5 font-13">{{current_company.short_description}}</p>
-                <small><b> {{current_company.token_detail.end_datetime}}</b></small>
+      <div class="card-box widget-user">
+        <div class="row">
+          <div class="col-md-9 col-sm-12">
+            <img :src="current_company.logo">
+            <div class="wid-u-info">
+              <h5 class="mt-0 m-b-5 font-16"> {{current_company.name}}</h5>
+              <p class="text-muted m-b-5 font-13">{{current_company.short_description}}</p>
+              <small><b> {{current_company.token_detail.start_datetime}}</b> - <b> {{current_company.token_detail.end_datetime}}</b></small>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-12">
+            <a class="btn btn-primary btn-block text-white mt-3" data-toggle="modal" data-target="#invest_modal">Invest Now</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-box">
+        <ul class="nav nav-tabs tabs-bordered">
+          <li class="nav-item">
+            <a href="#tab1" data-toggle="tab" aria-expanded="false" class="nav-link active">
+              Description
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#tab2" data-toggle="tab" aria-expanded="true" class="nav-link">
+              Tokenomics
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#tab3" data-toggle="tab" aria-expanded="false" class="nav-link">
+              Team
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#tab4" data-toggle="tab" aria-expanded="false" class="nav-link">
+              Documents
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#tab5" data-toggle="tab" aria-expanded="false" class="nav-link">
+              Press Releases
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content px-3">
+          <div class="tab-pane fade show active" id="tab1">
+            <div v-html="current_company.description"></div>
+            <div class="text-center">
+              <a class="btn btn-primary text-white" :href="current_company.website" target="_blank">See More</a>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tab2">
+            <div class="row">
+              <div class="col-lg-6 col-md-12">
+                <h4 class="header-title ml-2 mb-3"><b>Token Detail</b></h4>
+                <table class="table">
+                  <tbody>
+                  <tr>
+                    <td>Token</td>
+                    <td> {{current_token_detail.token_code}}</td>
+                  </tr>
+                  <tr>
+                    <td>Price</td>
+                    <td> {{current_token_detail.price}} ETH</td>
+                  </tr>
+                  <tr>
+                    <td>Total Supply</td>
+                    <td> {{current_token_detail.total_token_supply}} {{current_token_detail.token_code}}</td>
+                  </tr>
+                  <tr>
+                    <td>Soft Market Cap</td>
+                    <td> {{current_token_detail.soft_market_cap}} {{current_token_detail.market_cap_unit}}</td>
+                  </tr>
+                  <tr>
+                    <td>Hard Market Cap</td>
+                    <td> {{current_token_detail.hard_market_cap}} {{current_token_detail.market_cap_unit}}</td>
+                  </tr>
+                  <tr>
+                    <td>Token Distribution</td>
+                    <td v-html="current_token_detail.token_distribution"></td>
+                  </tr>
+                  </tbody>
+                </table>
               </div>
+              <div class="col-lg-6 col-md-12">
+                <h4 class="header-title ml-2 mb-3"><b>Investment Info</b></h4>
+                <table class="table">
+                  <tbody>
+                  <tr>
+                    <td>Threshold (Min Investment Value)</td>
+                    <td> {{current_token_detail.threshold}} ETH</td>
+                  </tr>
+                  <tr>
+                    <td>Investor Restrictions</td>
+                    <td> {{current_token_detail.restrictions}}</td>
+                  </tr>
+                  <tr>
+                    <td> Bonus</td>
+                    <td v-html="current_token_detail.bonus"></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tab3">
+            <h4 class="header-title mb-3"><b>Team Members</b></h4>
+            <div class="row">
+              <div class="col-sm-4 col-lg-3 col-xs-12" v-for="member in current_company.members" v-if="member.member_type === 1">
+                <div class="text-center card-box">
+                  <div class="member-card">
+                    <div class="thumb-lg member-thumb mb-3 center-page">
+                      <img :src="member.avatar" class="rounded-circle img-thumbnail" alt="profile-image">
+                    </div>
+
+                    <div>
+                      <h4 class="m-b-5 mt-2">{{member.full_name}}</h4>
+                      <p class="text-muted m-0">{{member.title}}</p>
+                      <p class="text-muted">{{member.description}}</p>
+                    </div>
+                    <ul class="social-links list-inline mb-0">
+                      <li class="list-inline-item">
+                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-linkedin"></i></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-globe"></i></a>
+                      </li>
+                    </ul>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <h4 class="header-title mb-3"><b>Advisors</b></h4>
+            <div class="row">
+              <div class="col-sm-4 col-lg-3 col-xs-12" v-for="member in current_company.members" v-if="member.member_type === 0">
+                <div class="text-center card-box">
+                  <div class="member-card">
+                    <div class="thumb-lg member-thumb mb-3 center-page">
+                      <img :src="member.avatar" class="rounded-circle img-thumbnail" alt="profile-image">
+                    </div>
+
+                    <div>
+                      <h4 class="m-b-5 mt-2">{{member.full_name}}</h4>
+                      <p class="text-muted m-0">{{member.title}}</p>
+                      <p class="text-muted">{{member.description}}</p>
+                    </div>
+                    <ul class="social-links list-inline mb-0">
+                      <li class="list-inline-item">
+                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-linkedin"></i></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-globe"></i></a>
+                      </li>
+                    </ul>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tab4">
+            <div class="row">
+              <div class="col-md-12 col-lg-6" v-for="doc in current_company.documents">
+                <a class="document-container card-box text-dark" :href="doc.url" target="_blank">
+                  <div class="document-box">
+                    <i class="fa fa-file-text-o fa-3x"></i>
+                    <h4 class="u-flex1 pl-3 mb-0">
+                      {{doc.title}}
+                    </h4>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tab5">
+            <div class="inbox-widget">
+              <a :href="press_release.url" class="document-container card-box" target="_blank" v-for="press_release in current_company.press_releases">
+                <div class="inbox-item">
+                  <div class="inbox-item-img text-dark">
+                    <i class="fa fa-file-text-o fa-3x"></i>
+                  </div>
+                  <h4 class="inbox-item-author mb-1">{{press_release.title}}</h4>
+                  <p class="inbox-item-text">{{press_release.brief}}</p>
+                  <p class="inbox-item-date">{{press_release.created}}</p>
+                </div>
+              </a>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card-box">
-            <ul class="nav nav-tabs tabs-bordered">
-              <li class="nav-item">
-                <a href="#home-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                  Description
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#profile-b1" data-toggle="tab" aria-expanded="true" class="nav-link active">
-                  Tokenomics
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#messages-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                  Team
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#settings-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                  Documents
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#settings-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                  Updates
-                </a>
-              </li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane fade" id="home-b1">
-                {{current_company}}
+      <!--begin::Modal-->
+      <div id="invest_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Invest</h4>
+            </div>
+            <div class="modal-body row">
+              <div class="col-md-6 border-right">
+                <div class="row form-group">
+                  <div class="col-10">
+                    <label class="control-label">Amount</label>
+                    <input v-model="amount" type="text" class="form-control" placeholder="0.00">
+                  </div>
+                  <label class="col-2 col-form-label mt-4">ETH</label>
+                </div>
+                <div class="row form-group">
+                  <div class="col-md-12">
+                    <label class="control-label">ICO Destination</label>
+                    <input type="text" class="form-control" :value="current_token_detail.crowd_sale_contract_address" disabled>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-md-12">
+                    <label class="control-label">Your Wallet Address</label>
+                    <input type="text" class="form-control" :value="me_wallet.eth_address" disabled>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-md-12">
+                    <label class="control-label">Your Private Key</label>
+                    <input v-model="private_key" type="text" class="form-control" placeholder="Private Key">
+                  </div>
+                </div>
               </div>
-              <div class="tab-pane fade show active" id="profile-b1">
-                <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
-                  Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
-              </div>
-              <div class="tab-pane fade" id="messages-b1">
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
-                <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
-                  Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-              </div>
-              <div class="tab-pane fade" id="settings-b1">
-                <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
-                  Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+              <div class="col-md-6">
+                <div class="alert alert-primary">
+                  You are investing in <b>{{current_company.name}}</b>, please make sure you are on the right page!
+                </div>
+
+                <table class="table">
+                  <tbody>
+                  <tr>
+                    <td>Price</td>
+                    <td> {{current_token_detail.price}} ETH / {{current_token_detail.token_code}}</td>
+                  </tr>
+                  <tr>
+                    <td>Threshold</td>
+                    <td> {{current_token_detail.threshold}} ETH</td>
+                  </tr>
+                  <tr>
+                    <td>Restrictions</td>
+                    <td> {{current_token_detail.restrictions}}</td>
+                  </tr>
+                  <tr>
+                    <td> Bonus</td>
+                    <td v-html="current_token_detail.bonus"></td>
+                  </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
-          </div>
-        </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal">Invest</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
       </div>
+      <!--end::Modal-->
     </div>
   </div>
 </template>
@@ -91,6 +289,7 @@
     data() {
       return {
         loading: false,
+        private_key: null,
       }
     },
     methods: {
@@ -109,6 +308,8 @@
       ...mapGetters({
         is_login: 'is_login',
         current_company: 'current_company',
+        current_token_detail: 'current_token_detail',
+        me_wallet: 'me_wallet',
         me: 'me',
       }),
     },
@@ -125,5 +326,29 @@
   .m-widget5 .m-widget5__item {
     margin-bottom: 0;
     padding-bottom: 0;
+  }
+
+  .document-container {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .document-box {
+    align-items: center;
+    display: flex;
+  }
+
+  .u-flex1 {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+
+  .inbox-widget .inbox-item {
+    border-bottom: 0;
+  }
+
+  .border-right {
+    border-right: 1px solid rgba(54, 64, 74, 0.08);
   }
 </style>
