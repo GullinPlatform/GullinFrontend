@@ -61,7 +61,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-
+  import { web3 } from '../../../utils'
 
   export default {
     name: 'WithdrawModal',
@@ -69,7 +69,7 @@
       return {
         amount: '',
         unit: 'ETH',
-        destination: '',
+        to_address: '',
         private_key: '',
         two_factor_code: '',
       }
@@ -80,5 +80,10 @@
         balances: 'balances',
       }),
     },
+    methods: {
+      isAddress() {
+        return web3.utils.isAddress(this.to_address)
+      }
+    }
   }
 </script>

@@ -172,8 +172,8 @@
             <div class="inbox-widget">
               <a href="#">
                 <div class="inbox-item">
-                  <div class="inbox-item-img">
-                    <img src="" alt="">
+                  <div class="inbox-item-img text-dark">
+                    <i class="fa fa-file-text-o fa-3x"></i>
                   </div>
                   <p class="inbox-item-author">Chadengle</p>
                   <p class="inbox-item-text">Hey! there I'm available...</p>

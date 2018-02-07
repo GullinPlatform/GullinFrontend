@@ -8,7 +8,6 @@
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-lg-3">
           <div class="row">
@@ -34,7 +33,7 @@
         </div>
         <div class="col-lg-9">
           <div class="card-box">
-            <h4 class="m-b-30 header-title">Transactions</h4>
+            <h4 class="text-dark header-title m-b-30">Transactions</h4>
 
             <table class="table">
               <thead>

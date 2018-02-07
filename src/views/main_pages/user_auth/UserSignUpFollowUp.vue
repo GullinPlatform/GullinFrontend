@@ -29,19 +29,20 @@
     </div>
     <div class="card-box" v-if="level===1">
       <div class="text-center m-t-20">
-        <div class="alert alert-success alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <div class="alert alert-success">
           Please verify your email using the <b>verification code</b> we sent to your email.
         </div>
-        <div class="form-group m-b-0">
+        <div class="form-group m-b-5">
           <div class="input-group">
             <input class="form-control" placeholder="Enter Code" required="" v-model="email_code" @keyup.enter="confirmEmail()">
             <span class="input-group-btn">
               <button type="submit" class="btn btn-email btn-primary waves-effect waves-light" @click="confirmEmail()">Verify</button>
             </span>
           </div>
-          <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
         </div>
+        <span class="text-muted"> Didn't receive code? Send Again.</span>
+        <br>
+        <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
       </div>
     </div>
     <div class="card-box" v-else-if="level===2">
@@ -298,18 +299,15 @@
           </div>
           <input type="text" class="form-control" placeholder="Phone Number" v-model="phone_number">
         </div>
-        <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
             <button class="btn btn-primary btn-custom waves-effect waves-light w-md" @click="addPhone()">
               Send Code
             </button>
           </div>
-        </div>
-        <div class="form-group text-center m-t-20">
-          <div class="col-sm-12">
-            <a href="" class="text-muted">Why we need your phone? </a>
-          </div>
+          <span class="text-muted"> Why we need your phone?</span>
+          <br>
+          <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
         </div>
       </div>
       <div v-if="phone_code_sent">
@@ -391,7 +389,6 @@
         new_wallet_address: '',
         new_wallet_private_key: '',
 
-        level: null,
         phone_code_sent: false,
         error_message: '',
       }
@@ -403,6 +400,9 @@
         is_login: 'is_login',
         verification_level: 'verification_level',
       }),
+      level() {
+        return this.verification_level + 2
+      }
     },
     methods: {
       confirmEmail() {
@@ -411,10 +411,10 @@
         }
         this.$store.dispatch('confirmEmail', form_data)
           .then(() => {
-            this.level += 1
+            this.error_message = ''
           })
-          .catch(() => {
-            this.error_message = 'The verification code you have is wrong, please try again.'
+          .catch((error) => {
+            this.error_message = error.data.error
           })
       },
       addPhone() {
@@ -430,9 +430,10 @@
         this.$store.dispatch('addPhone', form_data)
           .then(() => {
             this.phone_code_sent = true
+            this.error_message = ''
           })
-          .catch(() => {
-            this.error_message = 'We are having trouble sending you code, please try again.'
+          .catch((error) => {
+            this.error_message = error.data.error
           })
       },
       confirmPhone() {
@@ -441,10 +442,10 @@
         }
         this.$store.dispatch('confirmPhone', form_data)
           .then(() => {
-            this.level += 1
+            this.error_message = ''
           })
-          .catch(() => {
-            this.error_message = 'The verification code you have is wrong, please try again.'
+          .catch((error) => {
+            this.error_message = error.data.error
           })
       },
       generateWallet() {
@@ -525,10 +526,6 @@
           }
         })
       },
-    },
-    created() {
-      if (!this.is_login) this.$router.push({ name: 'user_login' })
-      this.level = this.verification_level + 2
     },
   }
 
