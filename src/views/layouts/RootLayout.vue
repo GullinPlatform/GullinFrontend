@@ -35,23 +35,10 @@
         me_wallet: 'me_wallet',
       }),
     },
-    beforeCreate() {
-      if (!this.is_login) this.$router.push({ name: 'user_login' })
-    },
     watch: {
-      'is_login': function () {
+      'is_login'() {
         if (!this.is_login) this.$router.push({ name: 'user_login' })
-      },
-      'me': function () {
-        if (this.is_login) {
-          if (this.me.verification_level < 1) this.$router.push({ name: 'user_signup_followup' })
-          else this.$router.push({ name: 'dashboard' })
-        }
-      },
-      'me_wallet': function () {
-        if (this.is_login) {
-          if (this.me_wallet.eth_address === null) this.$router.push({ name: 'user_signup_followup' })
-        }
+        else this.$router.push({ name: 'dashboard' })
       },
     },
   }
@@ -59,9 +46,26 @@
 
 
 <style>
-  @media (min-width: 992px) {
+  @media (min-width: 1200px) {
     .container-fluid {
       width: 75%;
     }
+  }
+
+  @media (max-width: 992px) {
+    .container-fluid {
+      width: 95%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container-fluid {
+      width: 100%;
+    }
+  }
+
+  .btn-primary.disabled, .btn-primary:disabled {
+    background-color: #868e96;
+    border-color: #868e96;
   }
 </style>

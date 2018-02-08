@@ -1,291 +1,433 @@
-
 <template>
-  <!-- begin::Body -->
-  <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
-    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver	m-container m-container--responsive m-container--xxl m-page__container">
-      <div class="m-grid__item m-grid__item--fluid m-wrapper">
-        <!-- BEGIN: Subheader -->
-        <div class="m-subheader ">
-          <div class="d-flex align-items-center">
-            <div class="mr-auto">
-              <h3 class="m-subheader__title ">
-                Settings
-              </h3>
-            </div>
+  <div class="wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="page-title-box">
+            <h4 class="page-title">Settings</h4>
           </div>
         </div>
-        <!-- END: Subheader -->
-        <div class="m-content">
-          <!--Begin::Section-->
-          <div class="row">
-            <div class="col-xl-12">
-              <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
-                <div class="m-portlet__head">
-                  <div class="m-portlet__head-tools">
-                    <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-                      <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
-                          <i class="flaticon-share m--hide"></i>
-                          Description
-                        </a>
-                      </li>
-                      <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
-                          Updates
-                        </a>
-                      </li>
-                      <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_3" role="tab">
-                          Team
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="m-portlet__head-tools">
-                    <ul class="m-portlet__nav">
-                      <li class="m-portlet__nav-item m-portlet__nav-item--last">
-                        <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
-                          <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
-                            <i class="la la-gear"></i>
-                          </a>
-                          <div class="m-dropdown__wrapper">
-                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-                            <div class="m-dropdown__inner">
-                              <div class="m-dropdown__body">
-                                <div class="m-dropdown__content">
-                                  <ul class="m-nav">
-                                    <li class="m-nav__section m-nav__section--first">
-																				<span class="m-nav__section-text">
-																					Quick Actions
-																				</span>
-                                    </li>
-                                    <li class="m-nav__item">
-                                      <a href="" class="m-nav__link">
-                                        <i class="m-nav__link-icon flaticon-share"></i>
-                                        <span class="m-nav__link-text">
-																						Create Post
-																					</span>
-                                      </a>
-                                    </li>
-                                    <li class="m-nav__item">
-                                      <a href="" class="m-nav__link">
-                                        <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                        <span class="m-nav__link-text">
-																						Send Messages
-																					</span>
-                                      </a>
-                                    </li>
-                                    <li class="m-nav__item">
-                                      <a href="" class="m-nav__link">
-                                        <i class="m-nav__link-icon flaticon-multimedia-2"></i>
-                                        <span class="m-nav__link-text">
-																						Upload File
-																					</span>
-                                      </a>
-                                    </li>
-                                    <li class="m-nav__section">
-																				<span class="m-nav__section-text">
-																					Useful Links
-																				</span>
-                                    </li>
-                                    <li class="m-nav__item">
-                                      <a href="" class="m-nav__link">
-                                        <i class="m-nav__link-icon flaticon-info"></i>
-                                        <span class="m-nav__link-text">
-																						FAQ
-																					</span>
-                                      </a>
-                                    </li>
-                                    <li class="m-nav__item">
-                                      <a href="" class="m-nav__link">
-                                        <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                                        <span class="m-nav__link-text">
-																						Support
-																					</span>
-                                      </a>
-                                    </li>
-                                    <li class="m-nav__separator m-nav__separator--fit m--hide"></li>
-                                    <li class="m-nav__item m--hide">
-                                      <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
-                                        Submit
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="m-po"></div>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="m_user_profile_tab_1">
-                    <form class="m-form m-form--fit m-form--label-align-right">
-                      <div class="m-portlet__body">
-                        <div class="form-group m-form__group m--margin-top-10 m--hide">
-                          <div class="alert m-alert m-alert--default" role="alert">
-                            The example form below demonstrates common HTML form elements that receive updated styles from Bootstrap with additional classes.
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <div class="col-10 ml-auto">
-                            <h3 class="m-form__section">
-                              1. Personal Details
-                            </h3>
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            Full Name
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="Mark Andre">
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            Occupation
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="CTO">
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            Company Name
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="Keenthemes">
-                            <span class="m-form__help">
-																If you want your invoices addressed to a company. Leave blank to use your full name.
-															</span>
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            Phone No.
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="+456669067890">
-                          </div>
-                        </div>
-                        <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
-                        <div class="form-group m-form__group row">
-                          <div class="col-10 ml-auto">
-                            <h3 class="m-form__section">
-                              2. Address
-                            </h3>
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            Address
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="L-12-20 Vertex, Cybersquare">
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            City
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="San Francisco">
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            State
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="California">
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            Postcode
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="45000">
-                          </div>
-                        </div>
-                        <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
-                        <div class="form-group m-form__group row">
-                          <div class="col-10 ml-auto">
-                            <h3 class="m-form__section">
-                              3. Social Links
-                            </h3>
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            Linkedin
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="www.linkedin.com/Mark.Andre">
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            Facebook
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="www.facebook.com/Mark.Andre">
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            Twitter
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="www.twitter.com/Mark.Andre">
-                          </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                          <label for="example-text-input" class="col-2 col-form-label">
-                            Instagram
-                          </label>
-                          <div class="col-7">
-                            <input class="form-control m-input" type="text" value="www.instagram.com/Mark.Andre">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="m-portlet__foot m-portlet__foot--fit">
-                        <div class="m-form__actions">
-                          <div class="row">
-                            <div class="col-2"></div>
-                            <div class="col-7">
-                              <button type="reset" class="btn btn-accent m-btn m-btn--air m-btn--custom">
-                                Save changes
-                              </button>
-                              &nbsp;&nbsp;
-                              <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
-                                Cancel
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="tab-pane active" id="m_user_profile_tab_2"></div>
-                </div>
+      </div>
+      <div class="card-box">
+        <ul class="nav nav-tabs tabs-bordered">
+          <li class="nav-item">
+            <router-link :to="{name: 'settings'}" class="nav-link">
+              Profile
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{name: 'settings_verification'}" class="nav-link">
+              Verification
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{name: 'settings_security'}" class="nav-link">
+              Security
+            </router-link>
+          </li>
+        </ul>
+        <div class="tab-content px-3">
+          <h4 class="text-dark header-title my-3"><b>My Account</b></h4>
+          <div class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Email</label>
+              <div class="col-xl-6 col-lg-8">
+                <input type="text" class="form-control" disabled :value="me.user.email">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Phone</label>
+              <div class="col-xl-6 col-lg-8">
+                <input type="text" class="form-control" disabled :value="me_phone">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Password</label>
+              <div class="col-xl-6 col-lg-8">
+                <button class="btn btn-outline-secondary">Change</button>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">ETH Address</label>
+              <div class="col-xl-6 col-lg-8">
+                <input type="text" class="form-control" disabled :value="me_wallet.eth_address">
+                <a :href="'https://etherscan.io/address/' + me_wallet.eth_address" target="_blank" class="text-primary">View on EtherScan</a>
               </div>
             </div>
           </div>
-          <!--End::Section-->
+          <hr class="my-4">
+          <h4 class="text-dark header-title mb-3 mt-4"><b>Personal Details</b></h4>
+          <div class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Verification Status</label>
+              <div class="col-sm-6">
+                <p class="m-0 col-form-label"
+                   :class="{'text-danger':me.verification_level===2,
+                            'text-warning':me.verification_level===3,
+                            'text-primary':me.verification_level>4}">
+                  <b v-if="me.verification_level===2">Not Verified</b>
+                  <b v-if="me.verification_level===3">Verifying</b>
+                  <b v-if="me.verification_level>4">Verified</b>
+                </p>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Legal Name</label>
+              <div class="col-xl-3 col-md-4">
+                <input type="text" class="form-control" placeholder="First Name" v-model="first_name" :disabled="verification_level>2">
+              </div>
+              <div class="m-1 d-md-none"></div>
+              <div class="col-xl-3 col-md-5">
+                <input type="text" class="form-control" placeholder="Last Name" v-model="last_name" :disabled="verification_level>2">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-xs-12 col-form-label">Birthday</label>
+              <div class="col-xl-3 col-md-4">
+                <select class="form-control" v-model="birthday_month" :disabled="verification_level>2">
+                  <option value="">Month</option>
+                  <option value="01">January</option>
+                  <option value="02">February</option>
+                  <option value="03">March</option>
+                  <option value="04">April</option>
+                  <option value="05">May</option>
+                  <option value="06">June</option>
+                  <option value="07">July</option>
+                  <option value="08">August</option>
+                  <option value="09">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+              </div>
+              <div class="m-1 d-md-none"></div>
+
+              <div class="col-xl-1 col-md-2">
+                <select class="form-control" v-model="birthday_day" :disabled="verification_level>2">
+                  <option value="">Day</option>
+                  <option value="01">1</option>
+                  <option value="02">2</option>
+                  <option value="03">3</option>
+                  <option value="04">4</option>
+                  <option value="05">5</option>
+                  <option value="06">6</option>
+                  <option value="07">7</option>
+                  <option value="08">8</option>
+                  <option value="09">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                </select>
+              </div>
+              <div class="m-1 d-md-none"></div>
+
+              <div class="col-xl-2 col-md-3">
+                <select class="form-control" v-model="birthday_year" :disabled="verification_level>2">
+                  <option value="">Year</option>
+                  <option value="2018">2018</option>
+                  <option value="2017">2017</option>
+                  <option value="2016">2016</option>
+                  <option value="2015">2015</option>
+                  <option value="2014">2014</option>
+                  <option value="2013">2013</option>
+                  <option value="2012">2012</option>
+                  <option value="2011">2011</option>
+                  <option value="2010">2010</option>
+                  <option value="2009">2009</option>
+                  <option value="2008">2008</option>
+                  <option value="2007">2007</option>
+                  <option value="2006">2006</option>
+                  <option value="2005">2005</option>
+                  <option value="2004">2004</option>
+                  <option value="2003">2003</option>
+                  <option value="2002">2002</option>
+                  <option value="2001">2001</option>
+                  <option value="2000">2000</option>
+                  <option value="1999">1999</option>
+                  <option value="1998">1998</option>
+                  <option value="1997">1997</option>
+                  <option value="1996">1996</option>
+                  <option value="1995">1995</option>
+                  <option value="1994">1994</option>
+                  <option value="1993">1993</option>
+                  <option value="1992">1992</option>
+                  <option value="1991">1991</option>
+                  <option value="1990">1990</option>
+                  <option value="1989">1989</option>
+                  <option value="1988">1988</option>
+                  <option value="1987">1987</option>
+                  <option value="1986">1986</option>
+                  <option value="1985">1985</option>
+                  <option value="1984">1984</option>
+                  <option value="1983">1983</option>
+                  <option value="1982">1982</option>
+                  <option value="1981">1981</option>
+                  <option value="1980">1980</option>
+                  <option value="1979">1979</option>
+                  <option value="1978">1978</option>
+                  <option value="1977">1977</option>
+                  <option value="1976">1976</option>
+                  <option value="1975">1975</option>
+                  <option value="1974">1974</option>
+                  <option value="1973">1973</option>
+                  <option value="1972">1972</option>
+                  <option value="1971">1971</option>
+                  <option value="1970">1970</option>
+                  <option value="1969">1969</option>
+                  <option value="1968">1968</option>
+                  <option value="1967">1967</option>
+                  <option value="1966">1966</option>
+                  <option value="1965">1965</option>
+                  <option value="1964">1964</option>
+                  <option value="1963">1963</option>
+                  <option value="1962">1962</option>
+                  <option value="1961">1961</option>
+                  <option value="1960">1960</option>
+                  <option value="1959">1959</option>
+                  <option value="1958">1958</option>
+                  <option value="1957">1957</option>
+                  <option value="1956">1956</option>
+                  <option value="1955">1955</option>
+                  <option value="1954">1954</option>
+                  <option value="1953">1953</option>
+                  <option value="1952">1952</option>
+                  <option value="1951">1951</option>
+                  <option value="1950">1950</option>
+                  <option value="1949">1949</option>
+                  <option value="1948">1948</option>
+                  <option value="1947">1947</option>
+                  <option value="1946">1946</option>
+                  <option value="1945">1945</option>
+                  <option value="1944">1944</option>
+                  <option value="1943">1943</option>
+                  <option value="1942">1942</option>
+                  <option value="1941">1941</option>
+                  <option value="1940">1940</option>
+                  <option value="1939">1939</option>
+                  <option value="1938">1938</option>
+                  <option value="1937">1937</option>
+                  <option value="1936">1936</option>
+                  <option value="1935">1935</option>
+                  <option value="1934">1934</option>
+                  <option value="1933">1933</option>
+                  <option value="1932">1932</option>
+                  <option value="1931">1931</option>
+                  <option value="1930">1930</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3"></label>
+              <div class="col-xl-6 col-lg-8 ">
+                <button class="btn btn-primary" @click="update_name_birthday()">Save</button>
+              </div>
+            </div>
+
+          </div>
+          <hr class="my-4">
+          <h4 class="text-dark header-title mb-3 mt-4"><b>Address</b></h4>
+          <div class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-sm-3 col-xs-12 col-form-label">Street Address 1</label>
+              <div class="col-xl-6 col-lg-8">
+                <input type="text" class="form-control" placeholder="Street Address 1" v-model="address1">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-sm-5 col-xs-12 col-form-label">Street Address 2 (Optional)</label>
+              <div class="col-xl-6 col-lg-8">
+                <input type="text" class="form-control" placeholder="Street Address 2 (Optional)" v-model="address2">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-xs-12 col-form-label">City</label>
+              <div class="col-xl-6 col-lg-8">
+                <input type="text" class="form-control" placeholder="City" v-model="city">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-xs-12 col-form-label">State / Province</label>
+              <div class="col-xl-6 col-lg-8">
+                <input type="text" class="form-control" placeholder="State / Province" v-model="state">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-xs-12 col-form-label">Zip Code / Postcode</label>
+              <div class="col-xl-6 col-lg-8">
+                <input type="text" class="form-control" placeholder="Zip Code / Postcode" v-model="zipcode">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-xs-12 col-form-label">Country</label>
+              <div class="col-xl-3 col-lg-6">
+                <input type="text" class="form-control" disabled :value="me.nationality">
+                <router-link :to="{name:'settings_verification'}">Change Country</router-link>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3"></label>
+              <div class="col-xl-6 col-lg-8">
+                <button class="btn btn-primary" @click="update_address()">Save</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- end::Body -->
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'Settings',
+    data() {
+      return {
+        first_name: '',
+        last_name: '',
+
+        birthday_month: '',
+        birthday_day: '',
+        birthday_year: '',
+
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zipcode: '',
+
+        error_message: '',
+        success_message: '',
+      }
+    },
+    computed: {
+      ...mapGetters({
+        is_login: 'is_login',
+        verification_level: 'verification_level',
+        me: 'me',
+        me_wallet: 'me_wallet',
+        me_phone: 'me_phone',
+      }),
+    },
+    methods: {
+      update_name_birthday() {
+        const form_data = {
+          update: 'name_birthday',
+          birthday: this.birthday_year + '-' + this.birthday_month + '-' + this.birthday_day,
+          first_name: this.first_name,
+          last_name: this.last_name,
+        }
+        this.$store.dispatch('updateMe', form_data)
+          .catch((error) => {
+            this.error_message = error.data.error
+          })
+      },
+      update_address() {
+        const form_data = {
+          update: 'address',
+          address1: this.address1,
+          address2: this.address2,
+          city: this.city,
+          state: this.state,
+          zipcode: this.zipcode,
+        }
+        this.$store.dispatch('updateMe', form_data)
+          .catch((error) => {
+            this.error_message = error.data.error
+          })
+      },
+    },
+    created() {
+      this.first_name = this.me.first_name
+      this.last_name = this.me.last_name
+      this.country = this.me.nationality
+
+      if (this.me.birthday) {
+        const b_array = this.me.birthday.split('-')
+        this.birthday_year = b_array[0]
+        this.birthday_month = b_array[1]
+        this.birthday_day = b_array[2]
+      }
+      if (this.me.address) {
+        this.address1 = this.me.address.address1
+        this.address2 = this.me.address.address2
+        this.city = this.me.address.city
+        this.state = this.me.address.state
+        this.zipcode = this.me.address.zipcode
+      }
+    },
   }
 </script>
+
+<style scoped>
+  .tabs-bordered li a.router-link-exact-active {
+    border-bottom: 2px solid #3bafda !important;
+  }
+
+  .stepwizard-step p {
+    margin-top: 10px;
+  }
+
+  .stepwizard-row {
+    display: table-row;
+  }
+
+  .stepwizard {
+    display: table;
+    width: 100%;
+    position: relative;
+  }
+
+  .stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+  }
+
+  .stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+
+  }
+
+  .stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+  }
+
+  .btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+  }
+</style>

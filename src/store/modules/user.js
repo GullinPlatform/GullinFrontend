@@ -21,6 +21,10 @@ const getters = {
     if (state.is_login && state.me) return state.me
     return {}
   },
+  me_phone: state => {
+    if (state.is_login && state.me) return state.me.user.phone_country_code + state.me.user.phone
+    return {}
+  },
   me_name: state => {
     if (state.is_login) return state.me.first_name + ' ' + state.me.last_name
     return ''
@@ -32,18 +36,17 @@ const actions = {
   // Auth
   signup({ commit, dispatch }, form_data) {
     return userApi.signup(form_data)
-      .then(() => {
-        commit(types.REGISTER_SUCCESS)
-        dispatch('getMe')
+      .then((response) => {
+        commit(types.REGISTER_SUCCESS, response)
         return Promise.resolve()
       })
       .catch(error => Promise.reject(error))
   },
   login({ commit, dispatch }, form_data) {
     return userApi.login(form_data)
-      .then(() => {
+      .then((response) => {
         commit(types.LOGIN_SUCCESS)
-        return Promise.resolve()
+        return Promise.resolve(response)
       })
       .catch(error => {
         commit(types.LOGIN_FAILED)
@@ -52,9 +55,8 @@ const actions = {
   },
   login_2factor({ commit, dispatch }, form_data) {
     return userApi.login_2factor(form_data)
-      .then(() => {
-        commit(types.LOGIN_2FACTOR_SUCCESS)
-        dispatch('getMe')
+      .then((response) => {
+        commit(types.LOGIN_2FACTOR_SUCCESS, response)
         dispatch('getWallet')
         return Promise.resolve()
       })
@@ -71,25 +73,14 @@ const actions = {
   },
   refresh({ commit, dispatch }) {
     userApi.refresh()
-      .then(() => {
-        commit(types.REFRESH_SUCCESS)
-        dispatch('getMe')
+      .then((response) => {
+        commit(types.REFRESH_SUCCESS, response)
         dispatch('getWallet')
         return Promise.resolve()
       })
       .catch((error) => {
         commit(types.REFRESH_FAILED)
-        return Promise.reject(error)
-      })
-  },
-  keepLogin({ commit }) {
-    userApi.refresh()
-      .then(() => {
-        commit(types.REFRESH_SUCCESS)
-        return Promise.resolve()
-      })
-      .catch((error) => {
-        commit(types.REFRESH_FAILED)
+        console.log(error)
         return Promise.reject(error)
       })
   },
@@ -147,7 +138,14 @@ const actions = {
       })
       .catch(error => Promise.reject(error))
   },
-
+  uploadID({ dispatch, commit }, form_data) {
+    return userApi.uploadID(form_data)
+      .then(() => {
+        commit(types.UPLOAD_ID)
+        return Promise.resolve()
+      })
+      .catch(error => Promise.reject(error))
+  },
   changePassword({}, form_data) {
     return userApi.changePassword(form_data)
       .then(() => Promise.resolve())
@@ -168,6 +166,7 @@ const actions = {
       .then(() => Promise.resolve())
       .catch(error => Promise.reject(error))
   },
+
   sendTwoFactorCode({}) {
     return userApi.sendTwoFactorCode()
       .then(() => Promise.resolve())
@@ -185,28 +184,36 @@ const mutations = {
   // auth
   [types.LOGIN_SUCCESS]() {
   },
-  [types.LOGIN_2FACTOR_SUCCESS](state) {
-    state.is_login = true
-  },
+
   [types.LOGIN_FAILED](state) {
     state.is_login = false
     state.me = {}
+  },
+  [types.LOGIN_2FACTOR_SUCCESS](state, response) {
+    state.is_login = true
+    state.me = response
+    router.push('dashboard')
+  },
+  [types.LOGIN_2FACTOR_FAILED]() {
   },
   [types.LOGOUT](state) {
     state.is_login = false
     state.me = {}
     // TODO: redirect to landing page
-    router.push({ name: 'landing' })
+    router.push({ name: 'user_login' })
   },
-  [types.REFRESH_SUCCESS](state) {
+  [types.REFRESH_SUCCESS](state, response) {
     state.is_login = true
+    state.me = response
   },
   [types.REFRESH_FAILED](state) {
     state.is_login = false
     state.me = {}
   },
-  [types.REGISTER_SUCCESS](state) {
+  [types.REGISTER_SUCCESS](state, response) {
     state.is_login = true
+    state.me = response
+    router.push('user_signup_followup')
   },
   [types.REGISTER_FAILED](state) {
     state.is_login = false
