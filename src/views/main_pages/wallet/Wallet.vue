@@ -13,8 +13,8 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="widget-simple text-center card-box">
-                <a data-toggle="modal" data-target="#deposit_modal" class="btn btn-success text-white waves-effect waves-light">Deposit</a>
-                <a data-toggle="modal" data-target="#withdraw_modal" class="btn btn-success text-white waves-effect waves-light">Withdraw</a>
+                <a data-toggle="modal" data-target="#deposit_modal" class="btn btn-success text-white">Deposit</a>
+                <a data-toggle="modal" data-target="#withdraw_modal" class="btn btn-success text-white">Withdraw</a>
               </div>
             </div>
             <div class="col-lg-12">
@@ -105,7 +105,9 @@
     methods: {},
     created() {
       this.$store.dispatch('syncEthBalance')
-      this.$store.dispatch('syncTransactions')
+      this.$store.dispatch('syncTokenBalance')
+      this.$store.dispatch('syncETHTransactions')
+      this.$store.dispatch('syncTokenTransactions')
     },
   }
 </script>

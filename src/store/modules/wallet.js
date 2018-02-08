@@ -27,8 +27,16 @@ const actions = {
       })
       .catch((error) => Promise.reject(error))
   },
-  getTransactions({ commit }) {
-    return walletApi.getWallet()
+  syncETHTransactions({ commit }, wallet_address) {
+    return etherscanApi.getETHTransactionsByAddress(wallet_address)
+      .then((response) => {
+        commit(types.LOAD_TRANSACTIONS, response)
+        return Promise.resolve(response)
+      })
+      .catch((error) => Promise.reject(error))
+  },
+  syncTokenTransactions({ commit }, data) {
+    return etherscanApi.getTokenTransactionsByAddress(data.wallet_address, data.contract_address)
       .then((response) => {
         commit(types.LOAD_TRANSACTIONS, response)
         return Promise.resolve(response)

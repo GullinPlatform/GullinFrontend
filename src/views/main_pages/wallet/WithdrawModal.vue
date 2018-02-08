@@ -27,7 +27,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label class="control-label">Destination</label>
-                <input v-model="destination" type="text" class="form-control" placeholder="Destination">
+                <input v-model="to_address" type="text" class="form-control" placeholder="Destination">
               </div>
             </div>
           </div>
