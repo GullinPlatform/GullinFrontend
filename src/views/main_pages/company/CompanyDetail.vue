@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="!loading">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12">
@@ -288,7 +288,9 @@
     name: 'TokenSaleDetail',
     data() {
       return {
-        loading: false,
+        loading: true,
+
+        amount: '',
         private_key: null,
       }
     },

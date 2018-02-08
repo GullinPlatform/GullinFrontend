@@ -10,9 +10,8 @@
           <div class="col-12">
             <div class="input-group">
               <span class="input-group-addon"><i class="mdi mdi-email"></i></span>
-              <input class="form-control" type="email" name="email" v-model="email" v-validate="'required|email'" placeholder="Your Email">
+              <input class="form-control" type="email" name="email" v-model="email" placeholder="Your Email">
             </div>
-            <span class="text-danger" v-show="errors.has('email')">{{ errors.first('email') }}</span>
           </div>
         </div>
 
@@ -20,14 +19,14 @@
           <div class="col-12">
             <div class="input-group">
               <span class="input-group-addon"><i class="mdi mdi-key"></i></span>
-              <input class="form-control" type="password" name="password" v-model="password" v-validate="'required'" placeholder="Your Password"
+              <input class="form-control" type="password" name="password" v-model="password" placeholder="Your Password"
                      @keyup.enter="login($event)">
             </div>
           </div>
         </div>
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
-            <button class="btn btn-primary btn-custom waves-effect waves-light w-md" @click="login($event)" :disabled="errors.any()">
+            <button class="btn btn-primary btn-custom w-md" @click="login($event)" :disabled="!email||!password">
               Login
             </button>
           </div>
@@ -49,7 +48,7 @@
     </div>
     <div class="card-box" v-else>
       <div class="alert alert-success">
-        We have sent a verification code to your phone, please verify
+        {{response}}
       </div>
       <div class="form-horizontal m-t-20">
         <div class="form-group row">
@@ -57,15 +56,15 @@
           <div class="col-12">
             <div class="input-group">
               <span class="input-group-addon"><i class="mdi mdi-cellphone-iphone"></i></span>
-              <input class="form-control" type="email" name="email" v-model="code" v-validate="'required'" placeholder="2 Factor Code">
+              <input class="form-control" v-model="code" placeholder="2 Factor Code">
             </div>
-            <span class="text-danger" v-show="errors.has('email')">{{ errors.first('email') }}</span>
+            <span class="text-danger">{{ error_message }}</span>
           </div>
         </div>
 
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
-            <button class="btn btn-primary btn-custom waves-effect waves-light w-md" @click="login_2factor($event)" :disabled="errors.any()">
+            <button class="btn btn-primary btn-custom w-md" @click="login_2factor($event)" :disabled="!code">
               Verify
             </button>
           </div>
@@ -101,20 +100,16 @@
         password: '',
 
         login_success: false,
+        response: '',
         code: '',
 
         error_message: '',
       }
     },
-    computed: {
-      ...mapGetters({
-        is_login: 'is_login',
-      }),
-    },
     methods: {
       login(e) {
         e.preventDefault()
-        if (this.errors.any()) return
+        if (!this.email || !this.password) return
 
         const form_data = {
           email: this.email,
@@ -122,8 +117,9 @@
         }
 
         this.$store.dispatch('login', form_data)
-          .then(() => {
+          .then((response) => {
             this.login_success = true
+            this.response = response.data
             this.resetState()
           })
           .catch(() => {
@@ -133,7 +129,7 @@
       },
       login_2factor(e) {
         e.preventDefault()
-        if (this.errors.any()) return
+        if (!this.code) return
 
         const form_data = {
           verification_code: this.code,

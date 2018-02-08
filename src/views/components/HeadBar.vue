@@ -8,8 +8,8 @@
         <div class="logo">
           <!-- Text Logo -->
           <router-link :to="{name:'dashboard'}" class="logo">
-            <span class="logo-small"><i class="mdi mdi-radar"></i></span>
-            <span class="logo-large"><i class="mdi mdi-radar"></i> GULLIN</span>
+            <span class="logo-small" style="padding-top: 5px;">GULLIN</span>
+            <span class="logo-large" style="padding-top: 5px;">GULLIN</span>
           </router-link>
           <!-- Image Logo -->
           <!-- <a href="index.html" class="logo">
@@ -32,26 +32,23 @@
               <!-- End mobile menu toggle-->
             </li>
             <li class="list-inline-item dropdown notification-list">
-              <a class="nav-link dropdown-toggle waves-effect nav-user" data-toggle="dropdown" href="">
+              <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="">
                 <img src="/static/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
                 <span class="m-l-5"> {{me_name}}</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item" v-show="$route.name!=='user_signup_followup'">
+                <router-link :to="{name:'settings'}" class="dropdown-item notify-item" v-show="$route.name!=='user_signup_followup'">
                   <i class="mdi mdi-account-star-variant"></i>
                   <span>My Profile</span>
-                </a>
+                </router-link>
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item" v-show="$route.name!=='user_signup_followup'">
-                  <i class="mdi mdi-settings"></i>
+                <router-link :to="{name:'settings_verification'}" class="dropdown-item notify-item" v-show="$route.name!=='user_signup_followup'">
+                  <i class="mdi mdi-verified"></i>
                   <span>Verification</span>
-                </a>
+                </router-link>
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                  <i class="mdi mdi-lock-open"></i>
-                  <span>FAQ</span>
-                </a>
+                <hr class="m-0">
                 <!-- item-->
                 <a href="javascript:void(0);" @click="logout()" class="dropdown-item notify-item">
                   <i class="mdi mdi-logout"></i>
@@ -61,7 +58,7 @@
             </li>
           </ul>
         </div>
-        <div class="menu-extras topbar-custom" v-show="!is_login">
+        <div class="menu-extras topbar-custom" v-if="!is_login">
           <ul class="list-inline float-right mb-0">
             <li class="list-inline-item dropdown notification-list">
               <router-link class="nav-link nav-user" :to="{name:'user_login'}" role="button">

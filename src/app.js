@@ -30,7 +30,7 @@ export const app = new Vue({
   beforeCreate() {
     store.dispatch('refresh')
     setInterval(function () {
-      store.dispatch('keepLogin')
+      store.dispatch('refresh')
     }, 100000)
   },
 })

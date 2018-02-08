@@ -27,7 +27,6 @@
               <input class="form-control" type="email" name="email" v-model="email" v-validate="'required|email'" placeholder="Email">
             </div>
             <span class="text-danger" v-show="errors.has('email')">{{ errors.first('email') }}</span>
-            <span class="text-danger" v-show="email_msg">{{ email_msg }}</span>
           </div>
         </div>
 
@@ -54,10 +53,12 @@
 
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
-            <button class="btn btn-primary btn-custom waves-effect waves-light w-md" @click="register()" :disabled="errors.any() || loading">
+            <button class="btn btn-primary btn-custom w-md" @click="register()" :disabled="errors.any() || loading">
               Sign Up
             </button>
           </div>
+          <span class="text-danger" v-show="error_message">{{ error_message }}</span>
+
         </div>
         <div class="form-group row m-t-30">
           <div class="col-12 text-center">
@@ -87,14 +88,14 @@
         check: true,
 
         verified: '',
-        email_msg: '',
+        error_message: '',
         loading: false,
       }
     },
     methods: {
       register() {
         this.loading = true
-        this.email_msg = ''
+        this.error_message = ''
 
         this.$validator.validateAll().then((result) => {
           // If Invalid
@@ -122,8 +123,8 @@
             })
             .catch(error => {
               this.loading = false
-              if (error.response.data && error.response.data.hasOwnProperty('email')) {
-                this.email_msg = error.response.data.email[0]
+              if (error.data.email) {
+                this.error_message = error.data.email[0]
               }
             })
         })
@@ -134,7 +135,7 @@
         this.email = ''
         this.password = ''
         this.check = false
-        this.email_msg = ''
+        this.error_message = ''
         this.loading = false
       },
       // onVerify(response) {

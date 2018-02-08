@@ -36,7 +36,7 @@
           <div class="input-group">
             <input class="form-control" placeholder="Enter Code" required="" v-model="email_code" @keyup.enter="confirmEmail()">
             <span class="input-group-btn">
-              <button type="submit" class="btn btn-email btn-primary waves-effect waves-light" @click="confirmEmail()">Verify</button>
+              <button type="submit" class="btn btn-email btn-primary" @click="confirmEmail()">Verify</button>
             </span>
           </div>
         </div>
@@ -301,7 +301,7 @@
         </div>
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
-            <button class="btn btn-primary btn-custom waves-effect waves-light w-md" @click="addPhone()">
+            <button class="btn btn-primary btn-custom w-md" @click="addPhone()">
               Send Code
             </button>
           </div>
@@ -320,7 +320,7 @@
             <div class="input-group">
               <input class="form-control" placeholder="Enter Code" v-model="phone_code">
               <span class="input-group-btn">
-              <button type="submit" class="btn btn-email btn-primary waves-effect waves-light" @click="confirmPhone()">Verify</button>
+              <button type="submit" class="btn btn-email btn-primary" @click="confirmPhone()">Verify</button>
             </span>
             </div>
             <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
@@ -328,7 +328,7 @@
         </div>
         <div class="form-group text-center m-t-20">
           <div class="col-xs-6">
-            <button class="btn btn-primary btn-custom waves-effect waves-light w-md" @click="phone_code_sent = false">
+            <button class="btn btn-primary btn-custom w-md" @click="phone_code_sent = false">
               Go Back
             </button>
           </div>
@@ -402,7 +402,7 @@
       }),
       level() {
         return this.verification_level + 2
-      }
+      },
     },
     methods: {
       confirmEmail() {
