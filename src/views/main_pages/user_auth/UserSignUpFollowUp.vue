@@ -356,23 +356,49 @@
             <button class="btn btn-primary" @click="saveKeyAsPDF()">Save as PDF</button>
           </div>
           <div class="col-xs-12" v-else>
-            <button type="button" class="btn btn-primary" @click="continueWithWallet()">Continue</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_modal">Continue</button>
           </div>
         </div>
       </div>
     </div>
+    <!--begin::Modal-->
+    <div id="confirm_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog h-100 d-flex flex-column justify-content-center my-0">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="col-12 modal-title text-center">Attention!</h4>
+          </div>
+          <div class="modal-body">
+            <h4>
+              Please confirm that you saved your private key safely on your local device.</h4>
+            <h4>
+              We don't store your private key on our server, which means your wallet is 100% owned by you.</h4>
+            <h4>
+              <b> But it also means you have <span class="text-danger">absolutely no other way to retrieve your private key</span> if you lost it!</b>
+            </h4>
+          </div>
+          <div class="modal-footer">
+            <div class="col-6 text-center">
+              <button class="btn btn-primary" data-dismiss="modal">Let me double check</button>
+            </div>
+            <div class="col-6 text-center">
+              <router-link target="_blank" :to="{name:'dashboard'}" class="btn btn-danger">I confirm that I saved it safely</router-link>
+            </div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+    <!--end::Modal-->
   </div>
 </template>
 
 <script>
-  import Spinner from 'components/Spinner'
   import jsPDF from 'jspdf'
   import { mapGetters } from 'vuex'
   import { web3 } from '../../../utils'
 
   export default {
     name: 'SignUpFollowUp',
-    components: { Spinner },
     data() {
       return {
         email_code: '',
@@ -507,21 +533,6 @@
         doc.save('My_Gullin_Wallet.' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate() + '.pdf');
 
         this.pdf_saved = true
-      },
-      continueWithWallet() {
-        this.$swal({
-          title: 'Did you save your private key?',
-          text: "You won't be able to recover your private key if you lost it!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3bafda',
-          cancelButtonColor: '#868e96',
-          confirmButtonText: 'Yes, continue',
-        }).then((result) => {
-          if (result.value) {
-            this.$router.push({ name: 'dashboard' })
-          }
-        })
       },
     },
   }

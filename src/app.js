@@ -13,7 +13,6 @@ import { VeeValidateConfig } from './config'
 
 Vue.use(Router)
 Vue.use(VueHead)
-Vue.use(VueSweetalert2)
 Vue.use(VeeValidate, VeeValidateConfig)
 
 sync(store, router)

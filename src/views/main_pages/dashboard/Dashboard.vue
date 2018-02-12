@@ -195,7 +195,7 @@
                     gridLines: { display: false },
                     ticks: {
                       autoSkip: true,
-                      maxTicksLimit: 3,
+                      maxTicksLimit: 6,
                       maxRotation: 0,
                       minRotation: 0,
                     },
@@ -204,6 +204,9 @@
                     gridLines: { display: false },
                     ticks: {
                       autoSkip: true,
+                      maxTicksLimit: 5,
+                      maxRotation: 0,
+                      minRotation: 0,
                     },
                   }],
                 },
