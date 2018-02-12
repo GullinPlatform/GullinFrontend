@@ -99,83 +99,80 @@ const isNotVerified = (to, from, next) => {
 
 export default new Router({
   mode: 'history',
-  routes: [
-    // Dashboard
-    {
-      path: '/login',
-      component: UserLoginView,
-      name: 'user_login',
-      beforeEnter: isNotAuthenticated,
-    }, {
-      path: '/signup',
-      component: UserSignUpView,
-      name: 'user_signup',
-      beforeEnter: isNotAuthenticated,
-    }, {
-      path: '/signup/followup',
-      component: UserSignUpFollowUpView,
-      name: 'user_signup_followup',
-      beforeEnter: isNotVerified,
-    }, {
-      path: '/',
-      component: DashboardView,
-      name: 'dashboard',
-      beforeEnter: isAuthenticated,
-    }, {
-      path: '/company',
-      component: CompanyListView,
-      name: 'token_sale_list',
-      beforeEnter: allowAny,
-    }, {
-      path: '/company/active',
-      component: CompanyListView,
-      name: 'token_sale_list_active',
-      beforeEnter: allowAny,
-    }, {
-      path: '/company/coming',
-      component: CompanyListView,
-      name: 'token_sale_list_coming',
-      beforeEnter: allowAny,
-    }, {
-      path: '/company/all',
-      component: CompanyListView,
-      name: 'token_sale_list_all',
-      beforeEnter: allowAny,
-    }, {
-      path: '/company/:id',
-      component: CompanyDetailView,
-      name: 'token_sale_detail',
-      beforeEnter: allowAny,
-    }, {
-      path: '/wallet',
-      component: WalletView,
-      name: 'wallet',
-      beforeEnter: isAuthenticated,
-    }, {
-      path: '/settings',
-      component: SettingsView,
-      name: 'settings',
-      beforeEnter: isAuthenticated,
-    }, {
-      path: '/settings/verification',
-      component: SettingsVerificationView,
-      name: 'settings_verification',
-      beforeEnter: isAuthenticated,
-    }, {
-      path: '/settings/security',
-      component: SettingsSecurityView,
-      name: 'settings_security',
-      beforeEnter: isAuthenticated,
-    }, {
-      // not found handler
-      path: '/404',
-      component: NotFoundView,
-      name: '404',
-    }, {
-      path: '*',
-      redirect: { name: '404' },
-    },
-  ],
+  routes: [{
+    path: '/login',
+    component: UserLoginView,
+    name: 'user_login',
+    beforeEnter: isNotAuthenticated,
+  }, {
+    path: '/signup',
+    component: UserSignUpView,
+    name: 'user_signup',
+    beforeEnter: isNotAuthenticated,
+  }, {
+    path: '/signup/followup',
+    component: UserSignUpFollowUpView,
+    name: 'user_signup_followup',
+    beforeEnter: isNotVerified,
+  }, {
+    path: '/',
+    component: DashboardView,
+    name: 'dashboard',
+    beforeEnter: isAuthenticated,
+  }, {
+    path: '/company',
+    component: CompanyListView,
+    name: 'token_sale_list',
+    beforeEnter: allowAny,
+  }, {
+    path: '/company/active',
+    component: CompanyListView,
+    name: 'token_sale_list_active',
+    beforeEnter: allowAny,
+  }, {
+    path: '/company/coming',
+    component: CompanyListView,
+    name: 'token_sale_list_coming',
+    beforeEnter: allowAny,
+  }, {
+    path: '/company/all',
+    component: CompanyListView,
+    name: 'token_sale_list_all',
+    beforeEnter: allowAny,
+  }, {
+    path: '/company/:id',
+    component: CompanyDetailView,
+    name: 'token_sale_detail',
+    beforeEnter: allowAny,
+  }, {
+    path: '/wallet',
+    component: WalletView,
+    name: 'wallet',
+    beforeEnter: isAuthenticated,
+  }, {
+    path: '/settings',
+    component: SettingsView,
+    name: 'settings',
+    beforeEnter: isAuthenticated,
+  }, {
+    path: '/settings/verification',
+    component: SettingsVerificationView,
+    name: 'settings_verification',
+    beforeEnter: isAuthenticated,
+  }, {
+    path: '/settings/security',
+    component: SettingsSecurityView,
+    name: 'settings_security',
+    beforeEnter: isAuthenticated,
+  }, {
+    // not found handler
+    path: '/404',
+    component: NotFoundView,
+    name: '404',
+  }, {
+    path: '*',
+    redirect: { name: '404' },
+  }],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition
     return { x: 0, y: 0 }
