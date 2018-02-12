@@ -119,8 +119,7 @@
                     <i class="fa fa-file-text-o fa-3x"></i>
                   </div>
                   <p class="inbox-item-author">{{release.title}}</p>
-                  <p class="inbox-item-text">{{release.brief}}</p>
-                  <p class="inbox-item-date">{{timeFromNow(release.created)}}</p>
+                  <p class="inbox-item-text">{{release.brief}} <span class="pull-right">{{timeFromNow(release.created)}}</span></p>
                 </div>
               </a>
             </div>

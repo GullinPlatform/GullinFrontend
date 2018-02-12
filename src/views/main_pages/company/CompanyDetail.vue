@@ -198,8 +198,7 @@
                     <i class="fa fa-file-text-o fa-3x"></i>
                   </div>
                   <h4 class="inbox-item-author mb-1">{{press_release.title}}</h4>
-                  <p class="inbox-item-text">{{press_release.brief}}</p>
-                  <p class="inbox-item-date">{{timeFromNow(press_release.created)}}</p>
+                  <p class="inbox-item-text">{{press_release.brief}} <span class="pull-right">{{timeFromNow(press_release.created)}}</span></p>
                 </div>
               </a>
             </div>
