@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 import { EHTERSCAN_API_KEY } from '../config'
-import { web3 } from '../utils'
 
 const apiCall = (method, url, form_data, params) => {
   return axios({
@@ -76,10 +75,9 @@ export default {
       address: contract_address,
       fromBlock: 5006059,
       toBlock: 'lastest',
-      topic0: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
-      topic1: web3.utils.padLeft(wallet_address, 30),
-      topic0_1_opr: 'or',
-      topic2: web3.utils.padLeft(wallet_address, 30),
+      topic1: wallet_address.replace('0x', '0x000000000000000000000000'),
+      topic1_2_opr: 'or',
+      topic2: wallet_address.replace('0x', '0x000000000000000000000000'),
       sort: 'desc',
       apikey: EHTERSCAN_API_KEY,
     }

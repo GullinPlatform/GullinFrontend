@@ -48,26 +48,33 @@ export default new Router({
       component: UserSignUpFollowUpView,
       name: 'user_signup_followup',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level > 2) next({ name: 'dashboard' })
-        else next()
+        if (!store.getters.is_login) {
+          store.dispatch('refresh').then(() => {
+            if (!store.getters.is_login) next({ name: 'user_login' })
+            else if (store.getters.verification_level >= 2) next({ name: 'dashboard' })
+            else store.dispatch('getWallet').then(() => next())
+          })
+        } else store.dispatch('getWallet').then(() => next())
       },
     }, {
       path: '/dashboard',
       component: DashboardView,
       name: 'dashboard',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else next()
+        if (!store.getters.is_login) {
+          store.dispatch('refresh').then(() => {
+            if (!store.getters.is_login) next({ name: 'user_login' })
+            else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+            else store.dispatch('getWallet').then(() => next())
+          })
+        } else store.dispatch('getWallet').then(() => next())
       },
     }, {
       path: '/company',
       component: CompanyListView,
       name: 'token_sale_list',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+        if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
         else next()
       },
     }, {
@@ -75,8 +82,7 @@ export default new Router({
       component: CompanyListView,
       name: 'token_sale_list_active',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+        if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
         else next()
       },
     }, {
@@ -84,8 +90,7 @@ export default new Router({
       component: CompanyListView,
       name: 'token_sale_list_coming',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+        if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
         else next()
       },
     }, {
@@ -93,8 +98,7 @@ export default new Router({
       component: CompanyListView,
       name: 'token_sale_list_all',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+        if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
         else next()
       },
     }, {
@@ -102,45 +106,60 @@ export default new Router({
       component: CompanyDetailView,
       name: 'token_sale_detail',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else next()
+        if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+        else store.dispatch('getWallet').then(() => next())
       },
     }, {
       path: '/wallet',
       component: WalletView,
       name: 'wallet',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else next()
+        if (!store.getters.is_login) {
+          store.dispatch('refresh').then(() => {
+            if (!store.getters.is_login) next({ name: 'user_login' })
+            else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+            else store.dispatch('getWallet').then(() => next())
+          })
+        } else store.dispatch('getWallet').then(() => next())
       },
     }, {
       path: '/settings',
       component: SettingsView,
       name: 'settings',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else next()
+        if (!store.getters.is_login) {
+          store.dispatch('refresh').then(() => {
+            if (!store.getters.is_login) next({ name: 'user_login' })
+            else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+            else store.dispatch('getWallet').then(() => next())
+          })
+        } else store.dispatch('getWallet').then(() => next())
       },
     }, {
       path: '/settings/verification',
       component: SettingsVerificationView,
       name: 'settings_verification',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else next()
+        if (!store.getters.is_login) {
+          store.dispatch('refresh').then(() => {
+            if (!store.getters.is_login) next({ name: 'user_login' })
+            else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+            else store.dispatch('getWallet').then(() => next())
+          })
+        } else store.dispatch('getWallet').then(() => next())
       },
     }, {
       path: '/settings/security',
       component: SettingsSecurityView,
       name: 'settings_security',
       beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) next({ name: 'user_login' })
-        else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else next()
+        if (!store.getters.is_login) {
+          store.dispatch('refresh').then(() => {
+            if (!store.getters.is_login) next({ name: 'user_login' })
+            else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+            else store.dispatch('getWallet').then(() => next())
+          })
+        } else store.dispatch('getWallet').then(() => next())
       },
     }, {
       // not found handler

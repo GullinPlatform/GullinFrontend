@@ -38,7 +38,7 @@ export default {
   syncBalance(form_data) {
     return apiCall('post', 'balance/', form_data)
   },
-  addTransaction(form_data) {
+  syncTransaction(form_data) {
     return apiCall('post', 'transaction/', form_data)
   },
 }

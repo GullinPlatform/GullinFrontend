@@ -7,7 +7,7 @@ const state = {
   // me
   me: {},
   // other
-  is_login: false,
+  is_login: true,
 }
 
 // getters
@@ -57,8 +57,7 @@ const actions = {
     return userApi.login_2factor(form_data)
       .then((response) => {
         commit(types.LOGIN_2FACTOR_SUCCESS, response)
-        dispatch('getWallet')
-        return Promise.resolve()
+        dispatch('getWallet').then(() => Promise.resolve())
       })
       .catch(error => {
         commit(types.LOGIN_2FACTOR_FAILED)
@@ -71,11 +70,10 @@ const actions = {
         commit(types.LOGOUT)
       })
   },
-  refresh({ commit, dispatch }) {
+  refresh({ commit }) {
     userApi.refresh()
       .then((response) => {
         commit(types.REFRESH_SUCCESS, response)
-        dispatch('getWallet')
         return Promise.resolve()
       })
       .catch((error) => {
@@ -192,14 +190,13 @@ const mutations = {
   [types.LOGIN_2FACTOR_SUCCESS](state, response) {
     state.is_login = true
     state.me = response
-    router.push('dashboard')
+    router.push({ name: 'dashboard' })
   },
   [types.LOGIN_2FACTOR_FAILED]() {
   },
   [types.LOGOUT](state) {
     state.is_login = false
     state.me = {}
-    // TODO: redirect to landing page
     router.push({ name: 'user_login' })
   },
   [types.REFRESH_SUCCESS](state, response) {

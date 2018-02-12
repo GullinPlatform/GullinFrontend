@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { API_ROOT } from '../config'
+import { EHTERSCAN_API_KEY } from '../config'
 
 const apiCall = (method, url, form_data, params) => {
   return axios({
@@ -8,8 +8,8 @@ const apiCall = (method, url, form_data, params) => {
     url: url,
     data: form_data,
     params: params,
-    baseURL: API_ROOT + '/company/',
-    withCredentials: true,
+    baseURL: 'https://min-api.cryptocompare.com/data/',
+    withCredentials: false,
   })
     .then(response => Promise.resolve(response.data))
     .catch((error) => {
@@ -32,16 +32,15 @@ const apiCall = (method, url, form_data, params) => {
 }
 
 export default {
-  listCompanies(type) {
-    if (!type) {
-      return apiCall('get', 'list/all/')
+  // Balances
+  getEthMarketData() {
+    const params = {
+      fsym: 'ETH',
+      tsym: 'USD',
+      limit: 24,
+      e: 'GDAX',
     }
-    return apiCall('get', 'list/' + type + '/')
-  },
-  getCompany(id) {
-    return apiCall('get', id + '/')
-  },
-  listPressReleases() {
-    return apiCall('get', 'press_releases/')
+    return apiCall('get', 'histohour', null, params)
   },
 }
+
