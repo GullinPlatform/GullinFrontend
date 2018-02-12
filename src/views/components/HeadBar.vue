@@ -7,15 +7,15 @@
         <!-- Logo container-->
         <div class="logo">
           <!-- Text Logo -->
-          <router-link :to="{name:'dashboard'}" class="logo">
-            <span class="logo-small" style="padding-top: 5px;">Gullin.io</span>
-            <span class="logo-large" style="padding-top: 5px;">Gullin.io</span>
-          </router-link>
+          <!--<router-link :to="{name:'dashboard'}" class="logo">-->
+            <!--<span class="logo-small" style="padding-top: 5px;">Gullin.io</span>-->
+            <!--<span class="logo-large" style="padding-top: 5px;">Gullin.io</span>-->
+          <!--</router-link>-->
           <!-- Image Logo -->
-          <!-- <a href="index.html" class="logo">
-              <img src="assets/images/logo_dark.png" alt="" height="24" class="logo-lg">
-              <img src="assets/images/logo_sm.png" alt="" height="24" class="logo-sm">
-          </a> -->
+          <router-link :to="{name:'dashboard'}" class="logo">
+              <img src="/static/images/gullin_logo.png" alt="" height="24" class="logo-large">
+              <img src="/static/images/gullin_logo.png" alt="" height="24" class="logo-small">
+          </router-link>
         </div>
         <!-- End Logo container-->
         <div class="menu-extras topbar-custom" v-show="is_login">
