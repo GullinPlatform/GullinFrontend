@@ -82,22 +82,19 @@ const isNotVerified = (to, from, next) => {
   // If already login
   if (store.getters.is_login) {
     // If verification_level >= 2 (wallet created), then load wallet and go to dashboard
-    if (store.getters.verification_level >= 2) store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
+    if (store.getters.verification_level >= 2) return store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
     // Else if verification_level < 2 (wallet not created), then go to destination
-    else next()
+    else return next()
   }
   // Else Refresh token
   store.dispatch('refresh')
     .then(() => {
       // If verification_level >= 2 (wallet created), then load wallet and go to dashboard
-      if (store.getters.verification_level >= 2) store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
+      if (store.getters.verification_level >= 2) return store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
       // Else if verification_level < 2 (wallet not created), then go to destination
-      else next()
+      else return next()
     })
-    .catch(() => {
-      // After refresh, if still logged out, go to login page
-      next({ name: 'user_login' })
-    })
+    .catch(() => next({ name: 'user_login' }))
 }
 
 export default new Router({
@@ -120,7 +117,7 @@ export default new Router({
       name: 'user_signup_followup',
       beforeEnter: isNotVerified,
     }, {
-      path: '/dashboard',
+      path: '/',
       component: DashboardView,
       name: 'dashboard',
       beforeEnter: isAuthenticated,

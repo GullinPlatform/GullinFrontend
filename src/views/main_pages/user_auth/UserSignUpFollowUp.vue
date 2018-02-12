@@ -519,7 +519,6 @@
           confirmButtonText: 'Yes, continue',
         }).then((result) => {
           if (result.value) {
-            this.$store.dispatch('getWallet')
             this.$router.push({ name: 'dashboard' })
           }
         })

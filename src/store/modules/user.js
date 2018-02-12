@@ -206,7 +206,7 @@ const mutations = {
   [types.REGISTER_SUCCESS](state, response) {
     state.is_login = true
     state.me = response
-    router.push('user_signup_followup')
+    router.push({ name: 'user_signup_followup' })
   },
   [types.REGISTER_FAILED](state) {
     state.is_login = false
