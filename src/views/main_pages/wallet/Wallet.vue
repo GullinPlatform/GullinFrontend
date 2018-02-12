@@ -25,18 +25,16 @@
 
             </ul>
             <div class="tab-content">
-              <div class="tab-pane fade show active" id="deposit">
+              <div class="tab-pane fade show active text-center" id="deposit">
                 <!--<div class="alert alert-warning">-->
                 <!--You can send <b>ETH</b> and <b>ETH tokens</b> to this address, but DO NOT send other tokens (ex: Ethereum Classic (ETC), Bitcoin (BTC), Ripple (XRP))!-->
                 <!--</div>-->
                 <!--<hr>-->
                 <h4>Your ETH Wallet Address</h4>
-                <p style="word-wrap: break-word;">{{me_wallet.eth_address}}</p>
+                <p style="word-wrap: break-word;" class="mt-3">{{me_wallet.eth_address}}</p>
                 <hr>
                 <h4>Your ETH Wallet in QR Code</h4>
-                <div class="text-center">
-                  <qrcode :value="me_wallet.eth_address" :options="{ size: 150 }"/>
-                </div>
+                <qrcode :value="me_wallet.eth_address" :options="{ size: 150 }"/>
                 <hr>
                 <div class="text-center">
                   <a :href="'https://etherscan.io/address/' + me_wallet.eth_address" target="_blank" class="btn btn-primary text-white">See On Etherscan</a>
