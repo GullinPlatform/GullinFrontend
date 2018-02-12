@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" v-if="!loading">
+  <div :class="{'wrapper-sm': !is_login, 'wrapper':is_login}" v-if="!loading">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12">
@@ -15,7 +15,7 @@
             <div class="wid-u-info">
               <h5 class="mt-0 m-b-5 font-16"> {{current_company.name}}</h5>
               <p class="text-muted m-b-5 font-13">{{current_company.short_description}}</p>
-              <small><b> {{current_company.token_detail.start_datetime}}</b> - <b> {{current_company.token_detail.end_datetime}}</b></small>
+              <small><b> {{timeCounter(current_company.token_detail.start_datetime,current_company.token_detail.end_datetime)}}</b></small>
             </div>
           </div>
           <div class="col-md-3 col-sm-12">
@@ -199,7 +199,7 @@
                   </div>
                   <h4 class="inbox-item-author mb-1">{{press_release.title}}</h4>
                   <p class="inbox-item-text">{{press_release.brief}}</p>
-                  <p class="inbox-item-date">{{press_release.created}}</p>
+                  <p class="inbox-item-date">{{timeFromNow(press_release.created)}}</p>
                 </div>
               </a>
             </div>
@@ -218,7 +218,7 @@
                 <div class="row form-group">
                   <div class="col-10">
                     <label class="control-label">Amount</label>
-                    <input v-model="amount" type="text" class="form-control" placeholder="0.00">
+                    <input v-model="amount" type="text" class="form-control" placeholder="0.00" :disabled="verification_level<4">
                   </div>
                   <label class="col-2 col-form-label mt-4">ETH</label>
                 </div>
@@ -237,15 +237,20 @@
                 <div class="row form-group">
                   <div class="col-md-12">
                     <label class="control-label">Your Private Key</label>
-                    <input v-model="private_key" type="text" class="form-control" placeholder="Private Key">
+                    <input v-model="private_key" type="text" class="form-control" placeholder="Private Key" :disabled="verification_level<4">
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="alert alert-primary">
+                <div class="alert alert-primary" v-if="verification_level>=4">
                   You are investing in <b>{{current_company.name}}</b>, please make sure you are on the right page!
                 </div>
-
+                <div class="alert alert-danger" v-else>
+                  You must be verified through KYC in settings before you are able to participate in this Token Sale.<br>
+                  <b>
+                    <router-link router-link :to="{name:'settings_verification'}" data-dismiss="modal">Verify Now</router-link>
+                  </b>
+                </div>
                 <table class="table">
                   <tbody>
                   <tr>
@@ -269,8 +274,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal">Invest</button>
+              <button type="button" class="btn" @click="sendEth()" :class="{'btn-secondary':verification_level<4, 'btn-primary':verification_level>=4}">Invest</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -305,6 +309,54 @@
             this.$router.push({ name: '404' })
           })
       },
+      timeCounter(start, end) {
+        /* global moment:true */
+        // Haven't start
+        if (moment().diff(start, 'minutes') < 0) {
+          let rest = -moment().diff(start, 'days') + ' days '
+          if (rest === '0 days ') {
+            rest = -moment().diff(start, 'hours') + ' hours '
+          }
+          if (rest === '0 hours ') {
+            rest = -moment().diff(start, 'minutes') + ' minutes '
+          }
+          return 'Start in ' + rest
+        }
+        // Started
+        else if (moment().diff(end, 'minutes') < 0) {
+          let rest = -moment().diff(end, 'days') + ' days '
+          if (rest === '0 days ') {
+            rest = -moment().diff(end, 'hours') + ' hours '
+          }
+          if (rest === '0 hours ') {
+            rest = -moment().diff(end, 'minutes') + ' minutes '
+          }
+          return 'End in ' + rest
+        }
+        // Ended
+        else {
+          let rest = moment().diff(end, 'days') + ' days '
+          if (rest === '0 days ') {
+            rest = moment().diff(end, 'hours') + ' hours '
+          }
+          if (rest === '0 hours ') {
+            rest = moment().diff(end, 'minutes') + ' minutes '
+          }
+          return 'Ended ' + rest + 'ago'
+        }
+      },
+      timeFromNow(time) {
+        return moment(time).fromNow()
+      },
+      sendEth() {
+        if (this.verification_level <= 4) return
+        const form_data = {
+          to: this.current_token_detail.crowd_sale_contract_address,
+          value: this.amount,
+          private_key: this.private_key,
+        }
+        this.$store.dispatch('sendEth', form_data)
+      },
     },
     computed: {
       ...mapGetters({
@@ -313,6 +365,7 @@
         current_token_detail: 'current_token_detail',
         me_wallet: 'me_wallet',
         me: 'me',
+        verification_level: 'verification_level',
       }),
     },
     created() {

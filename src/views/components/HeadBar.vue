@@ -8,8 +8,8 @@
         <div class="logo">
           <!-- Text Logo -->
           <router-link :to="{name:'dashboard'}" class="logo">
-            <span class="logo-small" style="padding-top: 5px;">GULLIN</span>
-            <span class="logo-large" style="padding-top: 5px;">GULLIN</span>
+            <span class="logo-small" style="padding-top: 5px;">Gullin.io</span>
+            <span class="logo-large" style="padding-top: 5px;">Gullin.io</span>
           </router-link>
           <!-- Image Logo -->
           <!-- <a href="index.html" class="logo">
@@ -33,7 +33,7 @@
             </li>
             <li class="list-inline-item dropdown notification-list">
               <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="">
-                <img src="/static/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                <img src="/static/images/users/default.jpg" alt="user" class="rounded-circle">
                 <span class="m-l-5"> {{me_name}}</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">

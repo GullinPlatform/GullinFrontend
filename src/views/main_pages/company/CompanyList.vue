@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div :class="{'wrapper-sm': !is_login, 'wrapper':is_login}">
     <div class="container-fluid">
       <!-- Page-Title -->
       <div class="row">
@@ -38,27 +38,20 @@
 
 
       <div class="row">
-        <div class="col-sm-4 col-lg-3 col-xs-12" v-for="company in company_list">
-
+        <div class="col-sm-6 col-lg-3 col-xs-12" v-for="company in company_list">
           <div class="card m-b-20">
-            <!--<img :src="company.display_img">-->
-            <img class="card-img-top img-fluid" :src="company.display_img" alt="Card image cap">
             <div class="card-body">
-              <h4 class="m-0"> {{company.name}}</h4>
+              <h4 class="card-title">{{company.name}}</h4>
+              <h6 class="card-subtitle text-muted">{{timeCounter(company.token_detail.start_datetime, company.token_detail.end_datetime)}}</h6>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">{{company.short_description}}</li>
-
-              <li class="list-group-item"> {{company.token_detail.end_datetime}}</li>
-            </ul>
-
-            <div class="card-body text-center">
-              <router-link :to="{name: 'token_sale_detail', params:{id:company.id}}" class="btn m-btn--pill btn-secondary m-btn m-btn--hover-brand m-btn--custom">
-                See Detail
-              </router-link>
+            <router-link :to="{name: 'token_sale_detail', params:{id:company.name}}">
+              <img class="card-img-top img-fluid" :src="company.display_img">
+            </router-link>
+            <div class="card-body">
+              <p class="card-text">{{company.short_description}}</p>
+              <router-link :to="{name: 'token_sale_detail', params:{id:company.name}}" class="btn btn-primary btn-block">See Detail</router-link>
             </div>
           </div>
-
         </div>
       </div>
       <!-- end row -->
@@ -71,6 +64,8 @@
 </template>
 
 <script>
+  /* eslint-disable brace-style */
+
   import { mapGetters } from 'vuex'
 
   export default {
@@ -80,6 +75,13 @@
         loading: false,
       }
     },
+    computed: {
+      ...mapGetters({
+        is_login: 'is_login',
+        company_list: 'company_list',
+        me: 'me',
+      }),
+    },
     methods: {
       loadCompanyList(type) {
         this.loading = true
@@ -88,13 +90,42 @@
             this.loading = false
           })
       },
-    },
-    computed: {
-      ...mapGetters({
-        is_login: 'is_login',
-        company_list: 'company_list',
-        me: 'me',
-      }),
+      timeCounter(start, end) {
+        /* global moment:true */
+        // Haven't start
+        if (moment().diff(start, 'minutes') < 0) {
+          let rest = -moment().diff(start, 'days') + ' days '
+          if (rest === '0 days ') {
+            rest = -moment().diff(start, 'hours') + ' hours '
+          }
+          if (rest === '0 hours ') {
+            rest = -moment().diff(start, 'minutes') + ' minutes '
+          }
+          return 'Start in ' + rest
+        }
+        // Started
+        else if (moment().diff(end, 'minutes') < 0) {
+          let rest = -moment().diff(end, 'days') + ' days '
+          if (rest === '0 days ') {
+            rest = -moment().diff(end, 'hours') + ' hours '
+          }
+          if (rest === '0 hours ') {
+            rest = -moment().diff(end, 'minutes') + ' minutes '
+          }
+          return 'End in ' + rest
+        }
+        // Ended
+        else {
+          let rest = moment().diff(end, 'days') + ' days '
+          if (rest === '0 days ') {
+            rest = moment().diff(end, 'hours') + ' hours '
+          }
+          if (rest === '0 hours ') {
+            rest = moment().diff(end, 'minutes') + ' minutes '
+          }
+          return 'Ended ' + rest + 'ago'
+        }
+      },
     },
     created() {
       if (this.$route.name === 'token_sale_list_active') {

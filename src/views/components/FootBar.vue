@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-          2016 - 2017 © Minton - Coderthemes.com
+          2018 © Gullin LLC
         </div>
       </div>
     </div>

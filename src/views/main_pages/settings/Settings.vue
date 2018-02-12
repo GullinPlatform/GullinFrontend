@@ -381,7 +381,7 @@
 
 <style scoped>
   .tabs-bordered li a.router-link-exact-active {
-    border-bottom: 2px solid #3bafda !important;
+    border-bottom: 2px solid #2B2E58 !important;
   }
 
   .stepwizard-step p {

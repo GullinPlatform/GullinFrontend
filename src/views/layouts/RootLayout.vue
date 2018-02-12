@@ -37,8 +37,13 @@
     },
     watch: {
       'is_login'() {
-        if (!this.is_login) this.$router.push({ name: 'user_login' })
-        else this.$router.push({ name: 'dashboard' })
+        if (!this.is_login) {
+          if (this.$route.name.indexOf('token_sale') === -1)
+            this.$router.push({ name: 'user_login' })
+        }
+        else {
+          this.$router.push({ name: 'dashboard' })
+        }
       },
     },
   }
