@@ -75,7 +75,6 @@ const actions = {
       })
       .catch((error) => {
         commit(types.REFRESH_FAILED)
-        console.log(error)
         return Promise.reject(error)
       })
   },

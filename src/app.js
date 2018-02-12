@@ -28,7 +28,6 @@ export const app = new Vue({
     return createElement(RootLayout)
   },
   beforeCreate() {
-    store.dispatch('refresh')
     setInterval(function () {
       store.dispatch('refresh')
     }, 100000)

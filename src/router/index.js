@@ -21,57 +21,61 @@ const isAuthenticated = (to, from, next) => {
   // If already login
   if (store.getters.is_login) {
     // Check if verification_level < 2 (wallet not created)
-    if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+    if (store.getters.verification_level < 2) return next({ name: 'user_signup_followup' })
     // If verification_level >= 2 (wallet created), then load wallet and go to the destination
-    else store.dispatch('getWallet').then(() => next())
+    return store.dispatch('getWallet').then(() => next())
   }
+
   // Else Refresh token
-  store.dispatch('refresh').then(() => {
+  store.dispatch('refresh')
+    .then(() => {
+      // If logged in, then check if verification_level < 2 (wallet not created)
+      if (store.getters.verification_level < 2) return next({ name: 'user_signup_followup' })
+      // If verification_level >= 2 (wallet created), then load wallet and go to the destination
+      return store.dispatch('getWallet').then(() => next())
+    })
     // After refresh, if still logged out, go to login page
-    if (!store.getters.is_login) next({ name: 'user_login' })
-    // If logged in, then check if verification_level < 2 (wallet not created)
-    else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-    // If verification_level >= 2 (wallet created), then load wallet and go to the destination
-    else store.dispatch('getWallet').then(() => next())
-  })
+    .catch(() => next({ name: 'user_login' }))
 }
 
 const allowAny = (to, from, next) => {
   // If already login
   if (store.getters.is_login) {
     // Check if verification_level < 2 (wallet not created)
-    if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+    if (store.getters.verification_level < 2) return next({ name: 'user_signup_followup' })
     // If verification_level >= 2 (wallet created), then load wallet and go to the destination
-    else store.dispatch('getWallet').then(() => next())
+    return store.dispatch('getWallet').then(() => next())
   }
   // Else Refresh token
-  store.dispatch('refresh').then(() => {
-    // After refresh, if still logged out, go to destination
-    if (!store.getters.is_login) next()
-    // If logged in, then check if verification_level < 2 (wallet not created)
-    else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-    // If verification_level >= 2 (wallet created), then load wallet and go to the destination
-    else store.dispatch('getWallet').then(() => next())
-  })
+  store.dispatch('refresh')
+    .then(() => {
+      // If logged in, then check if verification_level < 2 (wallet not created)
+      if (store.getters.verification_level < 2) return next({ name: 'user_signup_followup' })
+      // If verification_level >= 2 (wallet created), then load wallet and go to the destination
+      return store.dispatch('getWallet').then(() => next())
+    })
+    // After refresh, if still logged out, go to login page
+    .catch(() => next())
 }
 
 const isNotAuthenticated = (to, from, next) => {
   // If already login
   if (store.getters.is_login) {
     // Check if verification_level < 2 (wallet not created)
-    if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+    if (store.getters.verification_level < 2) return next({ name: 'user_signup_followup' })
     // If verification_level > 2 (wallet created), then load wallet and go to dashboard
-    else store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
+    return store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
   }
   // Else Refresh token
-  store.dispatch('refresh').then(() => {
-    // After refresh, if still logged out, go to destination
-    if (!store.getters.is_login) next()
-    // If logged in, then check if verification_level < 2 (wallet not created)
-    else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-    // If verification_level > 2 (wallet created), then load wallet and go to dashboard
-    else store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
-  })
+  store.dispatch('refresh')
+    .then(() => {
+      // If logged in, then check if verification_level < 2 (wallet not created)
+      if (store.getters.verification_level < 2) return next({ name: 'user_signup_followup' })
+      // If verification_level > 2 (wallet created), then load wallet and go to dashboard
+      return store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
+    })
+    // After refresh, if still logged out, go to login page
+    .catch(() => next())
 }
 
 const isNotVerified = (to, from, next) => {
@@ -83,14 +87,17 @@ const isNotVerified = (to, from, next) => {
     else next()
   }
   // Else Refresh token
-  store.dispatch('refresh').then(() => {
-    // After refresh, if still logged out, go to login page
-    if (!store.getters.is_login) next({ name: 'user_login' })
-    // If verification_level >= 2 (wallet created), then load wallet and go to dashboard
-    if (store.getters.verification_level >= 2) store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
-    // Else if verification_level < 2 (wallet not created), then go to destination
-    else next()
-  })
+  store.dispatch('refresh')
+    .then(() => {
+      // If verification_level >= 2 (wallet created), then load wallet and go to dashboard
+      if (store.getters.verification_level >= 2) store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
+      // Else if verification_level < 2 (wallet not created), then go to destination
+      else next()
+    })
+    .catch(() => {
+      // After refresh, if still logged out, go to login page
+      next({ name: 'user_login' })
+    })
 }
 
 export default new Router({
