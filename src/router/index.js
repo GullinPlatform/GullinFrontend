@@ -1,6 +1,5 @@
-import Vue from 'vue'
 import Router from 'vue-router'
-import store from '../store'
+import store from '../store/index'
 
 // Views
 import UserLoginView from '../views/main_pages/user_auth/UserLogin'
@@ -17,7 +16,82 @@ import SettingsSecurityView from '../views/main_pages/settings/SettingsSecurity'
 // Error Pages
 import NotFoundView from '../views/error_pages/404'
 
-Vue.use(Router)
+
+const isAuthenticated = (to, from, next) => {
+  // If already login
+  if (store.getters.is_login) {
+    // Check if verification_level < 2 (wallet not created)
+    if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+    // If verification_level >= 2 (wallet created), then load wallet and go to the destination
+    else store.dispatch('getWallet').then(() => next())
+  }
+  // Else Refresh token
+  store.dispatch('refresh').then(() => {
+    // After refresh, if still logged out, go to login page
+    if (!store.getters.is_login) next({ name: 'user_login' })
+    // If logged in, then check if verification_level < 2 (wallet not created)
+    else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+    // If verification_level >= 2 (wallet created), then load wallet and go to the destination
+    else store.dispatch('getWallet').then(() => next())
+  })
+}
+
+const allowAny = (to, from, next) => {
+  // If already login
+  if (store.getters.is_login) {
+    // Check if verification_level < 2 (wallet not created)
+    if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+    // If verification_level >= 2 (wallet created), then load wallet and go to the destination
+    else store.dispatch('getWallet').then(() => next())
+  }
+  // Else Refresh token
+  store.dispatch('refresh').then(() => {
+    // After refresh, if still logged out, go to destination
+    if (!store.getters.is_login) next()
+    // If logged in, then check if verification_level < 2 (wallet not created)
+    else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+    // If verification_level >= 2 (wallet created), then load wallet and go to the destination
+    else store.dispatch('getWallet').then(() => next())
+  })
+}
+
+const isNotAuthenticated = (to, from, next) => {
+  // If already login
+  if (store.getters.is_login) {
+    // Check if verification_level < 2 (wallet not created)
+    if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+    // If verification_level > 2 (wallet created), then load wallet and go to dashboard
+    else store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
+  }
+  // Else Refresh token
+  store.dispatch('refresh').then(() => {
+    // After refresh, if still logged out, go to destination
+    if (!store.getters.is_login) next()
+    // If logged in, then check if verification_level < 2 (wallet not created)
+    else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
+    // If verification_level > 2 (wallet created), then load wallet and go to dashboard
+    else store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
+  })
+}
+
+const isNotVerified = (to, from, next) => {
+  // If already login
+  if (store.getters.is_login) {
+    // If verification_level >= 2 (wallet created), then load wallet and go to dashboard
+    if (store.getters.verification_level >= 2) store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
+    // Else if verification_level < 2 (wallet not created), then go to destination
+    else next()
+  }
+  // Else Refresh token
+  store.dispatch('refresh').then(() => {
+    // After refresh, if still logged out, go to login page
+    if (!store.getters.is_login) next({ name: 'user_login' })
+    // If verification_level >= 2 (wallet created), then load wallet and go to dashboard
+    if (store.getters.verification_level >= 2) store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
+    // Else if verification_level < 2 (wallet not created), then go to destination
+    else next()
+  })
+}
 
 export default new Router({
   mode: 'history',
@@ -27,140 +101,67 @@ export default new Router({
       path: '/login',
       component: UserLoginView,
       name: 'user_login',
-      beforeEnter: (to, from, next) => {
-        if (store.getters.is_login) {
-          if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-          else next({ name: 'dashboard' })
-        } else next()
-      },
+      beforeEnter: isNotAuthenticated,
     }, {
       path: '/signup',
       component: UserSignUpView,
       name: 'user_signup',
-      beforeEnter: (to, from, next) => {
-        if (store.getters.is_login) {
-          if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-          else next({ name: 'dashboard' })
-        } else next()
-      },
+      beforeEnter: isNotAuthenticated,
     }, {
       path: '/signup/followup',
       component: UserSignUpFollowUpView,
       name: 'user_signup_followup',
-      beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) {
-          store.dispatch('refresh').then(() => {
-            if (!store.getters.is_login) next({ name: 'user_login' })
-            else if (store.getters.verification_level >= 2) next({ name: 'dashboard' })
-            else store.dispatch('getWallet').then(() => next())
-          })
-        } else store.dispatch('getWallet').then(() => next())
-      },
+      beforeEnter: isNotVerified,
     }, {
       path: '/dashboard',
       component: DashboardView,
       name: 'dashboard',
-      beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) {
-          store.dispatch('refresh').then(() => {
-            if (!store.getters.is_login) next({ name: 'user_login' })
-            else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-            else store.dispatch('getWallet').then(() => next())
-          })
-        } else store.dispatch('getWallet').then(() => next())
-      },
+      beforeEnter: isAuthenticated,
     }, {
       path: '/company',
       component: CompanyListView,
       name: 'token_sale_list',
-      beforeEnter: (to, from, next) => {
-        if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else next()
-      },
+      beforeEnter: allowAny,
     }, {
       path: '/company/active',
       component: CompanyListView,
       name: 'token_sale_list_active',
-      beforeEnter: (to, from, next) => {
-        if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else next()
-      },
+      beforeEnter: allowAny,
     }, {
       path: '/company/coming',
       component: CompanyListView,
       name: 'token_sale_list_coming',
-      beforeEnter: (to, from, next) => {
-        if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else next()
-      },
+      beforeEnter: allowAny,
     }, {
       path: '/company/all',
       component: CompanyListView,
       name: 'token_sale_list_all',
-      beforeEnter: (to, from, next) => {
-        if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else next()
-      },
+      beforeEnter: allowAny,
     }, {
       path: '/company/:id',
       component: CompanyDetailView,
       name: 'token_sale_detail',
-      beforeEnter: (to, from, next) => {
-        if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-        else store.dispatch('getWallet').then(() => next())
-      },
+      beforeEnter: allowAny,
     }, {
       path: '/wallet',
       component: WalletView,
       name: 'wallet',
-      beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) {
-          store.dispatch('refresh').then(() => {
-            if (!store.getters.is_login) next({ name: 'user_login' })
-            else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-            else store.dispatch('getWallet').then(() => next())
-          })
-        } else store.dispatch('getWallet').then(() => next())
-      },
+      beforeEnter: isAuthenticated,
     }, {
       path: '/settings',
       component: SettingsView,
       name: 'settings',
-      beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) {
-          store.dispatch('refresh').then(() => {
-            if (!store.getters.is_login) next({ name: 'user_login' })
-            else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-            else store.dispatch('getWallet').then(() => next())
-          })
-        } else store.dispatch('getWallet').then(() => next())
-      },
+      beforeEnter: isAuthenticated,
     }, {
       path: '/settings/verification',
       component: SettingsVerificationView,
       name: 'settings_verification',
-      beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) {
-          store.dispatch('refresh').then(() => {
-            if (!store.getters.is_login) next({ name: 'user_login' })
-            else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-            else store.dispatch('getWallet').then(() => next())
-          })
-        } else store.dispatch('getWallet').then(() => next())
-      },
+      beforeEnter: isAuthenticated,
     }, {
       path: '/settings/security',
       component: SettingsSecurityView,
       name: 'settings_security',
-      beforeEnter: (to, from, next) => {
-        if (!store.getters.is_login) {
-          store.dispatch('refresh').then(() => {
-            if (!store.getters.is_login) next({ name: 'user_login' })
-            else if (store.getters.verification_level < 2) next({ name: 'user_signup_followup' })
-            else store.dispatch('getWallet').then(() => next())
-          })
-        } else store.dispatch('getWallet').then(() => next())
-      },
+      beforeEnter: isAuthenticated,
     }, {
       // not found handler
       path: '/404',

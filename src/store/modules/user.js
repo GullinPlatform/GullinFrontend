@@ -7,16 +7,13 @@ const state = {
   // me
   me: {},
   // other
-  is_login: true,
+  is_login: false,
 }
 
 // getters
 const getters = {
   is_login: state => state.is_login,
-  verification_level: state => {
-    if (!state.me || !state.is_login) return false
-    return state.me.verification_level
-  },
+  verification_level: state => state.me.verification_level,
   me: state => {
     if (state.is_login && state.me) return state.me
     return {}
