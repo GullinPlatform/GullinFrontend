@@ -268,11 +268,10 @@
                        v-validate="'required'">
               </div>
             </div>
-            <div class="form-group row" :class="{'has-danger': errors.has('address2')}">
+            <div class="form-group row">
               <label class="col-md-3 col-sm-5 col-xs-12 col-form-label">Street Address 2 (Optional)</label>
               <div class="col-xl-6 col-lg-8">
-                <input type="text" class="form-control" name="address2" placeholder="Street Address 2 (Optional)" v-model="address2"
-                       v-validate="'required'">
+                <input type="text" class="form-control" name="address2" placeholder="Street Address 2 (Optional)" v-model="address2">
               </div>
             </div>
             <div class="form-group row" :class="{'has-danger': errors.has('city')}">

@@ -176,7 +176,7 @@ const actions = {
       .then((response) => {
         if (response.status !== '1') return Promise.reject(response)
         const form_data = {
-          ETH: response.result,
+          ETH: response.result / (10 ** 18),
         }
         walletApi.syncBalance(form_data)
           .then(() => {
