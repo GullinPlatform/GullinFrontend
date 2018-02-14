@@ -75,4 +75,9 @@
     background-color: #868e96;
     border-color: #868e96;
   }
+
+  .has-danger .form-control {
+    border-color: #ef5350;
+    box-shadow: none !important;
+  }
 </style>
