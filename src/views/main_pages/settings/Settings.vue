@@ -51,7 +51,7 @@
               <label class="col-sm-3 col-form-label">ETH Address</label>
               <div class="col-xl-6 col-lg-8">
                 <input type="text" class="form-control" disabled :value="me_wallet.eth_address">
-                <a :href="'https://etherscan.io/address/' + me_wallet.eth_address" target="_blank" class="text-primary">View on EtherScan</a>
+                <a :href="'https://etherscan.io/address/' + me_wallet.eth_address" target="_blank"> <i class="fa fa-external-link"></i> View on EtherScan</a>
               </div>
             </div>
           </div>
@@ -64,10 +64,12 @@
                 <p class="m-0 col-form-label"
                    :class="{'text-danger':me.verification_level===2,
                             'text-warning':me.verification_level===3,
-                            'text-primary':me.verification_level>4}">
+                            'text-success':me.verification_level>=4}">
                   <b v-if="me.verification_level===2">Not Verified</b>
-                  <b v-if="me.verification_level===3">Verifying</b>
-                  <b v-if="me.verification_level>4">Verified</b>
+                  <b v-else-if="me.verification_level===3">Verifying</b>
+                  <b v-else-if="me.verification_level===4">ID Verified</b>
+                  <b v-else-if="me.verification_level===5">Accredited Investor Processing</b>
+                  <b v-else-if="me.verification_level===6">Accredited Investor Verified</b>
                 </p>
               </div>
             </div>
@@ -81,7 +83,7 @@
                 <input type="text" class="form-control" placeholder="Last Name" v-model="last_name" :disabled="verification_level>2">
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row my-0">
               <label class="col-sm-3 col-xs-12 col-form-label">Birthday</label>
               <div class="col-xl-3 col-md-4">
                 <select class="form-control" v-model="birthday_month" :disabled="verification_level>2">
@@ -235,10 +237,23 @@
                 </select>
               </div>
             </div>
+            <div class="form-group row m-1">
+              <label class="col-sm-3 col-form-label m-0"></label>
+              <div class="col-sm-9 p-0">
+                <p class="text-primary m-0" v-if="verification_level===3"><i class="fa fa-info-circle"></i> You cannot change your personal details because your identity is currently being verified.
+                </p>
+                <p class="text-primary m-0" v-else-if="verification_level>3"><i class="fa fa-info-circle"></i> You cannot change your personal details because your identity has been verified.
+                </p>
+              </div>
+
+            </div>
+
             <div class="form-group row">
               <label class="col-sm-3"></label>
               <div class="col-xl-6 col-lg-8 ">
-                <button class="btn btn-primary" @click="update_name_birthday()">Save</button>
+                <button class="btn btn-primary" @click="update_personal_detail()">Save</button>
+                <p class="text-success m-0">{{personal_detail_success_message}}</p>
+                <p class="text-danger m-0">{{personal_detail_error_message}}</p>
               </div>
             </div>
 
@@ -246,47 +261,51 @@
           <hr class="my-4">
           <h4 class="text-dark header-title mb-3 mt-4"><b>Address</b></h4>
           <div class="form-horizontal">
-            <div class="form-group row">
+            <div class="form-group row" :class="{'has-danger': errors.has('address1')}">
               <label class="col-sm-3 col-xs-12 col-form-label">Street Address 1</label>
               <div class="col-xl-6 col-lg-8">
-                <input type="text" class="form-control" placeholder="Street Address 1" v-model="address1">
+                <input type="text" class="form-control" name="address1" placeholder="Street Address 1" v-model="address1"
+                       v-validate="'required'">
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" :class="{'has-danger': errors.has('address2')}">
               <label class="col-md-3 col-sm-5 col-xs-12 col-form-label">Street Address 2 (Optional)</label>
               <div class="col-xl-6 col-lg-8">
-                <input type="text" class="form-control" placeholder="Street Address 2 (Optional)" v-model="address2">
+                <input type="text" class="form-control" name="address2" placeholder="Street Address 2 (Optional)" v-model="address2"
+                       v-validate="'required'">
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" :class="{'has-danger': errors.has('city')}">
               <label class="col-sm-3 col-xs-12 col-form-label">City</label>
               <div class="col-xl-6 col-lg-8">
-                <input type="text" class="form-control" placeholder="City" v-model="city">
+                <input type="text" class="form-control" name="city" placeholder="City" v-model="city" v-validate="'required'">
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" :class="{'has-danger': errors.has('state')}">
               <label class="col-sm-3 col-xs-12 col-form-label">State / Province</label>
               <div class="col-xl-6 col-lg-8">
-                <input type="text" class="form-control" placeholder="State / Province" v-model="state">
+                <input type="text" class="form-control" name="state" placeholder="State / Province" v-model="state" v-validate="'required'">
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" :class="{'has-danger': errors.has('zipcode')}">
               <label class="col-sm-3 col-xs-12 col-form-label">Zip Code / Postcode</label>
               <div class="col-xl-6 col-lg-8">
-                <input type="text" class="form-control" placeholder="Zip Code / Postcode" v-model="zipcode">
+                <input type="text" class="form-control" name="zipcode" placeholder="Zip Code / Postcode" v-model="zipcode" v-validate="'required|numeric'">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-3 col-xs-12 col-form-label">Country</label>
               <div class="col-xl-3 col-lg-6">
                 <input type="text" class="form-control" disabled :value="me.nationality">
-                <router-link :to="{name:'settings_verification'}">Change Country</router-link>
+                <router-link :to="{name:'settings_verification'}"><i class="fa fa-external-link"></i> Change Country</router-link>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-3"></label>
               <div class="col-xl-6 col-lg-8">
                 <button class="btn btn-primary" @click="update_address()">Save</button>
+                <p class="text-success m-0">{{address_success_message}}</p>
+                <p class="text-danger m-0">{{address_error_message}}</p>
               </div>
             </div>
           </div>
@@ -316,8 +335,11 @@
         state: '',
         zipcode: '',
 
-        error_message: '',
-        success_message: '',
+        address_success_message: '',
+        address_error_message: '',
+
+        personal_detail_success_message: '',
+        personal_detail_error_message: '',
       }
     },
     computed: {
@@ -330,7 +352,8 @@
       }),
     },
     methods: {
-      update_name_birthday() {
+      update_personal_detail() {
+        if (this.verification_level >= 3) return
         const form_data = {
           update: 'name_birthday',
           birthday: this.birthday_year + '-' + this.birthday_month + '-' + this.birthday_day,
@@ -338,23 +361,34 @@
           last_name: this.last_name,
         }
         this.$store.dispatch('updateMe', form_data)
+          .then(() => {
+            this.personal_detail_success_message = "Updated"
+          })
           .catch((error) => {
-            this.error_message = error.data.error
+            this.personal_detail_error_message = error.data.error
           })
       },
       update_address() {
-        const form_data = {
-          update: 'address',
-          address1: this.address1,
-          address2: this.address2,
-          city: this.city,
-          state: this.state,
-          zipcode: this.zipcode,
-        }
-        this.$store.dispatch('updateMe', form_data)
-          .catch((error) => {
-            this.error_message = error.data.error
-          })
+        this.$validator.validateAll().then((result) => {
+          if (!result) return
+
+          const form_data = {
+            update: 'address',
+            address1: this.address1,
+            address2: this.address2,
+            city: this.city,
+            state: this.state,
+            zipcode: this.zipcode,
+          }
+          this.$store.dispatch('updateMe', form_data)
+            .then(() => {
+              this.address_success_message = "Updated"
+            })
+            .catch((error) => {
+              this.address_error_message = error.data.error
+            })
+        })
+
       },
     },
     created() {
