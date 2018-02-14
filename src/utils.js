@@ -1,8 +1,6 @@
 import Web3 from 'web3'
 import { ETH_NODE } from './config'
 
-export const web3 = new Web3(ETH_NODE)
-
 export function SHA256(s) {
   const chrsz = 8
   const hexcase = 0
@@ -403,3 +401,4 @@ export const erc20_contract_abi = [
   },
 ]
 
+export const web3 = new Web3(ETH_NODE)

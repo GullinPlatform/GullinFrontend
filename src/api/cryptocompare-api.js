@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-import { EHTERSCAN_API_KEY } from '../config'
-
 const apiCall = (method, url, form_data, params) => {
   return axios({
     method: method,

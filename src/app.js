@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import VueHead from 'vue-head'
 import VeeValidate from 'vee-validate'
-import VueSweetalert2 from 'vue-sweetalert2'
 
 import { sync } from 'vuex-router-sync'
 import router from './router'

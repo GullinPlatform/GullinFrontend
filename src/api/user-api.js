@@ -12,7 +12,7 @@ const apiCall = (method, url, form_data, params) => {
     withCredentials: true,
   })
     .then(response => Promise.resolve(response.data))
-    .catch((error) => {
+    .catch(error => {
       // Error
       if (error.response) {
         // The request was made and the server responded with a status code
