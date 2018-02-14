@@ -295,7 +295,7 @@
             <button class="dropdown-item" type="button" @click="phone_country_code='+260'; phone_country='Zambia'">Zambia +260</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+263'; phone_country='Zimbabwe'">Zimbabwe +263</button>
           </div>
-          <input type="text" class="form-control" placeholder="Phone Number" v-model="phone_number">
+          <input type="text" class="form-control" placeholder="Phone Number" v-model="phone_number" @keyup.enter="addPhone()">
         </div>
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">

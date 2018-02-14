@@ -8,31 +8,28 @@
       <div class="form-horizontal m-t-20">
         <div class="row">
           <div class="col-md-6">
-            <div class="form-group">
-              <input class="form-control" type="text" placeholder="First Name" name="firstname"
-                     v-model="first_name" v-validate="'required|alpha'">
+            <div class="form-group" :class="{'has-danger': errors.has('first_name')}">
+              <input class="form-control" type="text" name="first_name" placeholder="First Name" v-model="first_name" v-validate="'required|alpha'">
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-group">
-              <input class="form-control" type="text" placeholder="Last Name" name="lastname"
-                     v-model="last_name" v-validate="'required|alpha'">
+            <div class="form-group" :class="{'has-danger': errors.has('last_name')}">
+              <input class="form-control" type="text" name="last_name" placeholder="Last Name" v-model="last_name" v-validate="'required|alpha'">
             </div>
           </div>
         </div>
         <div class="form-group row">
           <div class="col-12">
-            <div class="input-group">
+            <div class="input-group" :class="{'has-danger': errors.has('email')}">
               <span class="input-group-addon"><i class="mdi mdi-email"></i></span>
               <input class="form-control" type="email" name="email" v-model="email" v-validate="'required|email'" placeholder="Email">
             </div>
-            <span class="text-danger" v-show="errors.has('email')">{{ errors.first('email') }}</span>
           </div>
         </div>
 
         <div class="form-group row">
           <div class="col-12">
-            <div class="input-group">
+            <div class="input-group" :class="{'has-danger': errors.has('password')}">
               <span class="input-group-addon"><i class="mdi mdi-key"></i></span>
               <input class="form-control" type="password" name="password" v-model="password" v-validate="'required'" placeholder="Password"
                      @keyup.enter="register()">
@@ -98,11 +95,6 @@
         this.error_message = ''
 
         this.$validator.validateAll().then((result) => {
-          // If Invalid
-          // if (!result || !this.verified) {
-          //    this.loading = false
-          //    return
-          // }
           if (!result) {
             this.loading = false
             return
