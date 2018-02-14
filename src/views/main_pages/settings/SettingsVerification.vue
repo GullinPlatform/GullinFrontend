@@ -427,12 +427,9 @@
         else if (type === 'id_holding') this.id_holding = files[0]
       },
       removeFile(type) {
-        if (type === 'resume') {
-          this.resume = null
-        }
-        else if (type === 'example') {
-          this.past_rating_example = null
-        }
+        if (type === 'id_front') this.id_front = null
+        else if (type === 'id_back') this.id_back = null
+        else if (type === 'id_holding') this.id_holding = null
       },
     },
     created() {
