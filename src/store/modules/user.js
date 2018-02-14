@@ -62,18 +62,18 @@ const actions = {
       })
   },
   logout({ commit }) {
-    userApi.logout()
+    return userApi.logout()
       .then(() => {
         commit(types.LOGOUT)
       })
   },
   refresh({ commit }) {
-    userApi.refresh()
-      .then((response) => {
+    return userApi.refresh()
+      .then(response => {
         commit(types.REFRESH_SUCCESS, response)
         return Promise.resolve()
       })
-      .catch((error) => {
+      .catch(error => {
         commit(types.REFRESH_FAILED)
         return Promise.reject(error)
       })

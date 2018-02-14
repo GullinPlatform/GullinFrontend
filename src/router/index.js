@@ -16,28 +16,7 @@ import SettingsSecurityView from '../views/main_pages/settings/SettingsSecurity'
 // Error Pages
 import NotFoundView from '../views/error_pages/404'
 
-
-const isAuthenticated = (to, from, next) => {
-  // If already login
-  if (store.getters.is_login) {
-    // Check if verification_level < 2 (wallet not created)
-    if (store.getters.verification_level < 2) return next({ name: 'user_signup_followup' })
-    // If verification_level >= 2 (wallet created), then load wallet and go to the destination
-    return store.dispatch('getWallet').then(() => next())
-  }
-
-  // Else Refresh token
-  store.dispatch('refresh')
-    .then(() => {
-      // If logged in, then check if verification_level < 2 (wallet not created)
-      if (store.getters.verification_level < 2) return next({ name: 'user_signup_followup' })
-      // If verification_level >= 2 (wallet created), then load wallet and go to the destination
-      return store.dispatch('getWallet').then(() => next())
-    })
-    // After refresh, if still logged out, go to login page
-    .catch(() => next({ name: 'user_login' }))
-}
-
+// Permissions
 const allowAny = (to, from, next) => {
   // If already login
   if (store.getters.is_login) {
@@ -78,24 +57,48 @@ const isNotAuthenticated = (to, from, next) => {
     .catch(() => next())
 }
 
-const isNotVerified = (to, from, next) => {
+const isAuthenticatedAndVerified = (to, from, next) => {
+  // If already login
+  if (store.getters.is_login) {
+    // Check if verification_level < 2 (wallet not created)
+    if (store.getters.verification_level < 2) return next({ name: 'user_signup_followup' })
+    // If verification_level >= 2 (wallet created), then load wallet and go to the destination
+    return store.dispatch('getWallet').then(() => next())
+  }
+
+  // Else Refresh token
+  store.dispatch('refresh')
+    .then(() => {
+      // If logged in, then check if verification_level < 2 (wallet not created)
+      if (store.getters.verification_level < 2) return next({ name: 'user_signup_followup' })
+      // If verification_level >= 2 (wallet created), then load wallet and go to the destination
+      return store.dispatch('getWallet').then(() => next())
+    })
+    // After refresh, if still logged out, go to login page
+    .catch(() => next({ name: 'user_login' }))
+}
+
+const isAuthenticatedAndNotVerified = (to, from, next) => {
   // If already login
   if (store.getters.is_login) {
     // If verification_level >= 2 (wallet created), then load wallet and go to dashboard
     if (store.getters.verification_level >= 2) return store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
     // Else if verification_level < 2 (wallet not created), then go to destination
-    else return next()
+    return next()
   }
+
   // Else Refresh token
   store.dispatch('refresh')
     .then(() => {
       // If verification_level >= 2 (wallet created), then load wallet and go to dashboard
       if (store.getters.verification_level >= 2) return store.dispatch('getWallet').then(() => next({ name: 'dashboard' }))
       // Else if verification_level < 2 (wallet not created), then go to destination
-      else return next()
+      return next()
     })
+    // After refresh, if still logged out, go to login page
     .catch(() => next({ name: 'user_login' }))
 }
+
 
 export default new Router({
   mode: 'history',
@@ -113,12 +116,12 @@ export default new Router({
     path: '/signup/followup',
     component: UserSignUpFollowUpView,
     name: 'user_signup_followup',
-    beforeEnter: isNotVerified,
+    beforeEnter: isAuthenticatedAndNotVerified,
   }, {
     path: '/',
     component: DashboardView,
     name: 'dashboard',
-    beforeEnter: isAuthenticated,
+    beforeEnter: isAuthenticatedAndVerified,
   }, {
     path: '/company',
     component: CompanyListView,
@@ -148,22 +151,22 @@ export default new Router({
     path: '/wallet',
     component: WalletView,
     name: 'wallet',
-    beforeEnter: isAuthenticated,
+    beforeEnter: isAuthenticatedAndVerified,
   }, {
     path: '/settings',
     component: SettingsView,
     name: 'settings',
-    beforeEnter: isAuthenticated,
+    beforeEnter: isAuthenticatedAndVerified,
   }, {
     path: '/settings/verification',
     component: SettingsVerificationView,
     name: 'settings_verification',
-    beforeEnter: isAuthenticated,
+    beforeEnter: isAuthenticatedAndVerified,
   }, {
     path: '/settings/security',
     component: SettingsSecurityView,
     name: 'settings_security',
-    beforeEnter: isAuthenticated,
+    beforeEnter: isAuthenticatedAndVerified,
   }, {
     // not found handler
     path: '/404',
