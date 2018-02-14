@@ -217,7 +217,7 @@
                 <div class="row form-group">
                   <div class="col-10">
                     <label class="control-label">Amount</label>
-                    <input v-model="amount" type="text" class="form-control" placeholder="0.00" :disabled="verification_level<4">
+                    <input v-model="amount" type="text" class="form-control" placeholder="0.00" :disabled="isRestricted()">
                   </div>
                   <label class="col-2 col-form-label mt-4">ETH</label>
                 </div>
@@ -236,18 +236,27 @@
                 <div class="row form-group">
                   <div class="col-md-12">
                     <label class="control-label">Your Private Key</label>
-                    <input v-model="private_key" type="text" class="form-control" placeholder="Private Key" :disabled="verification_level<4">
+                    <input v-model="private_key" type="text" class="form-control" placeholder="Private Key" :disabled="isRestricted()">
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="alert alert-primary" v-if="verification_level>=4">
+                <div class="alert alert-primary" v-if="!isRestricted()">
                   You are investing in <b>{{current_company.name}}</b>, please make sure you are on the right page!
                 </div>
-                <div class="alert alert-danger" v-else>
+                <div class="alert alert-danger" v-else-if="isRestricted()===1">
                   You must be verified through KYC in settings before you are able to participate in this Token Sale.<br>
                   <b>
                     <router-link router-link :to="{name:'settings_verification'}" data-dismiss="modal">Verify Now</router-link>
+                  </b>
+                </div>
+                <div class="alert alert-danger" v-else-if="isRestricted()===2">
+                  We are sorry, your region is restricted by this Token Sale.
+                </div>
+                <div class="alert alert-danger" v-else-if="isRestricted()===3">
+                  You don't have enough ETH balance in your wallet to participate in this Token Sale.<br>
+                  <b>
+                    <router-link router-link :to="{name:'wallet'}" data-dismiss="modal">Deposit Now</router-link>
                   </b>
                 </div>
                 <table class="table">
@@ -273,7 +282,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn" @click="sendEth()" :class="{'btn-secondary':verification_level<4, 'btn-primary':verification_level>=4}">Invest</button>
+              <button type="button" class="btn" @click="sendEth()" :class="{'btn-secondary':isRestricted(), 'btn-primary':!isRestricted()}">Invest</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -296,6 +305,16 @@
         amount: '',
         private_key: null,
       }
+    },
+    computed: {
+      ...mapGetters({
+        is_login: 'is_login',
+        current_company: 'current_company',
+        current_token_detail: 'current_token_detail',
+        me_wallet: 'me_wallet',
+        me: 'me',
+        verification_level: 'verification_level',
+      }),
     },
     methods: {
       getCompany(id) {
@@ -347,8 +366,25 @@
       timeFromNow(time) {
         return moment(time).fromNow()
       },
+      isRestricted() {
+        // User if verified?
+        if (this.verification_level < 4) return 1
+        // Check restricted country
+        const restricted_country_list = JSON.parse(this.current_token_detail.restricted_country_list)
+        if (restricted_country_list.indexOf(this.me.nationality) >= 0) return 2
+        // Check balance
+        const eth_balance = this.me_wallet.balances[0].balance
+        if (eth_balance <= this.current_token_detail.threshold) return 3
+      },
       sendEth() {
-        if (this.verification_level <= 4) return
+        // Check List before send ETH
+        // Check restricted
+        if (this.isRestricted()) return
+        // Check threshold
+        if (this.amount && this.amount < this.current_token_detail.threshold) return
+        // Check private key
+        if (!this.private_key) return
+
         const form_data = {
           to: this.current_token_detail.crowd_sale_contract_address,
           value: this.amount,
@@ -356,16 +392,6 @@
         }
         this.$store.dispatch('sendEth', form_data)
       },
-    },
-    computed: {
-      ...mapGetters({
-        is_login: 'is_login',
-        current_company: 'current_company',
-        current_token_detail: 'current_token_detail',
-        me_wallet: 'me_wallet',
-        me: 'me',
-        verification_level: 'verification_level',
-      }),
     },
     created() {
       if (this.$route.params.id) {
