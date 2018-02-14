@@ -214,18 +214,28 @@ const actions = {
       from: state.wallet.eth_address,
       to: data.to_address,
       value: web3.utils.toWei(data.value, 'ether'),
-      gasPrice: '20000000000',
       gas: '1000000',
     }
-    web3.eth.accounts.privateKeyToAccount(data.private_key)
-      .signTransaction(raw_transaction, data.private_key)
-      .then((signed_transaction) => {
-        console.log(signed_transaction)
-        web3.eth.sendSignedTransaction(signed_transaction.rawTransaction)
-          .then((receipt) => {
-            console.log(receipt)
-          })
-      })
+
+    web3.eth.accounts.signTransaction(raw_transaction, data.private_key).then(signed => {
+      const transaction = web3.eth.sendSignedTransaction(signed.rawTransaction);
+
+      transaction.on('confirmation', (confirmationNumber, receipt) => {
+        console.log('confirmation: ' + confirmationNumber);
+      });
+
+      transaction.on('transactionHash', hash => {
+        console.log('hash');
+        console.log(hash);
+      });
+
+      transaction.on('receipt', receipt => {
+        console.log('receipt');
+        console.log(receipt);
+      });
+
+      transaction.on('error', console.error);
+    })
   },
   sendToken({ commit }, data) {
     const contract = web3.eth.Contract(erc20_contract_abi).at(data.contract_address)
