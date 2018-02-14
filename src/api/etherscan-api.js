@@ -8,7 +8,7 @@ const apiCall = (method, url, form_data, params) => {
     url: url,
     data: form_data,
     params: params,
-    baseURL: 'http://api.etherscan.io/',
+    baseURL: 'https://api.etherscan.io/',
     withCredentials: false,
   })
     .then(response => Promise.resolve(response.data))
