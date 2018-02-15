@@ -1,3 +1,5 @@
+import Tx from 'ethereumjs-tx'
+
 import walletApi from '../../api/wallet-api'
 import etherscanApi from '../../api/etherscan-api'
 import cryptocompareApi from '../../api/cryptocompare-api'
@@ -80,7 +82,7 @@ const actions = {
               value: web3.utils.fromWei(tx.value.toString()),
               value_unit: 'ETH',
               tx_hash: tx.hash,
-              tx_fee: web3.utils.fromWei((tx.gas * tx.gasPrice).toString()),
+              tx_fee: web3.utils.fromWei((tx.gasUsed * tx.gasPrice).toString()),
             })
           } else {
             txs.push({
@@ -94,7 +96,7 @@ const actions = {
               value: web3.utils.fromWei(tx.value.toString()),
               value_unit: 'ETH',
               tx_hash: tx.hash,
-              tx_fee: web3.utils.fromWei((tx.gas * tx.gasPrice).toString()),
+              tx_fee: web3.utils.fromWei((tx.gasUsed * tx.gasPrice).toString()),
             })
           }
         }
@@ -210,35 +212,33 @@ const actions = {
 
   // Send tokens
   sendEth({ state, commit }, data) {
-    const raw_transaction = {
-      from: state.wallet.eth_address,
-      to: data.to_address,
-      value: web3.utils.toWei(data.value, 'ether'),
-      gas: '1000000',
-    }
+    return web3.eth.getTransactionCount(state.wallet.eth_address)
+      .then(nonce => {
+        const transaction_data = {
+          to: data.to_address,
+          value: web3.utils.toHex(web3.utils.toWei(data.value, 'ether')),
+          gasLimit: web3.utils.toHex('100000'),
+          gasPrice: web3.utils.toHex('20000000000'),
+          data: '0x00',
+          nonce: nonce,
+        }
+        const raw_transaction = new Tx(transaction_data)
+        const private_key = new Buffer(data.private_key.substring(2), 'hex')
+        raw_transaction.sign(private_key)
+        const signed_transaction = '0x' + raw_transaction.serialize().toString('hex')
 
-    return web3.eth.accounts.signTransaction(raw_transaction, data.private_key)
-      .then(signed => {
-        const transaction = web3.eth.sendSignedTransaction(signed.rawTransaction);
-
-        transaction.on('confirmation', (confirmationNumber, receipt) => {
-          console.log('confirmation: ' + confirmationNumber);
-        });
-
-        transaction.on('transactionHash', hash => {
-          console.log('hash');
-          console.log(hash);
-        });
-
-        transaction.on('receipt', receipt => {
-          console.log('receipt');
-          console.log(receipt);
-        });
-
-        transaction.on('error', console.error);
+        return web3.eth.sendSignedTransaction(signed_transaction)
+          .then((receipt) => {
+            console.log(receipt)
+            return Promise.resolve(receipt)
+          })
+          .catch((error) => {
+            console.log(error)
+            return Promise.reject(error)
+          })
       })
-      .catch(() => Promise.reject())
   },
+
   sendToken({ commit }, data) {
     const contract = web3.eth.Contract(erc20_contract_abi).at(data.contract_address)
     const abi_data = contract.methods.transfer(data.contract_address, web3.utils.toWei(data.value, 'ether'), { from: data.from_address }).encodeABI()
@@ -246,7 +246,7 @@ const actions = {
       from: state.wallet.eth_address,
       to: data.contract_address,
       data: abi_data,
-      gas: 100000,
+      gas: '100000',
     }
 
     web3.eth.accounts.signTransaction(raw_transaction, data.private_key)

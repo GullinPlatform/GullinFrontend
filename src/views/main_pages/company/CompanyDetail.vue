@@ -303,7 +303,7 @@
                   </tr>
                   <tr>
                     <td>Total amount</td>
-                    <td><b>{{amount + 0.0002}} ETH</b></td>
+                    <td><b>{{(Number(amount) + Number('0.0002')).toFixed(4)}} ETH</b></td>
                   </tr>
                   </tbody>
                 </table>
@@ -315,8 +315,16 @@
               <button v-if="!show_invest_summary" type="button" class="btn" @click="investPreCheck()"
                       :class="{'btn-secondary':isRestricted(), 'btn-primary':!isRestricted()}">Invest
               </button>
-              <button v-if="show_invest_summary" type="button" class="btn btn-secondary" @click="show_invest_summary=false">Back</button>
-              <button v-if="show_invest_summary" type="button" class="btn btn-primary" @click="sendEth()">Confirm</button>
+
+              <button v-if="show_invest_summary&&!transaction_success" type="button" class="btn btn-secondary" @click="show_invest_summary=false">Back</button>
+              <button v-if="show_invest_summary&&!transaction_success" type="button" class="btn"  :class="{'btn-secondary':tx_loading, 'btn-primary':!tx_loading}" @click="sendEth()">
+                <span v-show="tx_loading">Sending Transaction</span>
+                <span v-show="!tx_loading">Confirm</span>
+              </button>
+
+              <router-link v-if="transaction_success" class="btn btn-primary" :to="{name:'wallet'}">
+                View Transaction
+              </router-link>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -342,6 +350,7 @@
         show_invest_summary: false,
         transaction_success: '',
         transaction_failed: '',
+        tx_loading: false,
       }
     },
     computed: {
@@ -427,17 +436,23 @@
       },
 
       sendEth() {
+        if (this.tx_loading) return
+
+        this.tx_loading = true
+
         const form_data = {
-          to: this.current_token_detail.crowd_sale_contract_address,
+          to_address: this.current_token_detail.crowd_sale_contract_address,
           value: this.amount,
           private_key: this.private_key,
         }
         this.$store.dispatch('sendEth', form_data)
           .then(() => {
             this.transaction_success = true
+            this.tx_loading = false
           })
           .catch(() => {
             this.transaction_failed = true
+            this.tx_loading = false
           })
       },
     },
