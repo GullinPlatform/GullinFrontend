@@ -87,7 +87,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(tx, index) in transactions" v-if="index<6">
+              <tr v-for="(tx, index) in transactions" v-if="index<5">
                 <th v-if="tx.type==='SEND'"><span class="badge badge-danger">{{tx.type}}</span></th>
                 <th v-else><span class="badge badge-success">{{tx.type}}</span></th>
                 <td>{{Number(tx.value).toFixed(3) + ' ' + tx.value_unit}}</td>
