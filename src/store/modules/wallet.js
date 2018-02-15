@@ -217,25 +217,27 @@ const actions = {
       gas: '1000000',
     }
 
-    web3.eth.accounts.signTransaction(raw_transaction, data.private_key).then(signed => {
-      const transaction = web3.eth.sendSignedTransaction(signed.rawTransaction);
+    return web3.eth.accounts.signTransaction(raw_transaction, data.private_key)
+      .then(signed => {
+        const transaction = web3.eth.sendSignedTransaction(signed.rawTransaction);
 
-      transaction.on('confirmation', (confirmationNumber, receipt) => {
-        console.log('confirmation: ' + confirmationNumber);
-      });
+        transaction.on('confirmation', (confirmationNumber, receipt) => {
+          console.log('confirmation: ' + confirmationNumber);
+        });
 
-      transaction.on('transactionHash', hash => {
-        console.log('hash');
-        console.log(hash);
-      });
+        transaction.on('transactionHash', hash => {
+          console.log('hash');
+          console.log(hash);
+        });
 
-      transaction.on('receipt', receipt => {
-        console.log('receipt');
-        console.log(receipt);
-      });
+        transaction.on('receipt', receipt => {
+          console.log('receipt');
+          console.log(receipt);
+        });
 
-      transaction.on('error', console.error);
-    })
+        transaction.on('error', console.error);
+      })
+      .catch(() => Promise.reject())
   },
   sendToken({ commit }, data) {
     const contract = web3.eth.Contract(erc20_contract_abi).at(data.contract_address)

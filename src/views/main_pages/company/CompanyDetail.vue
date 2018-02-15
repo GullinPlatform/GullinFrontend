@@ -169,9 +169,7 @@
                         <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-globe"></i></a>
                       </li>
                     </ul>
-
                   </div>
-
                 </div>
               </div>
             </div>
@@ -212,7 +210,7 @@
             <div class="modal-header">
               <h4 class="modal-title">Invest</h4>
             </div>
-            <div class="modal-body row">
+            <div class="modal-body row" v-if="!show_invest_summary">
               <div class="col-md-6 border-right">
                 <div class="row form-group">
                   <div class="col-10">
@@ -267,11 +265,13 @@
                   </tr>
                   <tr>
                     <td>Threshold</td>
-                    <td> {{current_token_detail.threshold}} ETH</td>
+                    <td v-if="current_token_detail.threshold"> {{current_token_detail.threshold}} ETH</td>
+                    <td v-else> None</td>
                   </tr>
                   <tr>
                     <td>Restrictions</td>
-                    <td> {{current_token_detail.restrictions}}</td>
+                    <td v-if="current_token_detail.restrictions"> {{current_token_detail.restrictions}}</td>
+                    <td v-else> None</td>
                   </tr>
                   <tr>
                     <td> Bonus</td>
@@ -281,8 +281,42 @@
                 </table>
               </div>
             </div>
+            <div class="modal-body row justify-content-center" v-else>
+              <div class="col-md-10">
+                <h4 class="text-center md-2"><b>Confirm</b></h4>
+                <div class="alert alert-primary">
+                  Please make sure everything is correct!
+                </div>
+                <table class="table">
+                  <tbody>
+                  <tr>
+                    <td>Token Sale</td>
+                    <td><b>{{current_company.name}}</b></td>
+                  </tr>
+                  <tr>
+                    <td>Amount you are trying to invest</td>
+                    <td><b>{{amount}} ETH</b></td>
+                  </tr>
+                  <tr>
+                    <td>Estimated transaction fee</td>
+                    <td><b>0.0002 ETH</b></td>
+                  </tr>
+                  <tr>
+                    <td>Total amount</td>
+                    <td><b>{{amount + 0.0002}} ETH</b></td>
+                  </tr>
+                  </tbody>
+                </table>
+                <p class="text-center text-success" v-show="transaction_success">Transaction Success!</p>
+                <p class="text-center text-danger" v-show="transaction_failed">Transaction Failed!</p>
+              </div>
+            </div>
             <div class="modal-footer">
-              <button type="button" class="btn" @click="sendEth()" :class="{'btn-secondary':isRestricted(), 'btn-primary':!isRestricted()}">Invest</button>
+              <button v-if="!show_invest_summary" type="button" class="btn" @click="investPreCheck()"
+                      :class="{'btn-secondary':isRestricted(), 'btn-primary':!isRestricted()}">Invest
+              </button>
+              <button v-if="show_invest_summary" type="button" class="btn btn-secondary" @click="show_invest_summary=false">Back</button>
+              <button v-if="show_invest_summary" type="button" class="btn btn-primary" @click="sendEth()">Confirm</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -304,6 +338,10 @@
 
         amount: '',
         private_key: null,
+
+        show_invest_summary: false,
+        transaction_success: '',
+        transaction_failed: '',
       }
     },
     computed: {
@@ -376,7 +414,7 @@
         const eth_balance = this.me_wallet.balances[0].balance
         if (eth_balance <= this.current_token_detail.threshold) return 3
       },
-      sendEth() {
+      investPreCheck() {
         // Check List before send ETH
         // Check restricted
         if (this.isRestricted()) return
@@ -385,12 +423,22 @@
         // Check private key
         if (!this.private_key) return
 
+        this.show_invest_summary = true
+      },
+
+      sendEth() {
         const form_data = {
           to: this.current_token_detail.crowd_sale_contract_address,
           value: this.amount,
           private_key: this.private_key,
         }
         this.$store.dispatch('sendEth', form_data)
+          .then(() => {
+            this.transaction_success = true
+          })
+          .catch(() => {
+            this.transaction_failed = true
+          })
       },
     },
     created() {
