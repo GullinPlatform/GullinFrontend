@@ -19,7 +19,8 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-12">
-            <a class="btn btn-primary btn-block text-white mt-3" data-toggle="modal" data-target="#invest_modal">Invest Now</a>
+            <a v-if="is_login" class="btn btn-primary btn-block text-white mt-3" data-toggle="modal" data-target="#invest_modal">Participate</a>
+            <router-link class="btn btn-primary btn-block text-white mt-3" v-else :to="{name:'user_signup'}">Sign Up to Participate</router-link>
           </div>
         </div>
       </div>
@@ -204,7 +205,7 @@
         </div>
       </div>
       <!--begin::Modal-->
-      <div id="invest_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+      <div id="invest_modal" v-if="is_login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
@@ -414,6 +415,7 @@
         return moment(time).fromNow()
       },
       isRestricted() {
+        if (!is_login) return true
         // User if verified?
         if (this.verification_level < 4) return 1
         // Check restricted country
