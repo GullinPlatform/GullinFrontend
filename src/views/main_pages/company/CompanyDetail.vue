@@ -129,14 +129,14 @@
                       <p class="text-muted">{{member.description}}</p>
                     </div>
                     <ul class="social-links list-inline mb-0">
-                      <li class="list-inline-item">
-                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                      <li class="list-inline-item" v-if="member.facebook">
+                        <a :href="member.facebook" target="_blank"><i class="fa fa-facebook"></i></a>
                       </li>
-                      <li class="list-inline-item">
-                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-linkedin"></i></a>
+                      <li class="list-inline-item" v-if="member.linkedin">
+                        <a :href="member.linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
                       </li>
-                      <li class="list-inline-item">
-                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-globe"></i></a>
+                      <li class="list-inline-item" v-if="member.website">
+                        <a :href="member.website" target="_blank"><i class="fa fa-globe"></i></a>
                       </li>
                     </ul>
 
@@ -318,7 +318,7 @@
               </button>
 
               <button v-if="show_invest_summary&&!transaction_success" type="button" class="btn btn-secondary" @click="show_invest_summary=false">Back</button>
-              <button v-if="show_invest_summary&&!transaction_success" type="button" class="btn"  :class="{'btn-secondary':tx_loading, 'btn-primary':!tx_loading}" @click="sendEth()">
+              <button v-if="show_invest_summary&&!transaction_success" type="button" class="btn" :class="{'btn-secondary':tx_loading, 'btn-primary':!tx_loading}" @click="sendEth()">
                 <span v-show="tx_loading">Sending Transaction</span>
                 <span v-show="!tx_loading">Confirm</span>
               </button>
