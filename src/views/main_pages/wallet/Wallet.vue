@@ -128,10 +128,30 @@
                 <th v-if="tx.type==='SEND'"><span class="badge badge-danger">{{tx.type}}</span></th>
                 <th v-else><span class="badge badge-success">{{tx.type}}</span></th>
                 <td>{{Number(tx.value).toFixed(3) + ' ' + tx.value_unit}}</td>
-                <td v-if="tx.from_address_note">{{tx.from_address_note}}</td>
-                <td v-else><a :href="'https://etherscan.io/address/'+tx.from_address" target="_blank">{{tx.from_address.substring(0,7)+'...'}}</a></td>
-                <td v-if="tx.to_address_note">{{tx.to_address_note}}</td>
-                <td v-else><a :href="'https://etherscan.io/address/'+tx.to_address" target="_blank">{{tx.to_address.substring(0,7)+'...'}}</a></td>
+                <td v-if="tx.from_address_type==='TOKEN_SALE'">
+                  <router-link :to="{name:'token_sale_detail', params:{id:tx.from_address_note}}">
+                    {{tx.from_address_note}}
+                  </router-link>
+                </td>
+                <td v-else-if="tx.from_address_type==='MY_WALLET'">
+                  My Wallet
+                </td>
+                <td v-else>
+                  <a :href="'https://etherscan.io/address/'+tx.from_address" target="_blank">{{tx.from_address.substring(0,7)+'...'}}</a>
+                </td>
+
+                <td v-if="tx.to_address_type==='TOKEN_SALE'">
+                  <router-link :to="{name:'token_sale_detail', params:{id:tx.to_address_note}}">
+                    {{tx.to_address_note}}
+                  </router-link>
+                </td>
+                <td v-else-if="tx.to_address_type==='MY_WALLET'">
+                  My Wallet
+                </td>
+                <td v-else>
+                  <a :href="'https://etherscan.io/address/'+tx.to_address" target="_blank">{{tx.to_address.substring(0,7)+'...'}}</a>
+                </td>
+
                 <td v-html="formatTime(tx.datetime)"></td>
                 <td>
                   <small>{{tx.tx_fee}}</small>

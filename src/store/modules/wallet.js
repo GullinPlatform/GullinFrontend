@@ -78,7 +78,7 @@ const actions = {
               from_address: wallet_address,
               from_address_type: 'MY_WALLET',
               from_address_note: 'My Wallet',
-              to_address: tx.to,
+              to_address: web3.utils.toChecksumAddress(tx.to),
               value: web3.utils.fromWei(tx.value.toString()),
               value_unit: 'ETH',
               tx_hash: tx.hash,
@@ -89,7 +89,7 @@ const actions = {
               wallet: state.wallet.id,
               type: 'RECEIVE',
               datetime: moment.unix(tx.timeStamp).format('YYYY-MM-DD HH:mm:ss'),
-              from_address: tx.from,
+              from_address: web3.utils.toChecksumAddress(tx.from),
               to_address: wallet_address,
               to_address_type: 'MY_WALLET',
               to_address_note: 'My Wallet',
@@ -229,11 +229,9 @@ const actions = {
 
         return web3.eth.sendSignedTransaction(signed_transaction)
           .then((receipt) => {
-            console.log(receipt)
             return Promise.resolve(receipt)
           })
           .catch((error) => {
-            console.log(error)
             return Promise.reject(error)
           })
       })
