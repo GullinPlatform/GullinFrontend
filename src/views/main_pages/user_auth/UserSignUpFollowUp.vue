@@ -28,9 +28,9 @@
       </p>
     </div>
     <div class="card-box" v-if="level===1">
-      <div class="text-center m-t-20">
+      <div class="text-center mt-4">
         <div class="alert alert-success">
-          Please verify your email using the <b>verification code</b> we sent to your email.
+          Please verify your email using the <b>verification code</b> we sent to your email ({{me.user.email}}).
         </div>
         <div class="form-group m-b-5">
           <div class="input-group">
@@ -295,11 +295,11 @@
             <button class="dropdown-item" type="button" @click="phone_country_code='+260'; phone_country='Zambia'">Zambia +260</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+263'; phone_country='Zimbabwe'">Zimbabwe +263</button>
           </div>
-          <input type="text" class="form-control" placeholder="Phone Number" v-model="phone_number" @keyup.enter="addPhone()">
+          <input type="text" class="form-control" placeholder="Phone Number" v-model="phone_number" @keyup.enter="sendPhoneCode()">
         </div>
-        <div class="form-group text-center m-t-20">
+        <div class="form-group text-center mt-4">
           <div class="col-xs-12">
-            <button class="btn btn-primary btn-custom w-md" @click="addPhone()">
+            <button class="btn btn-primary btn-custom w-md" @click="sendPhoneCode()">
               Send Code
             </button>
           </div>
@@ -308,11 +308,10 @@
           <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
         </div>
       </div>
-      <div v-if="phone_code_sent">
-        <div class="text-center m-t-20">
-          <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            Please verify your phone using the <b>verification code</b> we sent to your phone number.
+      <div v-else>
+        <div>
+          <div class="text-center alert alert-success">
+            Please verify your phone using the <b>verification code</b> we sent to your phone number ({{phone_country_code+phone_number}})..
           </div>
           <div class="form-group m-b-0">
             <div class="input-group">
@@ -324,7 +323,7 @@
             <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
           </div>
         </div>
-        <div class="form-group text-center m-t-20">
+        <div class="form-group text-center mt-4">
           <div class="col-xs-6">
             <button class="btn btn-primary" @click="phone_code_sent = false">
               Go Back
@@ -337,7 +336,7 @@
       <div class="alert alert-danger">
         Notice: This is the <b>ONLY</b> time you can see your private key. Please save it to your local device safely.
       </div>
-      <div class="form-group text-center m-t-20" v-if="!wallet_generated">
+      <div class="form-group text-center mt-4" v-if="!wallet_generated">
         <div class="col-xs-12">
           <button class="btn btn-primary" @click="generateWallet()">Generate Wallet</button>
         </div>
@@ -351,7 +350,7 @@
         <h4>Private Key</h4>
         <p style="word-break:break-all;">{{new_wallet_private_key}}</p>
         <hr>
-        <div class="form-group text-center m-t-20">
+        <div class="form-group text-center mt-4">
           <div class="col-xs-12" v-if="!pdf_saved">
             <button class="btn btn-primary" @click="saveKeyAsPDF()">Save as PDF</button>
           </div>
@@ -441,7 +440,7 @@
             this.error_message = error.data.error
           })
       },
-      addPhone() {
+      sendPhoneCode() {
         if (!this.phone_number) {
           this.error_message = 'Phone number cannot be empty.'
           return
