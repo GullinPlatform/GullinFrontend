@@ -134,7 +134,7 @@ const actions = {
                     from_address: wallet_address,
                     from_address_type: 'MY_WALLET',
                     from_address_note: 'My Wallet',
-                    to_address: tx.topics[2].replace('0x000000000000000000000000', '0x'),
+                    to_address: web3.utils.toChecksumAddress(tx.topics[2].replace('0x000000000000000000000000', '0x')),
                     value: web3.utils.hexToNumberString(tx.data) / (10 ** token.decimals),
                     value_unit: token.token_code,
                     tx_hash: tx.transactionHash,
@@ -145,7 +145,7 @@ const actions = {
                     wallet: state.wallet.id,
                     type: 'RECEIVE',
                     datetime: moment.unix(web3.utils.hexToNumberString(tx.timeStamp)).format('YYYY-MM-DD HH:mm:ss'),
-                    from_address: tx.topics[1].replace('0x000000000000000000000000', '0x'),
+                    from_address: web3.utils.toChecksumAddress(tx.topics[1].replace('0x000000000000000000000000', '0x')),
                     to_address: wallet_address,
                     to_address_type: 'MY_WALLET',
                     to_address_note: 'My Wallet',
@@ -240,26 +240,29 @@ const actions = {
   sendToken({ commit }, data) {
     const contract = web3.eth.Contract(erc20_contract_abi).at(data.contract_address)
     const abi_data = contract.methods.transfer(data.contract_address, web3.utils.toWei(data.value, 'ether'), { from: data.from_address }).encodeABI()
-    const raw_transaction = {
-      from: state.wallet.eth_address,
-      to: data.contract_address,
-      data: abi_data,
-      gas: '100000',
-    }
 
-    web3.eth.accounts.signTransaction(raw_transaction, data.private_key)
-      .then((signed_transaction) => {
-        web3.eth.sendSignedTransaction(signed_transaction.rawTransaction)
-          .on('transactionHash', hash => {
-            console.log(hash)
+    return web3.eth.getTransactionCount(state.wallet.eth_address)
+      .then(nonce => {
+        const transaction_data = {
+          to: data.contract_address,
+          value: '0x00',
+          gasLimit: web3.utils.toHex('100000'),
+          gasPrice: web3.utils.toHex('20000000000'),
+          data: abi_data,
+          nonce: nonce,
+        }
+        const raw_transaction = new Tx(transaction_data)
+        const private_key = new Buffer(data.private_key.substring(2), 'hex')
+        raw_transaction.sign(private_key)
+        const signed_transaction = '0x' + raw_transaction.serialize().toString('hex')
+
+        return web3.eth.sendSignedTransaction(signed_transaction)
+          .then((receipt) => {
+            return Promise.resolve(receipt)
           })
-          .on('receipt', receipt => {
-            console.log(receipt)
+          .catch((error) => {
+            return Promise.reject(error)
           })
-          .on('confirmation', (confirmationNumber, receipt) => {
-            console.log(confirmationNumber, receipt)
-          })
-          .on('error', console.error);
       })
   },
 
