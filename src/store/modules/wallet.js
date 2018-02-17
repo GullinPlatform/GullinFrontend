@@ -229,11 +229,16 @@ const actions = {
 
         return web3.eth.sendSignedTransaction(signed_transaction)
           .then((receipt) => {
+            console.log(receipt)
             return Promise.resolve(receipt)
           })
           .catch((error) => {
+            console.log(error)
             return Promise.reject(error)
           })
+      })
+      .catch((error) => {
+        return Promise.reject(error)
       })
   },
 

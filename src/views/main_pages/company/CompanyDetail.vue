@@ -323,7 +323,7 @@
                 <span v-show="!tx_loading">Confirm</span>
               </button>
 
-              <router-link v-if="transaction_success" class="btn btn-primary" :to="{name:'wallet'}">
+              <router-link v-if="transaction_success" class="btn btn-primary" :to="{name:'wallet'}" data-dismiss="modal">
                 View Transaction
               </router-link>
             </div>
