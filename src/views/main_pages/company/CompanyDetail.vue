@@ -241,7 +241,7 @@
               </div>
               <div class="col-md-6">
                 <div class="alert alert-primary" v-if="!isRestricted()">
-                  You are investing in <b>{{current_company.name}}</b>, please make sure you are on the right page!
+                  You are participating in <b>{{current_company.name}}</b>, please make sure you are on the right page!
                 </div>
                 <div class="alert alert-danger" v-else-if="isRestricted()===1">
                   You must be verified through KYC in settings before you are able to participate in this Token Sale.<br>
@@ -295,11 +295,11 @@
                     <td><b>{{current_company.name}}</b></td>
                   </tr>
                   <tr>
-                    <td>Amount you are trying to invest</td>
+                    <td>Amount Sending</td>
                     <td><b>{{amount}} ETH</b></td>
                   </tr>
                   <tr>
-                    <td>Estimated transaction fee</td>
+                    <td>Estimated Transaction Fee</td>
                     <td><b>0.0002 ETH</b></td>
                   </tr>
                   <tr>
@@ -314,7 +314,7 @@
             </div>
             <div class="modal-footer">
               <button v-if="!show_invest_summary" type="button" class="btn" @click="investPreCheck()"
-                      :class="{'btn-secondary':isRestricted(), 'btn-primary':!isRestricted()}">Invest
+                      :class="{'btn-secondary':isRestricted(), 'btn-primary':!isRestricted()}">Participate
               </button>
 
               <button v-if="show_invest_summary&&!transaction_success" type="button" class="btn btn-secondary" @click="show_invest_summary=false">Back</button>
