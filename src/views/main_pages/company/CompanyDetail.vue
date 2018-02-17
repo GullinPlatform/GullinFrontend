@@ -222,19 +222,19 @@
                 </div>
                 <div class="row form-group">
                   <div class="col-md-12">
-                    <label class="control-label">ICO Destination</label>
+                    <label class="control-label">Token Sale Destination</label>
                     <input type="text" class="form-control" :value="current_token_detail.crowd_sale_contract_address" disabled>
                   </div>
                 </div>
                 <div class="row form-group">
                   <div class="col-md-12">
-                    <label class="control-label">Your Wallet Address</label>
+                    <label class="control-label">My Wallet Address</label>
                     <input type="text" class="form-control" :value="me_wallet.eth_address" disabled>
                   </div>
                 </div>
                 <div class="row form-group">
                   <div class="col-md-12">
-                    <label class="control-label">Your Private Key</label>
+                    <label class="control-label">My Private Key</label>
                     <input v-model="private_key" type="text" class="form-control" placeholder="Private Key" :disabled="isRestricted()">
                   </div>
                 </div>
@@ -415,7 +415,7 @@
         return moment(time).fromNow()
       },
       isRestricted() {
-        if (!is_login) return true
+        if (!this.is_login) return true
         // User if verified?
         if (this.verification_level < 4) return 1
         // Check restricted country
