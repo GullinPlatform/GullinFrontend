@@ -309,7 +309,7 @@
                   </tbody>
                 </table>
                 <p class="text-center text-success" v-show="transaction_success">Transaction Success!</p>
-                <p class="text-center text-danger" v-show="transaction_failed">Transaction Failed!</p>
+                <p class="text-center text-danger" v-show="transaction_failed">{{error_message}}</p>
               </div>
             </div>
             <div class="modal-footer">
@@ -352,6 +352,8 @@
         transaction_success: '',
         transaction_failed: '',
         tx_loading: false,
+
+        error_message: '',
       }
     },
     computed: {
@@ -438,13 +440,14 @@
       },
 
       sendEth() {
+        this.error_message = ''
         if (this.tx_loading) return
 
         this.tx_loading = true
 
         const form_data = {
           to_address: this.current_token_detail.crowd_sale_contract_address,
-          value: this.amount,
+          value: this.amount.toString(),
           private_key: this.private_key,
         }
         this.$store.dispatch('sendEth', form_data)
@@ -452,7 +455,8 @@
             this.transaction_success = true
             this.tx_loading = false
           })
-          .catch(() => {
+          .catch((error) => {
+            this.error_message = error.toString().split('\n')[0]
             this.transaction_failed = true
             this.tx_loading = false
           })
