@@ -81,7 +81,7 @@
                 <span class="text-danger" v-show="transaction_failed">{{ error_message }}</span>
                 <span class="text-success" v-show="transaction_success">Transaction Success!</span>
                 <div class="text-center">
-                  <button type="button" class="btn" :class="{'btn-secondary':tx_loading, 'btn-primary':!tx_loading}" @click="sendEth()">
+                  <button type="button" class="btn" :class="{'btn-secondary':tx_loading, 'btn-primary':!tx_loading}" @click="sendEthOrToken()">
                     <span v-show="tx_loading">Withdrawing</span>
                     <span v-show="!tx_loading">Withdraw</span>
                   </button>
@@ -225,7 +225,7 @@
       isAddress() {
         return web3.utils.isAddress(this.to_address)
       },
-      sendEth() {
+      sendEthOrToken() {
         this.error_message = ''
 
         if (this.tx_loading) return
@@ -234,24 +234,33 @@
         if (!this.isAddress()) {
           this.error_message = 'You are sending your ' + this.unit + ' to an invalid address!'
           this.transaction_failed = true
+          this.tx_loading = false
           return
         }
-        const form_data = {
-          to_address: this.to_address,
-          value: this.amount.toString(),
-          private_key: this.private_key,
+
+        if (this.unit === 'ETH') {
+          const form_data = {
+            to_address: this.to_address,
+            value: this.amount.toString(),
+            private_key: this.private_key,
+          }
+          this.$store.dispatch('sendEth', form_data)
+            .then(() => {
+              this.transaction_success = true
+              this.tx_loading = false
+            })
+            .catch((error) => {
+              console.log(error)
+              this.error_message = error.toString().split('\n')[0]
+              this.transaction_failed = true
+              this.tx_loading = false
+            })
         }
-        this.$store.dispatch('sendEth', form_data)
-          .then(() => {
-            this.transaction_success = true
-            this.tx_loading = false
-          })
-          .catch((error) => {
-            console.log(error)
-            this.error_message = error.toString().split('\n')[0]
-            this.transaction_failed = true
-            this.tx_loading = false
-          })
+        else {
+          this.error_message = 'Token withdraw are still in testing.'
+          this.transaction_failed = true
+          this.tx_loading = false
+        }
       },
     },
     created() {
