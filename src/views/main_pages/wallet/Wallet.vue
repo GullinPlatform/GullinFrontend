@@ -50,6 +50,7 @@
                 <div class="form-group row">
                   <div class="col-md-6">
                     <label for="field-1" class="control-label">Amount</label>
+                    <a href="#" class="pull-right" @click="amount=eth_balance">MAX</a>
                     <input v-model="amount" type="text" class="form-control" id="field-1" placeholder="0.00">
                   </div>
                   <div class="col-md-6">
@@ -77,9 +78,13 @@
                     <input v-model="private_key" type="text" class="form-control" placeholder="Private Key">
                   </div>
                 </div>
-                <span class="text-danger" v-show="error_message">{{ error_message }}</span>
+                <span class="text-danger" v-show="transaction_failed">{{ error_message }}</span>
+                <span class="text-success" v-show="transaction_success">Transaction Success!</span>
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary" @click="sendEth()">Withdraw</button>
+                  <button type="button" class="btn" :class="{'btn-secondary':tx_loading, 'btn-primary':!tx_loading}" @click="sendEth()">
+                    <span v-show="tx_loading">Withdrawing</span>
+                    <span v-show="!tx_loading">Withdraw</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -189,6 +194,10 @@
         to_address: '',
         private_key: '',
 
+        transaction_success: '',
+        transaction_failed: '',
+        tx_loading: '',
+
         error_message: '',
       }
     },
@@ -202,6 +211,12 @@
         verification_level: 'verification_level',
         eth_price: 'eth_price',
       }),
+      eth_balance() {
+        for (const balance of this.balances) {
+          if (balance.token.token_code === 'ETH')
+            return balance.balance
+        }
+      }
     },
     methods: {
       formatTime(time) {
@@ -211,16 +226,32 @@
         return web3.utils.isAddress(this.to_address)
       },
       sendEth() {
+        this.error_message = ''
+
+        if (this.tx_loading) return
+        this.tx_loading = true
+
         if (!this.isAddress()) {
           this.error_message = 'You are sending your ' + this.unit + ' to an invalid address!'
+          this.transaction_failed = true
           return
         }
         const form_data = {
-          to: this.to_address,
-          value: this.amount,
+          to_address: this.to_address,
+          value: this.amount.toString(),
           private_key: this.private_key,
         }
         this.$store.dispatch('sendEth', form_data)
+          .then(() => {
+            this.transaction_success = true
+            this.tx_loading = false
+          })
+          .catch((error) => {
+            console.log(error)
+            this.error_message = error.toString().split('\n')[0]
+            this.transaction_failed = true
+            this.tx_loading = false
+          })
       },
     },
     created() {

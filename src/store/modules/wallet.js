@@ -78,7 +78,7 @@ const actions = {
               from_address: wallet_address,
               from_address_type: 'MY_WALLET',
               from_address_note: 'My Wallet',
-              to_address: web3.utils.toChecksumAddress(tx.to),
+              to_address: tx.to ? web3.utils.toChecksumAddress(tx.to) : web3.utils.toChecksumAddress(tx.contractAddress),
               value: web3.utils.fromWei(tx.value.toString()),
               value_unit: 'ETH',
               tx_hash: tx.hash,
@@ -217,9 +217,9 @@ const actions = {
         const transaction_data = {
           to: data.to_address,
           value: web3.utils.toHex(web3.utils.toWei(data.value, 'ether')),
-          gasLimit: web3.utils.toHex('100000'),
-          gasPrice: web3.utils.toHex('20000000000'),
-          data: '0x00',
+          gasLimit: web3.utils.toHex('22000'),
+          gasPrice: web3.utils.toHex('10000000000'),
+          data: '0x',
           nonce: nonce,
         }
         const raw_transaction = new Tx(transaction_data)
@@ -229,11 +229,9 @@ const actions = {
 
         return web3.eth.sendSignedTransaction(signed_transaction)
           .then((receipt) => {
-            console.log(receipt)
             return Promise.resolve(receipt)
           })
           .catch((error) => {
-            console.log(error)
             return Promise.reject(error)
           })
       })
