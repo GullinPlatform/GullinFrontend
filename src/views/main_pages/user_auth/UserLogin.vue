@@ -117,9 +117,11 @@
 
         this.$store.dispatch('login', form_data)
           .then((response) => {
-            this.login_success = true
-            this.response = response.data
-            this.resetState()
+            if (response.data) {
+              this.login_success = true
+              this.response = response.data
+              this.resetState()
+            }
           })
           .catch(() => {
             this.error_message = 'Unable to login using provided email and password'

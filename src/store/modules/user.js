@@ -42,7 +42,7 @@ const actions = {
   login({ commit, dispatch }, form_data) {
     return userApi.login(form_data)
       .then((response) => {
-        commit(types.LOGIN_SUCCESS)
+        commit(types.LOGIN_SUCCESS, response)
         return Promise.resolve(response)
       })
       .catch(error => {
@@ -176,7 +176,13 @@ const actions = {
 // mutations
 const mutations = {
   // auth
-  [types.LOGIN_SUCCESS]() {
+  [types.LOGIN_SUCCESS](state, response) {
+    // If response does not contain data, then no need for 2 factor, else do nothing
+    if (!response.data) {
+      state.is_login = true
+      state.me = response
+      router.push({ name: 'dashboard' })
+    }
   },
 
   [types.LOGIN_FAILED](state) {
