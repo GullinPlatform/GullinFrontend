@@ -177,8 +177,8 @@ const actions = {
 const mutations = {
   // auth
   [types.LOGIN_SUCCESS](state, response) {
-    // If response does not contain data, then no need for 2 factor, else do nothing
-    if (!response.data) {
+    // If response has data field as 'success', then login directly
+    if (response.data === 'success') {
       state.is_login = true
       state.me = response
       router.push({ name: 'dashboard' })

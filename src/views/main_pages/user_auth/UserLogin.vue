@@ -117,7 +117,7 @@
 
         this.$store.dispatch('login', form_data)
           .then((response) => {
-            if (response.data) {
+            if (response.data !== 'success') {
               this.login_success = true
               this.response = response.data
               this.resetState()
