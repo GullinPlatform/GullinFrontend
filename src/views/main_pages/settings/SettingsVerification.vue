@@ -324,7 +324,7 @@
             <div class="form-group row justify-content-md-center mt-4">
               <div class=" col-lg-6">
                 <div class="alert alert-success">
-                  You have successfully submitted your identity verification application, we will reply to you in 24 hours.
+                  You have successfully submitted your identity verification application, please wait us up to 24 hours to process it.
                 </div>
               </div>
             </div>
@@ -334,7 +334,7 @@
           <div class="form-group row justify-content-md-center mt-4">
             <div class=" col-lg-6">
               <div class="alert alert-success">
-                You have successfully submitted your identity verification application, we will reply to you in 24 hours.
+                You have successfully submitted your identity verification application, please wait us up to 24 hours to process it.
               </div>
             </div>
           </div>
@@ -342,7 +342,7 @@
         <div class="tab-content px-3" v-if="verification_level>3">
           <div class="form-group row justify-content-md-center mt-4">
             <div class="col-xl-4 col-lg-6">
-              <div class="alert alert-success">
+              <div class="alert alert-success text-center">
                 Your identity has been verified.
               </div>
             </div>

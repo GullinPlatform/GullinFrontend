@@ -48,7 +48,7 @@
         </div>
         <div class="col-lg-4">
           <div class="card-box">
-            <h4 class="text-dark  header-title m-t-0 m-b-30">My Wallet
+            <h4 class="text-dark header-title m-t-0 m-b-30">My Wallet
               <div class="pull-right">
                 <router-link :to="{name:'wallet'}" class="text-primary">See All</router-link>
               </div>
@@ -111,13 +111,10 @@
         <!-- end col -8 -->
         <div class="col-lg-4">
           <div class="card-box">
-            <h4 class="text-dark header-title m-t-0 m-b-30">Press Releases</h4>
+            <h4 class="text-dark header-title">Press Releases</h4>
             <div class="inbox-widget">
               <a :href="release.url" target="_blank" v-for="(release, index) in press_releases" v-if="index<=4">
                 <div class="inbox-item">
-                  <div class="inbox-item-img text-dark">
-                    <i class="fa fa-file-text-o fa-3x"></i>
-                  </div>
                   <p class="inbox-item-author">{{release.title}}</p>
                   <p class="inbox-item-text">{{release.brief}} <span class="pull-right">{{timeFromNow(release.created)}}</span></p>
                 </div>

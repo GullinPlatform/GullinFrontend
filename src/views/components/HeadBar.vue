@@ -47,6 +47,10 @@
                   <i class="mdi mdi-verified"></i>
                   <span>Verification</span>
                 </router-link>
+                <a href="https://help.gullin.io" target="_blank" class="dropdown-item notify-item">
+                  <i class="mdi mdi-comment-question-outline"></i>
+                  <span>FAQ</span>
+                </a>
                 <!-- item-->
                 <hr class="m-0">
                 <!-- item-->

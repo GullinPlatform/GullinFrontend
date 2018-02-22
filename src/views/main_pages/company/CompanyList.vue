@@ -18,7 +18,7 @@
                   <router-link
                     :class="{active:$route.name==='token_sale_list_coming'}"
                     :to="{name:'token_sale_list_coming'}">
-                    Coming
+                    Upcoming
                   </router-link>
                 </li>
                 <li class="breadcrumb-item active">
