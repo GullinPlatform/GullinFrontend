@@ -241,6 +241,7 @@
                 <div class="row form-group">
                   <div class="col-10">
                     <label class="control-label">Amount</label>
+                    <a href="#" class="pull-right" @click="maxInvestAmount()">MAX</a>
                     <input v-model="amount" type="text" class="form-control" placeholder="0.00" :disabled="isRestricted()">
                   </div>
                   <label class="col-2 col-form-label mt-4">ETH</label>
@@ -286,6 +287,10 @@
                 <table class="table">
                   <tbody>
                   <tr>
+                    <td>My Balance</td>
+                    <td> <b>{{eth_balance}}</b> ETH</td>
+                  </tr>
+                  <tr>
                     <td>Price</td>
                     <td> {{current_token_detail.price}} ETH / {{current_token_detail.token_code}}</td>
                   </tr>
@@ -325,11 +330,11 @@
                   </tr>
                   <tr>
                     <td>Estimated Transaction Fee</td>
-                    <td><b>0.0002 ETH</b></td>
+                    <td><b>0.00021 ETH</b></td>
                   </tr>
                   <tr>
                     <td>Total amount</td>
-                    <td><b>{{(Number(amount) + Number('0.0002')).toFixed(4)}} ETH</b></td>
+                    <td><b>{{(Number(amount) + Number('0.00021')).toFixed(7)}} ETH</b></td>
                   </tr>
                   </tbody>
                 </table>
@@ -387,9 +392,16 @@
         current_company: 'current_company',
         current_token_detail: 'current_token_detail',
         me_wallet: 'me_wallet',
+        balances: 'balances',
         me: 'me',
         verification_level: 'verification_level',
       }),
+      eth_balance() {
+        for (const balance of this.balances) {
+          if (balance.token.token_code === 'ETH')
+            return balance.balance
+        }
+      }
     },
     methods: {
       getCompany(id) {
@@ -486,6 +498,16 @@
             this.tx_loading = false
           })
       },
+      maxInvestAmount() {
+        if (this.isRestricted()) return
+        if (this.eth_balance < 0.000021) {
+          this.transaction_failed = true
+          this.error_message = 'Your Balance is lower than 0.000021, which is the Minimal transaction fee for ETH.'
+        }
+        else {
+          this.amount = this.eth_balance - 0.000021
+        }
+      }
     },
     created() {
       if (this.$route.params.id) {

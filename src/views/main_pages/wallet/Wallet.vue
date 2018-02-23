@@ -50,7 +50,7 @@
                 <div class="form-group row">
                   <div class="col-md-6">
                     <label for="field-1" class="control-label">Amount</label>
-                    <a href="#" class="pull-right" @click="amount=eth_balance">MAX</a>
+                    <a href="#" class="pull-right" @click="maxWithdrawAmount()">MAX</a>
                     <input v-model="amount" type="text" class="form-control" id="field-1" placeholder="0.00">
                   </div>
                   <div class="col-md-6">
@@ -262,6 +262,15 @@
           this.tx_loading = false
         }
       },
+      maxWithdrawAmount() {
+        if (this.eth_balance < 0.00021) {
+          this.transaction_failed = true
+          this.error_message = 'Your Balance is lower than 0.00021, which is the Minimal transaction fee for ETH.'
+        }
+        else {
+          this.amount = this.eth_balance - 0.00021
+        }
+      }
     },
     created() {
       this.$store.dispatch('syncEthBalance')
