@@ -41,6 +41,7 @@
               Team
             </a>
           </li>
+
           <li class="nav-item">
             <a href="#tab4" data-toggle="tab" aria-expanded="false" class="nav-link">
               Documents
@@ -51,9 +52,22 @@
               Press Releases
             </a>
           </li>
+          <li class="nav-item">
+            <a href="#tab6" data-toggle="tab" aria-expanded="false" class="nav-link">
+              AMA with Gullin
+            </a>
+          </li>
         </ul>
         <div class="tab-content px-3">
           <div class="tab-pane fade show active" id="tab1">
+            <div class="row mb-3" v-if="current_company.youtube">
+              <div class="col-lg-12">
+                <div class="embed-responsive embed-responsive-21by9">
+                  <iframe :src="current_company.youtube" class="embed-responsive-item" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+
             <div v-html="current_company.description"></div>
             <div class="text-center">
               <a class="btn btn-primary text-white" :href="current_company.website" target="_blank">See More</a>
@@ -75,15 +89,15 @@
                   </tr>
                   <tr>
                     <td>Total Supply</td>
-                    <td> {{current_token_detail.total_token_supply}} {{current_token_detail.token_code}}</td>
+                    <td> {{current_token_detail.total_token_supply.toLocaleString()}} {{current_token_detail.token_code}}</td>
                   </tr>
                   <tr>
                     <td>Soft Market Cap</td>
-                    <td> {{current_token_detail.soft_market_cap}} {{current_token_detail.market_cap_unit}}</td>
+                    <td> {{current_token_detail.soft_market_cap.toLocaleString()}} {{current_token_detail.market_cap_unit}}</td>
                   </tr>
                   <tr>
                     <td>Hard Market Cap</td>
-                    <td> {{current_token_detail.hard_market_cap}} {{current_token_detail.market_cap_unit}}</td>
+                    <td> {{current_token_detail.hard_market_cap.toLocaleString()}} {{current_token_detail.market_cap_unit}}</td>
                   </tr>
                   <tr>
                     <td>Token Distribution</td>
@@ -98,7 +112,8 @@
                   <tbody>
                   <tr>
                     <td>Threshold (Min Investment Value)</td>
-                    <td> {{current_token_detail.threshold}} ETH</td>
+                    <td v-if="current_token_detail.threshold"> {{current_token_detail.threshold}} ETH</td>
+                    <td v-else> 0 ETH</td>
                   </tr>
                   <tr>
                     <td>Investor Restrictions</td>
@@ -202,6 +217,16 @@
               </a>
             </div>
           </div>
+          <div class="tab-pane fade" id="tab6" v-if="current_company.ama">
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe :src="current_company.ama" class="embed-responsive-item" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
       <!--begin::Modal-->
@@ -499,5 +524,28 @@
 
   .border-right {
     border-right: 1px solid rgba(54, 64, 74, 0.08);
+  }
+
+  .embed-responsive::before {
+    display: block;
+    content: ""
+  }
+
+  .embed-responsive .embed-responsive-item, .embed-responsive iframe, .embed-responsive embed, .embed-responsive object, .embed-responsive video {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0
+  }
+
+  .embed-responsive-21by9::before {
+    padding-top: 42.857143%
+  }
+
+  .embed-responsive-16by9::before {
+    padding-top: 56.25%
   }
 </style>
