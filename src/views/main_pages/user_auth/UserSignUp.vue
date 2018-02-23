@@ -42,7 +42,7 @@
             <div class="checkbox checkbox-primary">
               <input id="checkbox-signup" type="checkbox" v-model="check" v-validate="'required'">
               <label for="checkbox-signup">
-                I accept <a href="#">Terms and Conditions</a>
+                I accept <a target="_blank" href="https://gullin.io/terms.html">Terms and Conditions</a>
               </label>
             </div>
           </div>
