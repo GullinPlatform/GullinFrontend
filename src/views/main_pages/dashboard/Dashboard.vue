@@ -12,7 +12,23 @@
         </div>
       </div>
       <!-- end page title end breadcrumb -->
-
+      <div class="row" v-if="verification_level<2">
+        <div class="col-sm-12">
+          <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            You need to verify your identity before participating in Token Sales.
+            <router-link :to="{name:'settings_verification'}"><b>Verify Now</b></router-link>
+          </div>
+        </div>
+      </div>
+      <div class="row" v-if="verification_level===3">
+        <div class="col-sm-12">
+          <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            You have successfully submitted your identity verification application, please wait us up to 24 hours to process it
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-lg-8">
           <div class="card-box">
@@ -150,6 +166,7 @@
         balances: 'balances',
         transactions: 'transactions',
         press_releases: 'press_releases',
+        verification_level: 'verification_level',
       }),
     },
     methods: {
