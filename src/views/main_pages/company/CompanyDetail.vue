@@ -107,7 +107,7 @@
                 </table>
               </div>
               <div class="col-lg-6 col-md-12">
-                <h4 class="header-title ml-2 mb-3"><b>Investment Info</b></h4>
+                <h4 class="header-title ml-2 mb-3"><b>Token Info</b></h4>
                 <table class="table">
                   <tbody>
                   <tr>
@@ -234,7 +234,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Invest</h4>
+              <h4 class="modal-title">Participate</h4>
             </div>
             <div class="modal-body row" v-if="!show_invest_summary">
               <div class="col-md-6 border-right">
@@ -261,6 +261,7 @@
                 <div class="row form-group">
                   <div class="col-md-12">
                     <label class="control-label">My Private Key</label>
+                    <a href="#" class="pull-right">Where is it?</a>
                     <input v-model="private_key" type="text" class="form-control" placeholder="Private Key" :disabled="isRestricted()">
                   </div>
                 </div>

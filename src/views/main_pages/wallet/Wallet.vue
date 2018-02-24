@@ -75,6 +75,7 @@
                 <div class="form-group row">
                   <div class="col-md-12">
                     <label class="control-label">Your Private Key</label>
+                    <a href="#" class="pull-right">Where is it?</a>
                     <input v-model="private_key" type="text" class="form-control" placeholder="Private Key">
                   </div>
                 </div>
@@ -265,7 +266,7 @@
       maxWithdrawAmount() {
         if (this.eth_balance < 0.00021) {
           this.transaction_failed = true
-          this.error_message = 'Your Balance is lower than 0.00021, which is the Minimal transaction fee for ETH.'
+          this.error_message = 'Your Balance is lower than 0.00021, the minimal transaction fee for ETH.'
         }
         else {
           this.amount = this.eth_balance - 0.00021

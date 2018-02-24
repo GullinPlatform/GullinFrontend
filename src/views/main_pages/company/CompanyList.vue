@@ -49,7 +49,7 @@
             </router-link>
             <div class="card-body">
               <p class="card-text">{{company.short_description}}</p>
-              <router-link :to="{name: 'token_sale_detail', params:{id:company.name}}" class="btn btn-primary btn-block">See Detail</router-link>
+              <router-link :to="{name: 'token_sale_detail', params:{id:company.name}}" class="btn btn-primary btn-block">Participate</router-link>
             </div>
           </div>
         </div>
