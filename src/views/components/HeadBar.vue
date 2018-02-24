@@ -47,7 +47,7 @@
                   <i class="mdi mdi-verified"></i>
                   <span>Verification</span>
                 </router-link>
-                <a href="https://help.gullin.io" target="_blank" class="dropdown-item notify-item">
+                <a href="http://help.gullin.io" target="_blank" class="dropdown-item notify-item">
                   <i class="mdi mdi-comment-question-outline"></i>
                   <span>FAQ</span>
                 </a>
@@ -94,7 +94,7 @@
             </li>
             <li class="has-submenu" :class="{active: $route.name === 'token_sale_list' || $route.name === 'token_sale_detail'}">
               <router-link :to="{name:'token_sale_list'}">
-                <i class="ti-star"></i>Token Sales
+                <i class="ti-star"></i>Buy Tokens
               </router-link>
             </li>
 
