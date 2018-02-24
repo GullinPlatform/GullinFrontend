@@ -8,6 +8,7 @@ const state = {
   me: {},
   // other
   is_login: false,
+  logs: [],
 }
 
 // getters
@@ -26,6 +27,8 @@ const getters = {
     if (state.is_login) return state.me.first_name + ' ' + state.me.last_name
     return ''
   },
+  logs: state => state.logs,
+
 }
 
 // actions
@@ -92,6 +95,14 @@ const actions = {
     return userApi.updateMe(form_data)
       .then(() => {
         commit(types.UPDATE_ME)
+        return Promise.resolve()
+      })
+      .catch(error => Promise.reject(error))
+  },
+  getLog({ commit }) {
+    return userApi.getLog()
+      .then((response) => {
+        commit(types.LOAD_LOG, response)
         return Promise.resolve()
       })
       .catch(error => Promise.reject(error))
@@ -223,6 +234,9 @@ const mutations = {
     state.me = response
   },
   [types.UPDATE_ME]() {
+  },
+  [types.LOAD_LOG](state, response) {
+    state.logs = response
   },
   // Sign Up Follow Up
   [types.CONFIRM_EMAIL_SUCCESS]() {

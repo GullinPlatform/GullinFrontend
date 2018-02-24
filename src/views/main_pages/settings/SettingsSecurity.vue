@@ -27,7 +27,24 @@
           </li>
         </ul>
         <div class="tab-content px-3">
+          <h4 class="text-dark header-title my-3"><b>Logs</b></h4>
 
+          <table class="table" v-if="loaded">
+            <thead>
+            <tr>
+              <th>Time</th>
+              <th>Action</th>
+              <th>IP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="log in logs">
+              <td>{{log.datetime}}</td>
+              <td>{{log.action}}</td>
+              <td>{{log.ip}}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -41,21 +58,31 @@
     name: 'Settings',
     data() {
       return {
+        loaded: false,
       }
     },
     computed: {
       ...mapGetters({
         is_login: 'is_login',
-        verification_level: 'verification_level',
         me: 'me',
-        me_wallet: 'me_wallet',
-        me_phone: 'me_phone',
+        logs: 'logs',
       }),
     },
     methods: {
+      loadLog() {
+        this.$store.dispatch('getLog').then(() => {
+          this.loaded = true
+        })
+      }
     },
     created() {
+      this.loadLog()
     },
   }
 </script>
 
+<style scoped>
+  .tabs-bordered li a.router-link-exact-active {
+    border-bottom: 2px solid #2B2E58 !important;
+  }
+</style>

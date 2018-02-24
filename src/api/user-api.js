@@ -56,6 +56,9 @@ export default {
   updateMe(form_data) {
     return apiCall('patch', 'me/', form_data)
   },
+  getLog() {
+    return apiCall('get', 'me/log/')
+  },
 
   // Sign Up Follow Up
   confirmEmail(form_data) {
