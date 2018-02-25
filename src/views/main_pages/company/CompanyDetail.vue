@@ -52,7 +52,7 @@
               Press Releases
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="current_company.ama">
             <a href="#tab6" data-toggle="tab" aria-expanded="false" class="nav-link">
               AMA with Gullin
             </a>
@@ -175,14 +175,14 @@
                       <p class="text-muted">{{member.description}}</p>
                     </div>
                     <ul class="social-links list-inline mb-0">
-                      <li class="list-inline-item">
-                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                      <li class="list-inline-item" v-if="member.facebook">
+                        <a :href="member.facebook" target="_blank"><i class="fa fa-facebook"></i></a>
                       </li>
-                      <li class="list-inline-item">
-                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-linkedin"></i></a>
+                      <li class="list-inline-item" v-if="member.linkedin">
+                        <a :href="member.linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
                       </li>
-                      <li class="list-inline-item">
-                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-globe"></i></a>
+                      <li class="list-inline-item" v-if="member.website">
+                        <a :href="member.website" target="_blank"><i class="fa fa-globe"></i></a>
                       </li>
                     </ul>
                   </div>

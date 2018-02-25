@@ -45,6 +45,7 @@
             </tr>
             </tbody>
           </table>
+          <div class="text-center" v-if="!logs.length">No Logs</div>
         </div>
       </div>
     </div>
