@@ -51,38 +51,37 @@
           <button class="input-group-addon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{phone_country_code}}</button>
           <div class="dropdown-menu" style="z-index:10000;">
             <button class="dropdown-item" type="button" @click="phone_country_code='+93'; phone_country='Afghanistan'">Afghanistan +93</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+358'; phone_country='Aland Islands'">Aland Islands +358</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+355'; phone_country='Albania'">Albania +355</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+213'; phone_country='Algeria'">Algeria +213</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='American Samoa'">American Samoa +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-684'; phone_country='American Samoa'">American Samoa +1-684</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+376'; phone_country='Andorra'">Andorra +376</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+244'; phone_country='Angola'">Angola +244</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Anguilla'">Anguilla +1</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Antigua and Barbuda'">Antigua and Barbuda +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-264'; phone_country='Anguilla'">Anguilla +1-264</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+672'; phone_country='Antarctica'">Antarctica +672</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-268'; phone_country='Antigua & Barbuda'">Antigua & Barbuda +1-268</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+54'; phone_country='Argentina'">Argentina +54</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+374'; phone_country='Armenia'">Armenia +374</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+297'; phone_country='Aruba'">Aruba +297</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+61'; phone_country='Australia'">Australia +61</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+43'; phone_country='Austria'">Austria +43</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+994'; phone_country='Azerbaijan'">Azerbaijan +994</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Bahamas'">Bahamas +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-242'; phone_country='Bahamas'">Bahamas +1-242</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+973'; phone_country='Bahrain'">Bahrain +973</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+880'; phone_country='Bangladesh'">Bangladesh +880</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Barbados'">Barbados +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-246'; phone_country='Barbados'">Barbados +1-246</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+375'; phone_country='Belarus'">Belarus +375</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+32'; phone_country='Belgium'">Belgium +32</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+501'; phone_country='Belize'">Belize +501</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+229'; phone_country='Benin'">Benin +229</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Bermuda'">Bermuda +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-441'; phone_country='Bermuda'">Bermuda +1-441</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+975'; phone_country='Bhutan'">Bhutan +975</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+591'; phone_country='Bolivia'">Bolivia +591</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+599'; phone_country='Bonaire, Saint Eustatius and Saba '">Bonaire, Saint Eustatius and Saba +599</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+387'; phone_country='Bosnia and Herzegovina'">Bosnia and Herzegovina +387</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+387'; phone_country='Bosnia'">Bosnia +387</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+267'; phone_country='Botswana'">Botswana +267</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+55'; phone_country='Bouvet Island'">Bouvet Island +55</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+47'; phone_country='Bouvet Island'">Bouvet Island +47</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+55'; phone_country='Brazil'">Brazil +55</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+246'; phone_country='British Indian Ocean Territory'">British Indian Ocean Territory +246</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='British Virgin Islands'">British Virgin Islands +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-284'; phone_country='British Virgin Islands'">British Virgin Islands +1-284</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+673'; phone_country='Brunei'">Brunei +673</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+359'; phone_country='Bulgaria'">Bulgaria +359</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+226'; phone_country='Burkina Faso'">Burkina Faso +226</button>
@@ -91,28 +90,30 @@
             <button class="dropdown-item" type="button" @click="phone_country_code='+237'; phone_country='Cameroon'">Cameroon +237</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Canada'">Canada +1</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+238'; phone_country='Cape Verde'">Cape Verde +238</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Cayman Islands'">Cayman Islands +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+599'; phone_country='Caribbean Netherlands'">Caribbean Netherlands +599</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-345'; phone_country='Cayman Islands'">Cayman Islands +1-345</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+236'; phone_country='Central African Republic'">Central African Republic +236</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+235'; phone_country='Chad'">Chad +235</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+56'; phone_country='Chile'">Chile +56</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+86'; phone_country='China'">China +86</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+61'; phone_country='Christmas Island'">Christmas Island +61</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+61'; phone_country='Cocos Islands'">Cocos Islands +61</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+61'; phone_country='Cocos (Keeling) Islands'">Cocos (Keeling) Islands +61</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+57'; phone_country='Colombia'">Colombia +57</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+269'; phone_country='Comoros'">Comoros +269</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+242'; phone_country='Congo - Brazzaville'">Congo - Brazzaville +242</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+243'; phone_country='Congo - Kinshasa'">Congo - Kinshasa +243</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+682'; phone_country='Cook Islands'">Cook Islands +682</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+506'; phone_country='Costa Rica'">Costa Rica +506</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+385'; phone_country='Croatia'">Croatia +385</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+53'; phone_country='Cuba'">Cuba +53</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+599'; phone_country='Curacao'">Curacao +599</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+599'; phone_country='Curaçao'">Curaçao +599</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+357'; phone_country='Cyprus'">Cyprus +357</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+420'; phone_country='Czech Republic'">Czech Republic +420</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+243'; phone_country='Democratic Republic of the Congo'">Democratic Republic of the Congo +243</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+420'; phone_country='Czechia'">Czechia +420</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+225'; phone_country='Côte d’Ivoire'">Côte d’Ivoire +225</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+45'; phone_country='Denmark'">Denmark +45</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+253'; phone_country='Djibouti'">Djibouti +253</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Dominica'">Dominica +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-767'; phone_country='Dominica'">Dominica +1-767</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Dominican Republic'">Dominican Republic +1</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+670'; phone_country='East Timor'">East Timor +670</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+593'; phone_country='Ecuador'">Ecuador +593</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+20'; phone_country='Egypt'">Egypt +20</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+503'; phone_country='El Salvador'">El Salvador +503</button>
@@ -127,6 +128,7 @@
             <button class="dropdown-item" type="button" @click="phone_country_code='+33'; phone_country='France'">France +33</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+594'; phone_country='French Guiana'">French Guiana +594</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+689'; phone_country='French Polynesia'">French Polynesia +689</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+262'; phone_country='French Southern Territories'">French Southern Territories +262</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+241'; phone_country='Gabon'">Gabon +241</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+220'; phone_country='Gambia'">Gambia +220</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+995'; phone_country='Georgia'">Georgia +995</button>
@@ -135,16 +137,16 @@
             <button class="dropdown-item" type="button" @click="phone_country_code='+350'; phone_country='Gibraltar'">Gibraltar +350</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+30'; phone_country='Greece'">Greece +30</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+299'; phone_country='Greenland'">Greenland +299</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Grenada'">Grenada +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-473'; phone_country='Grenada'">Grenada +1-473</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+590'; phone_country='Guadeloupe'">Guadeloupe +590</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Guam'">Guam +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-671'; phone_country='Guam'">Guam +1-671</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+502'; phone_country='Guatemala'">Guatemala +502</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+44-'; phone_country='Guernsey'">Guernsey +44-</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+44'; phone_country='Guernsey'">Guernsey +44</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+224'; phone_country='Guinea'">Guinea +224</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+245'; phone_country='Guinea-Bissau'">Guinea-Bissau +245</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+592'; phone_country='Guyana'">Guyana +592</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+509'; phone_country='Haiti'">Haiti +509</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+ '; phone_country='Heard Island and McDonald Islands'">Heard Island and McDonald Islands +</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+672'; phone_country='Heard & McDonald Islands'">Heard & McDonald Islands +672</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+504'; phone_country='Honduras'">Honduras +504</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+852'; phone_country='Hong Kong'">Hong Kong +852</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+36'; phone_country='Hungary'">Hungary +36</button>
@@ -157,8 +159,7 @@
             <button class="dropdown-item" type="button" @click="phone_country_code='+44'; phone_country='Isle of Man'">Isle of Man +44</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+972'; phone_country='Israel'">Israel +972</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+39'; phone_country='Italy'">Italy +39</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+225'; phone_country='Ivory Coast'">Ivory Coast +225</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Jamaica'">Jamaica +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-876'; phone_country='Jamaica'">Jamaica +1-876</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+81'; phone_country='Japan'">Japan +81</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+44'; phone_country='Jersey'">Jersey +44</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+962'; phone_country='Jordan'">Jordan +962</button>
@@ -176,7 +177,7 @@
             <button class="dropdown-item" type="button" @click="phone_country_code='+423'; phone_country='Liechtenstein'">Liechtenstein +423</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+370'; phone_country='Lithuania'">Lithuania +370</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+352'; phone_country='Luxembourg'">Luxembourg +352</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+853'; phone_country='Macao'">Macao +853</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+853'; phone_country='Macau'">Macau +853</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+389'; phone_country='Macedonia'">Macedonia +389</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+261'; phone_country='Madagascar'">Madagascar +261</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+265'; phone_country='Malawi'">Malawi +265</button>
@@ -195,11 +196,11 @@
             <button class="dropdown-item" type="button" @click="phone_country_code='+377'; phone_country='Monaco'">Monaco +377</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+976'; phone_country='Mongolia'">Mongolia +976</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+382'; phone_country='Montenegro'">Montenegro +382</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Montserrat'">Montserrat +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-664'; phone_country='Montserrat'">Montserrat +1-664</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+212'; phone_country='Morocco'">Morocco +212</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+258'; phone_country='Mozambique'">Mozambique +258</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+95'; phone_country='Myanmar'">Myanmar +95</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+264 '; phone_country='Namibia'">Namibia +264</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+264'; phone_country='Namibia'">Namibia +264</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+674'; phone_country='Nauru'">Nauru +674</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+977'; phone_country='Nepal'">Nepal +977</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+31'; phone_country='Netherlands'">Netherlands +31</button>
@@ -211,89 +212,92 @@
             <button class="dropdown-item" type="button" @click="phone_country_code='+683'; phone_country='Niue'">Niue +683</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+672'; phone_country='Norfolk Island'">Norfolk Island +672</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+850'; phone_country='North Korea'">North Korea +850</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Northern Mariana Islands'">Northern Mariana Islands +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-670'; phone_country='Northern Mariana Islands'">Northern Mariana Islands +1-670</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+47'; phone_country='Norway'">Norway +47</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+968'; phone_country='Oman'">Oman +968</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+92'; phone_country='Pakistan'">Pakistan +92</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+680'; phone_country='Palau'">Palau +680</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+970'; phone_country='Palestinian Territory'">Palestinian Territory +970</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+970'; phone_country='Palestine'">Palestine +970</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+507'; phone_country='Panama'">Panama +507</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+675'; phone_country='Papua New Guinea'">Papua New Guinea +675</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+595'; phone_country='Paraguay'">Paraguay +595</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+51'; phone_country='Peru'">Peru +51</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+63'; phone_country='Philippines'">Philippines +63</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+870'; phone_country='Pitcairn'">Pitcairn +870</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+870'; phone_country='Pitcairn Islands'">Pitcairn Islands +870</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+48'; phone_country='Poland'">Poland +48</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+351'; phone_country='Portugal'">Portugal +351</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Puerto Rico'">Puerto Rico +1</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+974'; phone_country='Qatar'">Qatar +974</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+242'; phone_country='Republic of the Congo'">Republic of the Congo +242</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+262'; phone_country='Reunion'">Reunion +262</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+40'; phone_country='Romania'">Romania +40</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+7'; phone_country='Russia'">Russia +7</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+250'; phone_country='Rwanda'">Rwanda +250</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+590'; phone_country='Saint Barthelemy'">Saint Barthelemy +590</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+290'; phone_country='Saint Helena'">Saint Helena +290</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Saint Kitts and Nevis'">Saint Kitts and Nevis +1</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Saint Lucia'">Saint Lucia +1</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+590'; phone_country='Saint Martin'">Saint Martin +590</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+508'; phone_country='Saint Pierre and Miquelon'">Saint Pierre and Miquelon +508</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Saint Vincent and the Grenadines'">Saint Vincent and the Grenadines +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+262'; phone_country='Réunion'">Réunion +262</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+685'; phone_country='Samoa'">Samoa +685</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+378'; phone_country='San Marino'">San Marino +378</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+239'; phone_country='Sao Tome and Principe'">Sao Tome and Principe +239</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+966'; phone_country='Saudi Arabia'">Saudi Arabia +966</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+221'; phone_country='Senegal'">Senegal +221</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+381'; phone_country='Serbia'">Serbia +381</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+248'; phone_country='Seychelles'">Seychelles +248</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+232'; phone_country='Sierra Leone'">Sierra Leone +232</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+65'; phone_country='Singapore'">Singapore +65</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+599'; phone_country='Sint Maarten'">Sint Maarten +599</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-721'; phone_country='Sint Maarten'">Sint Maarten +1-721</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+421'; phone_country='Slovakia'">Slovakia +421</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+386'; phone_country='Slovenia'">Slovenia +386</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+677'; phone_country='Solomon Islands'">Solomon Islands +677</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+252'; phone_country='Somalia'">Somalia +252</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+27'; phone_country='South Africa'">South Africa +27</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+500'; phone_country='South Georgia & South Sandwich Islands'">South Georgia & South Sandwich Islands +500</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+82'; phone_country='South Korea'">South Korea +82</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+211'; phone_country='South Sudan'">South Sudan +211</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+34'; phone_country='Spain'">Spain +34</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+94'; phone_country='Sri Lanka'">Sri Lanka +94</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+590'; phone_country='St. Barthélemy'">St. Barthélemy +590</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+290'; phone_country='St. Helena'">St. Helena +290</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-869'; phone_country='St. Kitts & Nevis'">St. Kitts & Nevis +1-869</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-758'; phone_country='St. Lucia'">St. Lucia +1-758</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+590'; phone_country='St. Martin'">St. Martin +590</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+508'; phone_country='St. Pierre & Miquelon'">St. Pierre & Miquelon +508</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-784'; phone_country='St. Vincent & Grenadines'">St. Vincent & Grenadines +1-784</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+249'; phone_country='Sudan'">Sudan +249</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+597'; phone_country='Suriname'">Suriname +597</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+47'; phone_country='Svalbard and Jan Mayen'">Svalbard and Jan Mayen +47</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+47'; phone_country='Svalbard & Jan Mayen'">Svalbard & Jan Mayen +47</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+268'; phone_country='Swaziland'">Swaziland +268</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+46'; phone_country='Sweden'">Sweden +46</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+41'; phone_country='Switzerland'">Switzerland +41</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+963'; phone_country='Syria'">Syria +963</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+239'; phone_country='São Tomé & Príncipe'">São Tomé & Príncipe +239</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+886'; phone_country='Taiwan'">Taiwan +886</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+992'; phone_country='Tajikistan'">Tajikistan +992</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+255'; phone_country='Tanzania'">Tanzania +255</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+66'; phone_country='Thailand'">Thailand +66</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+670'; phone_country='Timor-Leste'">Timor-Leste +670</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+228'; phone_country='Togo'">Togo +228</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+690'; phone_country='Tokelau'">Tokelau +690</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+676'; phone_country='Tonga'">Tonga +676</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Trinidad and Tobago'">Trinidad and Tobago +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-868'; phone_country='Trinidad & Tobago'">Trinidad & Tobago +1-868</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+216'; phone_country='Tunisia'">Tunisia +216</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+90'; phone_country='Turkey'">Turkey +90</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+993'; phone_country='Turkmenistan'">Turkmenistan +993</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='Turks and Caicos Islands'">Turks and Caicos Islands +1</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-649'; phone_country='Turks & Caicos Islands'">Turks & Caicos Islands +1-649</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+688'; phone_country='Tuvalu'">Tuvalu +688</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1-340'; phone_country='U.S. Virgin Islands'">U.S. Virgin Islands +1-340</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+44'; phone_country='United Kingdom'">United Kingdom +44</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='United States'">United States +1</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+256'; phone_country='Uganda'">Uganda +256</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+380'; phone_country='Ukraine'">Ukraine +380</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+971'; phone_country='United Arab Emirates'">United Arab Emirates +971</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+44'; phone_country='United Kingdom'">United Kingdom +44</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='United States'">United States +1</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+1'; phone_country='United States Minor Outlying Islands'">United States Minor Outlying Islands +1</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+598'; phone_country='Uruguay'">Uruguay +598</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+998'; phone_country='Uzbekistan'">Uzbekistan +998</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+678'; phone_country='Vanuatu'">Vanuatu +678</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+379'; phone_country='Vatican'">Vatican +379</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+39-06'; phone_country='Vatican City'">Vatican City +39-06</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+58'; phone_country='Venezuela'">Venezuela +58</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+84'; phone_country='Vietnam'">Vietnam +84</button>
-            <button class="dropdown-item" type="button" @click="phone_country_code='+681'; phone_country='Wallis and Futuna'">Wallis and Futuna +681</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+681'; phone_country='Wallis & Futuna'">Wallis & Futuna +681</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+212'; phone_country='Western Sahara'">Western Sahara +212</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+967'; phone_country='Yemen'">Yemen +967</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+260'; phone_country='Zambia'">Zambia +260</button>
             <button class="dropdown-item" type="button" @click="phone_country_code='+263'; phone_country='Zimbabwe'">Zimbabwe +263</button>
+            <button class="dropdown-item" type="button" @click="phone_country_code='+358'; phone_country='Åland Islands'">Åland Islands +358</button>
           </div>
           <input type="text" class="form-control" placeholder="Phone Number" v-model="phone_number" @keyup.enter="sendPhoneCode()">
         </div>
