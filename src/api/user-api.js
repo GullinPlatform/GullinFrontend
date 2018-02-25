@@ -76,6 +76,9 @@ export default {
   uploadID(form_data) {
     return apiCall('post', 'verify/upload_id/', form_data)
   },
+  accreditedInvestorVerification() {
+    return apiCall('post', 'verify/aiv/')
+  },
 
 
   // resendConfirmEmail(form_data) {

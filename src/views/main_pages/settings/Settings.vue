@@ -67,10 +67,34 @@
                             'text-success':me.verification_level>=4}">
                   <b v-if="me.verification_level===2">Not Verified</b>
                   <b v-else-if="me.verification_level===3">Verifying</b>
-                  <b v-else-if="me.verification_level===4">ID Verified</b>
+                  <span v-else-if="me.verification_level===4"><b>ID Verified</b>
+                    <a href="#" data-toggle="modal" data-target="#aiv_modal" v-if="me.nationality==='United States'"><br>Apply for Accredited Investor</a>
+                  </span>
                   <b v-else-if="me.verification_level===5">Accredited Investor Processing</b>
                   <b v-else-if="me.verification_level===6">Accredited Investor Verified</b>
                 </p>
+                <!--begin::Modal-->
+                <div id="aiv_modal" v-if="is_login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Accredited Investor Verification</h4>
+                      </div>
+                      <div class="modal-body">
+                        <h4>What is Accredited Investor?</h4>
+                        <p>Accredited Investor is</p>
+                        <h4>How do I know I qualify?</h4>
+                        <p>Accredited Investor is</p>
+                        <hr>
+                        <div class="text-center">
+                          <button type="button" class="btn btn-primary mr-3" @click="accreditedInvestorVerification()">Apply</button>
+                          <button type="button" data-trigal class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div>
+                <!--end::Modal-->
               </div>
             </div>
             <div class="form-group row">
@@ -387,8 +411,14 @@
               this.address_error_message = error.data.error
             })
         })
-
       },
+      accreditedInvestorVerification() {
+        this.$store.dispatch('accreditedInvestorVerification')
+          .then(() => {
+            this.$store.dispatch('getMe')
+            $('#aiv_modal').modal('toggle');
+          })
+      }
     },
     created() {
       this.first_name = this.me.first_name

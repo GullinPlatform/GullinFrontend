@@ -151,6 +151,11 @@ const actions = {
       })
       .catch(error => Promise.reject(error))
   },
+  accreditedInvestorVerification() {
+    return userApi.accreditedInvestorVerification()
+      .then(() => Promise.resolve())
+      .catch(error => Promise.reject(error))
+  },
   changePassword({}, form_data) {
     return userApi.changePassword(form_data)
       .then(() => Promise.resolve())
