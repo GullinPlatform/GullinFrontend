@@ -100,11 +100,13 @@
                   </tr>
                   <tr>
                     <td>Soft Market Cap</td>
-                    <td> {{current_token_detail.soft_market_cap.toLocaleString()}} {{current_token_detail.market_cap_unit}}</td>
+                    <td v-if="current_token_detail.soft_market_cap"> {{current_token_detail.soft_market_cap.toLocaleString()}} {{current_token_detail.market_cap_unit}}</td>
+                    <td v-else>None</td>
                   </tr>
                   <tr>
                     <td>Hard Market Cap</td>
-                    <td> {{current_token_detail.hard_market_cap.toLocaleString()}} {{current_token_detail.market_cap_unit}}</td>
+                    <td v-if="current_token_detail.hard_market_cap"> {{current_token_detail.hard_market_cap.toLocaleString()}} {{current_token_detail.market_cap_unit}}</td>
+                    <td v-else>None</td>
                   </tr>
                   <tr>
                     <td>Token Distribution</td>
@@ -233,7 +235,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
       <!--begin::Modal-->
@@ -277,6 +278,9 @@
                 <div class="alert alert-primary" v-if="!isRestricted()">
                   You are participating in <b>{{current_company.name}}</b>, please make sure you are on the right page!
                 </div>
+                <div class="alert alert-danger" v-else-if="isRestricted()===4">
+                  This Token Sale is ended.<br>
+                </div>
                 <div class="alert alert-danger" v-else-if="isRestricted()===1">
                   You must be verified through KYC in settings before you are able to participate in this Token Sale.<br>
                   <b>
@@ -296,7 +300,7 @@
                   <tbody>
                   <tr>
                     <td>My Balance</td>
-                    <td> <b>{{eth_balance}}</b> ETH</td>
+                    <td><b>{{eth_balance}}</b> ETH</td>
                   </tr>
                   <tr>
                     <td>Price</td>
@@ -440,7 +444,7 @@
           if (rest === '0 hours ') {
             rest = -moment().diff(start, 'minutes') + ' minutes '
           }
-          return 'Start in ' + rest
+          return 'Starts in ' + rest
         }
         // Started
         else if (moment().diff(end, 'minutes') < 0) {
@@ -451,7 +455,7 @@
           if (rest === '0 hours ') {
             rest = -moment().diff(end, 'minutes') + ' minutes '
           }
-          return 'End in ' + rest
+          return 'Ends in ' + rest
         }
         // Ended
         else {
@@ -472,6 +476,8 @@
         if (!this.is_login) return true
         // User if verified?
         if (this.verification_level < 4) return 1
+        // Check date
+        if (this.timeCounter(this.current_company.token_detail.start_datetime, this.current_company.token_detail.end_datetime).includes('Ended')) return 4
         // Check restricted country
         const restricted_country_list = JSON.parse(this.current_token_detail.restricted_country_list)
         if (restricted_country_list.indexOf(this.me.nationality) >= 0) return 2
@@ -529,6 +535,15 @@
         this.getCompany(this.$route.params.id)
       }
     },
+    watch: {
+      'loading': function () {
+        if (!this.loading && this.$route.query.p) {
+          setTimeout(function () {
+            $('#invest_modal').modal('toggle')
+          }, 500)
+        }
+      }
+    }
   }
 
 </script>
