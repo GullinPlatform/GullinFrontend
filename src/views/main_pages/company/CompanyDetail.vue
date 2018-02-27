@@ -346,6 +346,9 @@
                   </tr>
                   </tbody>
                 </table>
+                <p class="text-center" v-show="tx_loading"><spinner></spinner>
+                  Sending transaction, it may take 1-5 minutes to get the confirmation message. (Closing browser will not interrupt the transaction)
+                </p>
                 <p class="text-center text-success" v-show="transaction_success">Transaction Success!</p>
                 <p class="text-center text-danger" v-show="transaction_failed">{{error_message}}</p>
               </div>
@@ -376,9 +379,13 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import Spinner from '../../components/Spinner'
 
   export default {
     name: 'TokenSaleDetail',
+    components: {
+      Spinner
+    },
     data() {
       return {
         loading: true,
