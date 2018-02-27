@@ -13,7 +13,14 @@
           <div class="col-md-9 col-sm-12">
             <img :src="current_company.logo">
             <div class="wid-u-info">
-              <h5 class="mt-0 m-b-5 font-16"> {{current_company.name}}</h5>
+              <h5 class="mt-0 m-b-5 font-16"> {{current_company.name}}
+                <span class="badge badge-primary ml-1" v-if="current_company.token_detail.ico_stage_type === 0">Pre-Sale</span>
+                <span class="badge badge-primary" v-else>Crowd-Sale</span>
+
+                <span class="badge badge-info" v-if="timeCounter(current_company.token_detail.start_datetime, current_company.token_detail.end_datetime).includes('Starts')">Upcoming</span>
+                <span class="badge badge-success" v-else-if="timeCounter(current_company.token_detail.start_datetime, current_company.token_detail.end_datetime).includes('Ends')">Active</span>
+                <span class="badge badge-danger" v-else="timeCounter(current_company.token_detail.start_datetime, current_company.token_detail.end_datetime).includes('Ended')">Ended</span>
+              </h5>
               <p class="text-muted m-b-5 font-13">{{current_company.short_description}}</p>
               <small><b> {{timeCounter(current_company.token_detail.start_datetime,current_company.token_detail.end_datetime)}}</b></small>
             </div>
@@ -315,14 +322,14 @@
             </div>
             <div class="modal-body row justify-content-center" v-else>
               <div class="col-md-10">
-                <h4 class="text-center md-2"><b>Confirm</b></h4>
-                <div class="alert alert-primary">
+                <h4 class="text-center md-2"><b>Confirm Transaction</b></h4>
+                <div class="alert alert-primary text-center">
                   Please make sure everything is correct!
                 </div>
                 <table class="table">
                   <tbody>
                   <tr>
-                    <td>Token Sale</td>
+                    <td>Token Sale Name</td>
                     <td><b>{{current_company.name}}</b></td>
                   </tr>
                   <tr>
