@@ -82,9 +82,15 @@
                       </div>
                       <div class="modal-body">
                         <h4>What is Accredited Investor?</h4>
-                        <p>Accredited Investor is</p>
+                        <p>An “accredited investor” is a type of investor. Generally, sales of securities must be registered with the SEC unless an exemption is found. Some of the exemptions require
+                          sales to be made to accredited investors. Our application lists out the various categories of accredited investor. The Securities and Exchange Commission also has a helpful
+                          page on accredited investors here:
+                          <a target="_blank" href="https://www.investor.gov/additional-resources/news-alerts/alerts-bulletins/investor-bulletin-accredited-investors">https://www.investor.gov/additional-resources/news-alerts/alerts-bulletins/investor-bulletin-accredited-investors</a>
+                        </p>
                         <h4>How do I know I qualify?</h4>
-                        <p>Accredited Investor is</p>
+                        <p>You may qualify you have a income of $200K ($300K with spouse) in each of the last 2 years or have a net worth over $1M</p>
+                        <h4>What if am already verified?</h4>
+                        <p>That’s very helpful. It’ll help you understand our workflow. Unfortunately, because of the new laws applicable to fundraising, your status as an accredited investor must now be verified for certain types of securities offerings.</p>
                         <hr>
                         <div class="text-center">
                           <button type="button" class="btn btn-primary mr-3" @click="accreditedInvestorVerification()">Apply</button>
@@ -416,7 +422,7 @@
         this.$store.dispatch('accreditedInvestorVerification')
           .then(() => {
             this.$store.dispatch('getMe')
-            $('#aiv_modal').modal('toggle');
+            $('#aiv_modal').modal('hide')
           })
       }
     },

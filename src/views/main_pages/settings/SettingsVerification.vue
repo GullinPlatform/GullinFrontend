@@ -339,7 +339,28 @@
             </div>
           </div>
         </div>
-        <div class="tab-content px-3" v-if="verification_level>3">
+        <div class="tab-content px-3" v-if="verification_level===4">
+          <div class="form-group row justify-content-md-center mt-4">
+            <div class="col-xl-4 col-lg-6">
+              <div class="alert alert-success text-center">
+                Your identity has been verified.
+              </div>
+              <div class="text-center">
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#aiv_modal" v-if="me.verification_level===4&&me.nationality==='United States'">Apply for Accredited Investor</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content px-3" v-if="verification_level===5">
+          <div class="form-group row justify-content-md-center mt-4">
+            <div class="col-xl-4 col-lg-6">
+              <div class="alert alert-success text-center">
+                We have received your Accredited Investor verification request, you will shortly receive an email about how to proceed.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content px-3" v-if="verification_level===6">
           <div class="form-group row justify-content-md-center mt-4">
             <div class="col-xl-4 col-lg-6">
               <div class="alert alert-success text-center">
@@ -349,8 +370,36 @@
           </div>
         </div>
       </div>
-
     </div>
+    <!--begin::Modal-->
+    <div id="aiv_modal" v-if="is_login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Accredited Investor Verification</h4>
+          </div>
+          <div class="modal-body">
+            <h4>What is Accredited Investor?</h4>
+            <p>An “accredited investor” is a type of investor. Generally, sales of securities must be registered with the SEC unless an exemption is found. Some of the exemptions require
+              sales to be made to accredited investors. Our application lists out the various categories of accredited investor. The Securities and Exchange Commission also has a helpful
+              page on accredited investors here:
+              <a target="_blank" href="https://www.investor.gov/additional-resources/news-alerts/alerts-bulletins/investor-bulletin-accredited-investors">https://www.investor.gov/additional-resources/news-alerts/alerts-bulletins/investor-bulletin-accredited-investors</a>
+            </p>
+            <h4>How do I know I qualify?</h4>
+            <p>You may qualify you have a income of $200K ($300K with spouse) in each of the last 2 years or have a net worth over $1M</p>
+            <h4>What if am already verified?</h4>
+            <p>That’s very helpful. It’ll help you understand our workflow. Unfortunately, because of the new laws applicable to fundraising, your status as an accredited investor must now be verified
+              for certain types of securities offerings.</p>
+            <hr>
+            <div class="text-center">
+              <button type="button" class="btn btn-primary mr-3" @click="accreditedInvestorVerification()">Apply</button>
+              <button type="button" data-trigal class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+    <!--end::Modal-->
   </div>
 </template>
 
@@ -432,6 +481,13 @@
         else if (type === 'id_back') this.id_back = null
         else if (type === 'id_holding') this.id_holding = null
       },
+      accreditedInvestorVerification() {
+        this.$store.dispatch('accreditedInvestorVerification')
+          .then(() => {
+            this.$store.dispatch('getMe')
+            $('#aiv_modal').modal('hide')
+          })
+      }
     },
     created() {
       this.first_name = this.me.first_name
