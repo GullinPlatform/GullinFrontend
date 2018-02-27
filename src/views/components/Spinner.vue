@@ -9,7 +9,7 @@
         size: 30,
         depth: 6,
         speed: 1.0,
-        color: '#0da9ef',
+        color: '#2B2E58',
         sizeUnits: 'px',
         timeUnits: 's',
       }
