@@ -36,12 +36,19 @@
       </div>
       <!-- end page title end breadcrumb -->
 
-
       <div class="row">
         <div class="col-sm-6 col-lg-3 col-xs-12" v-for="company in company_list">
           <div class="card m-b-20">
             <div class="card-body">
-              <h4 class="card-title">{{company.name}}</h4>
+              <h4 class="card-title">
+                <router-link :to="{name: 'token_sale_detail', params:{id:company.name}}" class="text-primary">{{company.name}}</router-link>
+                <span class="badge badge-info pull-right ml-1" v-if="timeCounter(company.token_detail.start_datetime, company.token_detail.end_datetime).includes('Starts')">Upcoming</span>
+                <span class="badge badge-success pull-right ml-1" v-else-if="timeCounter(company.token_detail.start_datetime, company.token_detail.end_datetime).includes('Ends')">Active</span>
+                <span class="badge badge-danger pull-right ml-1" v-else="timeCounter(company.token_detail.start_datetime, company.token_detail.end_datetime).includes('Ended')">Ended</span>
+
+                <span class="badge badge-primary pull-right" v-if="company.token_detail.ico_stage_type === 0">Pre-Sale</span>
+                <span class="badge badge-primary pull-right" v-else>Crowd-Sale</span>
+              </h4>
               <h6 class="card-subtitle text-muted">{{timeCounter(company.token_detail.start_datetime, company.token_detail.end_datetime)}}</h6>
             </div>
             <router-link :to="{name: 'token_sale_detail', params:{id:company.name}}">
@@ -49,7 +56,7 @@
             </router-link>
             <div class="card-body">
               <p class="card-text">{{company.short_description}}</p>
-              <router-link :to="{name: 'token_sale_detail', params:{id:company.name}}" class="btn btn-primary btn-block">Participate</router-link>
+              <router-link :to="{name: 'token_sale_detail', params:{id:company.name}, query:{p:true}}" class="btn btn-primary btn-block">Participate</router-link>
             </div>
           </div>
         </div>
@@ -83,12 +90,26 @@
       }),
     },
     methods: {
-      loadCompanyList(type) {
+      loadCompanyList() {
         this.loading = true
-        this.$store.dispatch('listCompanies', type)
-          .then(() => {
-            this.loading = false
-          })
+        if (this.$route.name === 'token_sale_list_active' || this.$route.name === 'token_sale_list') {
+          this.$store.dispatch('listCompanies', 'active')
+            .then(() => {
+              this.loading = false
+            })
+        }
+        if (this.$route.name === 'token_sale_list_coming') {
+          this.$store.dispatch('listCompanies', 'coming')
+            .then(() => {
+              this.loading = false
+            })
+        }
+        if (this.$route.name === 'token_sale_list_all') {
+          this.$store.dispatch('listCompanies', 'all')
+            .then(() => {
+              this.loading = false
+            })
+        }
       },
       timeCounter(start, end) {
         /* global moment:true */
@@ -101,7 +122,7 @@
           if (rest === '0 hours ') {
             rest = -moment().diff(start, 'minutes') + ' minutes '
           }
-          return 'Start in ' + rest
+          return 'Starts in ' + rest
         }
         // Started
         else if (moment().diff(end, 'minutes') < 0) {
@@ -112,7 +133,7 @@
           if (rest === '0 hours ') {
             rest = -moment().diff(end, 'minutes') + ' minutes '
           }
-          return 'End in ' + rest
+          return 'Ends in ' + rest
         }
         // Ended
         else {
@@ -128,16 +149,13 @@
       },
     },
     created() {
-      if (this.$route.name === 'token_sale_list_active') {
-        this.loadCompanyList('active')
-      }
-      if (this.$route.name === 'token_sale_list_coming') {
-        this.loadCompanyList('coming')
-      }
-      if (this.$route.name === 'token_sale_list_all' || this.$route.name === 'token_sale_list') {
-        this.loadCompanyList('all')
-      }
+      this.loadCompanyList()
     },
+    watch: {
+      '$route': function () {
+        this.loadCompanyList()
+      }
+    }
   }
 </script>
 
