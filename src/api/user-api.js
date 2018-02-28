@@ -48,7 +48,15 @@ export default {
   refresh() {
     return apiCall('post', 'auth/refresh/')
   },
-
+  forgotPasswordSendCode(params) {
+    return apiCall('get', 'auth/forget_password/', {}, params)
+  },
+  forgotPasswordVerifyCode(form_data) {
+    return apiCall('post', 'auth/forget_password/', form_data)
+  },
+  forgotPasswordUpdate(form_data) {
+    return apiCall('patch', 'auth/forget_password/', form_data)
+  },
   // Account Detail
   getMe() {
     return apiCall('get', 'me/')

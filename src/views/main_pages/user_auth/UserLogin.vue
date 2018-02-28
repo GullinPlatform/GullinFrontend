@@ -35,8 +35,9 @@
 
         <div class="form-group row m-t-30">
           <div class="col-sm-7">
-            <a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot
-              password?</a>
+            <router-link :to="{name:'user_forget_password'}" class="text-muted"><i class="fa fa-lock m-r-5"></i>
+              Forget password?
+            </router-link>
           </div>
           <div class="col-sm-5 text-right">
             <router-link class="text-muted" :to="{name:'user_signup'}">

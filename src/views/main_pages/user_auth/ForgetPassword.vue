@@ -1,81 +1,183 @@
 <template>
-  <template>
-    <div class="m-grid m-grid--hor m-grid--root m-page">
-      <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-2" id="m_login"
-           style="background-image: url(../../../assets/app/media/img//bg/bg-3.jpg);">
-        <div class="m-grid__item m-grid__item--fluid	m-login__wrapper">
-          <div class="m-login__container">
-            <div class="m-login__logo">
-              <a href="#">
-                <img src="/static/media/img/logos/logo-1.png">
-              </a>
+  <div class="wrapper-page">
+    <div class="page-title-box d-xl-none"></div>
+    <div class="text-center">
+      <p class="logo-lg"><span> Password Recovery</span></p>
+    </div>
+    <div class="card-box" v-if="step===1">
+      <div class="alert alert-success">
+        Please input your phone number or email.
+      </div>
+      <div class="form-horizontal m-t-20">
+        <div class="form-group row">
+
+          <div class="col-12">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="mdi mdi-cellphone-iphone"></i> / <i class="mdi mdi-email"></i></span>
+              <input class="form-control" v-model="email_or_phone" placeholder="Phone / Email">
             </div>
-            <div class="m-login__forget-password">
-              <div class="m-login__head">
-                <h3 class="m-login__title">
-                  Forgotten Password ?
-                </h3>
-                <div class="m-login__desc">
-                  Enter your email to reset your password:
-                </div>
-              </div>
-              <form class="m-login__form m-form" action="">
-                <div class="form-group m-form__group">
-                  <input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
-                </div>
-                <div class="m-login__form-action">
-                  <button id="m_login_forget_password_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn m-login__btn--primaryr">
-                    Request
-                  </button>
-                  &nbsp;&nbsp;
-                  <button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom m-login__btn">
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
+          </div>
+        </div>
+
+        <div class="form-group text-center m-t-20">
+          <div class="col-xs-12">
+            <button class="btn btn-primary btn-custom w-md" @click="sendCode()" :disabled="!email_or_phone">
+              Send Code
+            </button>
+          </div>
+          <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
+        </div>
+
+        <div class="form-group row m-t-30">
+          <div class="col-sm-7">
+            <router-link class="text-muted" :to="{name:'user_login'}">
+              Login
+            </router-link>
+          </div>
+          <div class="col-sm-5 text-right">
+            <router-link class="text-muted" :to="{name:'user_signup'}">
+              Sign Up
+            </router-link>
           </div>
         </div>
       </div>
     </div>
-  </template>
+    <div class="card-box" v-if="step===2">
+      <div class="alert alert-success">
+        Please input the verification code you received.
+      </div>
+      <div class="form-horizontal m-t-20">
+        <div class="form-group m-b-5">
+          <div class="input-group">
+            <input class="form-control" placeholder="Enter Code" required="" v-model="code" @keyup.enter="verifyCode()">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-email btn-primary" @click="verifyCode()">Verify</button>
+            </span>
+          </div>
+          <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-box" v-if="step===3">
+      <div class="alert alert-success">
+        Please Create Your New Password
+      </div>
+      <div class="form-horizontal m-t-20">
+        <div class="form-group row">
+          <div class="col-12">
+            <div class="input-group">
+              <input class="form-control" type="password" name="password" v-model="new_password1" placeholder="Password">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-12">
+            <div class="input-group">
+              <input class="form-control" type="password" name="password" v-model="new_password2" placeholder="Repeat Password">
+            </div>
+          </div>
+        </div>
+        <div class="form-group text-center m-t-20">
+          <div class="col-xs-12">
+            <button class="btn btn-primary btn-custom w-md" @click="updatePassword()" :disabled="!new_password1||!new_password2">
+              Submit
+            </button>
+          </div>
+          <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-box" v-if="step===4">
+      <div class="alert alert-success">
+        You have successfully updated your password.
+      </div>
+      <div class="form-group text-center m-t-20">
+        <div class="col-xs-12">
+          <router-link :to="{name:'user_login'}" class="btn btn-primary btn-custom w-md">
+            Login
+          </router-link>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </template>
+
 <script>
+  import { SHA256 } from './../../../utils'
+
   export default {
     name: 'ForgetPassword',
-    head: {
-      title: {
-        inner: 'ICOToday',
-        complement: 'Forget Password',
-      }
-    },
     data() {
       return {
-        email: '',
-        sent: false,
+        step: 3,
+        email_or_phone: '',
+
+        code: '',
+
+        new_password1: '',
+        new_password2: '',
+
         error_message: '',
       }
     },
     methods: {
-      forgetPasswordSendEmail() {
-        if (!this.email) {
-          this.error_message = 'Please provide email'
-          return
+      sendCode() {
+        if (!this.email_or_phone) return
+
+        const params = {
+          u: this.email_or_phone,
         }
-        this.$store.dispatch('forgetPasswordSendEmail', this.email)
+
+        this.$store.dispatch('forgotPasswordSendCode', params)
           .then(() => {
-            this.sent = true
+            this.step = 2
+            this.error_message = ''
           })
-          .catch(() => {
-            this.loaded = true
-            this.error_message = 'We are unable to find the account with this email provided, are you sure you put the right email address?'
+          .catch((error) => {
+            this.error_message = error.data.error
+            this.email_or_phone = ''
           })
       },
-    },
-    computed: {
-      is_login() {
-        return this.$store.getters.is_login
+      verifyCode() {
+        if (!this.code) return
+
+        const form_data = {
+          verification_code: this.code,
+        }
+
+        this.$store.dispatch('forgotPasswordVerifyCode', form_data)
+          .then(() => {
+            this.step = 3
+            this.error_message = ''
+          })
+          .catch((error) => {
+            this.error_message = error.data.error
+            this.code = ''
+          })
+      },
+      updatePassword() {
+        if (!this.new_password1 || !this.new_password2) return
+        if (this.new_password1 !== this.new_password2) {
+          this.error_message = 'Passwords are different'
+          return
+        }
+
+        const form_data = {
+          password: SHA256(this.new_password1),
+        }
+
+        this.$store.dispatch('forgotPasswordUpdate', form_data)
+          .then(() => {
+            this.step = 4
+            this.error_message = ''
+          })
+          .catch((error) => {
+            this.error_message = error.data.error
+            this.code = ''
+          })
       },
     },
   }

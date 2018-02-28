@@ -53,8 +53,8 @@ const actions = {
         return Promise.reject(error)
       })
   },
-  login_2factor({ commit, dispatch }, form_data) {
-    return userApi.login_2factor(form_data)
+  login2factor({ commit, dispatch }, form_data) {
+    return userApi.login2factor(form_data)
       .then((response) => {
         commit(types.LOGIN_2FACTOR_SUCCESS, response)
         dispatch('getWallet').then(() => Promise.resolve())
@@ -81,7 +81,33 @@ const actions = {
         return Promise.reject(error)
       })
   },
-
+  forgotPasswordSendCode({ commit }, params) {
+    return userApi.forgotPasswordSendCode(params)
+      .then(() => {
+        return Promise.resolve()
+      })
+      .catch(error => {
+        return Promise.reject(error)
+      })
+  },
+  forgotPasswordVerifyCode({ commit },form_data) {
+    return userApi.forgotPasswordVerifyCode(form_data)
+      .then(() => {
+        return Promise.resolve()
+      })
+      .catch(error => {
+        return Promise.reject(error)
+      })
+  },
+  forgotPasswordUpdate({ commit },form_data) {
+    return userApi.forgotPasswordUpdate(form_data)
+      .then(() => {
+        return Promise.resolve()
+      })
+      .catch(error => {
+        return Promise.reject(error)
+      })
+  },
   // Load Data
   getMe({ commit }) {
     return userApi.getMe()
