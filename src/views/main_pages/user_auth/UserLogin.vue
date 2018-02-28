@@ -65,7 +65,7 @@
 
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
-            <button class="btn btn-primary btn-custom w-md" @click="login_2factor($event)" :disabled="!code">
+            <button class="btn btn-primary btn-custom w-md" @click="login2factor($event)" :disabled="!code">
               Verify
             </button>
           </div>
@@ -129,7 +129,7 @@
             this.password = ''
           })
       },
-      login_2factor(e) {
+      login2factor(e) {
         e.preventDefault()
         if (!this.code) return
 
@@ -137,7 +137,7 @@
           verification_code: this.code,
         }
 
-        this.$store.dispatch('login_2factor', form_data)
+        this.$store.dispatch('login2factor', form_data)
           .then(() => {
             this.resetState()
           })

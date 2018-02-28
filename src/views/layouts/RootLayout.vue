@@ -53,7 +53,7 @@
 
 
 <style>
-  @media (min-width: 1200px) {
+  @media (min-width: 1448px) {
     .container-fluid {
       width: 75%;
     }

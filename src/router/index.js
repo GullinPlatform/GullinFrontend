@@ -119,6 +119,11 @@ export default new Router({
     name: 'user_signup_followup',
     beforeEnter: isAuthenticatedAndNotVerified,
   }, {
+    path: '/forget_password',
+    component: UserForgetPasswordView,
+    name: 'user_forget_password',
+    beforeEnter: isNotAuthenticated,
+  }, {
     path: '/',
     component: DashboardView,
     name: 'dashboard',

@@ -126,7 +126,7 @@
                   </tr>
                   <tr>
                     <td>Investor Restrictions</td>
-                    <td> {{current_token_detail.restrictions}}</td>
+                    <td v-html="current_token_detail.restrictions"></td>
                   </tr>
                   <tr>
                     <td> Bonus</td>
@@ -350,7 +350,8 @@
                   </tr>
                   </tbody>
                 </table>
-                <p class="text-center" v-show="tx_loading"><spinner></spinner>
+                <p class="text-center" v-show="tx_loading">
+                  <spinner></spinner>
                   Sending transaction, it may take 1-5 minutes to get the confirmation message. (Closing browser will not interrupt the transaction)
                 </p>
                 <p class="text-center text-success" v-show="transaction_success">Transaction Success!</p>

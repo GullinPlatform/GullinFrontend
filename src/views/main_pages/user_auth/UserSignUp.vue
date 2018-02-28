@@ -130,12 +130,6 @@
         this.error_message = ''
         this.loading = false
       },
-      // onVerify(response) {
-      //   this.verified = response
-      // },
-      // onExpired() {
-      //   this.$refs.recaptcha.reset()
-      // },
     },
   }
 

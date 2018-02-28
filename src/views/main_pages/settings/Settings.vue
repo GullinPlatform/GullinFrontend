@@ -90,7 +90,8 @@
                         <h4>How do I know I qualify?</h4>
                         <p>You may qualify you have a income of $200K ($300K with spouse) in each of the last 2 years or have a net worth over $1M</p>
                         <h4>What if am already verified?</h4>
-                        <p>That’s very helpful. It’ll help you understand our workflow. Unfortunately, because of the new laws applicable to fundraising, your status as an accredited investor must now be verified for certain types of securities offerings.</p>
+                        <p>That’s very helpful. It’ll help you understand our workflow. Unfortunately, because of the new laws applicable to fundraising, your status as an accredited investor must now
+                          be verified for certain types of securities offerings.</p>
                         <hr>
                         <div class="text-center">
                           <button type="button" class="btn btn-primary mr-3" @click="accreditedInvestorVerification()">Apply</button>
@@ -267,23 +268,16 @@
                 </select>
               </div>
             </div>
-            <div class="form-group row m-1">
-              <label class="col-sm-3 col-form-label m-0"></label>
-              <div class="col-sm-9 p-0">
+            <div class="form-group row mt-2">
+              <label class="col-sm-3"></label>
+              <div class="col-xl-6 col-lg-8 ">
+                <button class="btn btn-primary" @click="update_personal_detail()" :disabled="verification_level>=3">Save</button>
+                <p class="text-success m-0">{{personal_detail_success_message}}</p>
+                <p class="text-danger m-0">{{personal_detail_error_message}}</p>
                 <p class="text-primary m-0" v-if="verification_level===3"><i class="fa fa-info-circle"></i> You cannot change your personal details because your identity is currently being verified.
                 </p>
                 <p class="text-primary m-0" v-else-if="verification_level>3"><i class="fa fa-info-circle"></i> You cannot change your personal details because your identity has been verified.
                 </p>
-              </div>
-
-            </div>
-
-            <div class="form-group row">
-              <label class="col-sm-3"></label>
-              <div class="col-xl-6 col-lg-8 ">
-                <button class="btn btn-primary" @click="update_personal_detail()">Save</button>
-                <p class="text-success m-0">{{personal_detail_success_message}}</p>
-                <p class="text-danger m-0">{{personal_detail_error_message}}</p>
               </div>
             </div>
 
