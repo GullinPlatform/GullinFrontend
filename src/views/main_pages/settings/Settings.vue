@@ -431,12 +431,12 @@
         this.birthday_month = b_array[1]
         this.birthday_day = b_array[2]
       }
-      if (this.me.address) {
-        this.address1 = this.me.address.address1
-        this.address2 = this.me.address.address2
-        this.city = this.me.address.city
-        this.state = this.me.address.state
-        this.zipcode = this.me.address.zipcode
+      if (this.me.address[0]) {
+        this.address1 = this.me.address[0].address1
+        this.address2 = this.me.address[0].address2
+        this.city = this.me.address[0].city
+        this.state = this.me.address[0].state
+        this.zipcode = this.me.address[0].zipcode
       }
     },
   }
