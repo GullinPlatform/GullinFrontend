@@ -269,7 +269,7 @@
                 <div class="row form-group">
                   <div class="col-md-12">
                     <label class="control-label">My Private Key</label>
-                    <a href="#" class="pull-right">Where is it?</a>
+                    <a href="https://gullin.zendesk.com/hc/en-us/articles/360001358553-Where-is-my-private-key-" target="_blank" class="pull-right">Where is it?</a>
                     <input v-model="private_key" type="text" class="form-control" placeholder="Private Key" :disabled="isRestricted()">
                   </div>
                 </div>

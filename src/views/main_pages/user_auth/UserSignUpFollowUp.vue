@@ -307,7 +307,9 @@
               Send Code
             </button>
           </div>
-          <span class="text-muted"> Why we need your phone?</span>
+          <a target="_blank" href="https://gullin.zendesk.com/hc/en-us/articles/360001369174-Why-do-we-need-your-phone-number-">
+            <span class="text-muted"> Why we need your phone?</span>
+          </a>
           <br>
           <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
         </div>
