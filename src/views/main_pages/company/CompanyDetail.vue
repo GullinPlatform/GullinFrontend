@@ -313,12 +313,13 @@
                   </tr>
                   <tr>
                     <td>Restrictions</td>
-                    <td v-if="current_token_detail.restrictions"> {{current_token_detail.restrictions}}</td>
+                    <td v-html="current_token_detail.restrictions" v-if="current_token_detail.restrictions"></td>
                     <td v-else> None</td>
                   </tr>
                   <tr>
                     <td> Bonus</td>
-                    <td v-html="current_token_detail.bonus"></td>
+                    <td v-html="current_token_detail.bonus" v-if="current_token_detail.bonus"></td>
+                    <td v-else> None</td>
                   </tr>
                   </tbody>
                 </table>
@@ -536,15 +537,15 @@
         this.getCompany(this.$route.params.id)
       }
     },
-    watch: {
-      'loading': function () {
-        if (!this.loading && this.$route.query.p) {
-          setTimeout(function () {
-            $('#invest_modal').modal('toggle')
-          }, 500)
-        }
-      }
-    }
+    // watch: {
+    //   'loading': function () {
+    //     if (!this.loading && this.$route.query.p) {
+    //       setTimeout(function () {
+    //         $('#invest_modal').modal('toggle')
+    //       }, 500)
+    //     }
+    //   }
+    // }
   }
 
 </script>

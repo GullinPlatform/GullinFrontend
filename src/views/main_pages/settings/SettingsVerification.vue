@@ -245,9 +245,9 @@
                 <label class="col-form-label">ID Type</label>
                 <select class="form-control" v-model="id_type">
                   <option value="">ID Type</option>
-                  <option value="photo_id">Photo ID</option>
-                  <option value="passport">Passport</option>
-                  <option value="driver_license">Driver License</option>
+                  <option value="ID">Photo ID</option>
+                  <option value="PP">Passport</option>
+                  <option value="DL">Driver License</option>
                 </select>
               </div>
               <div class="m-1 d-md-none"></div>

@@ -12,7 +12,7 @@
         </div>
       </div>
       <!-- end page title end breadcrumb -->
-      <div class="row" v-if="verification_level<2">
+      <div class="row" v-if="verification_level<=2">
         <div class="col-sm-12">
           <div class="alert alert-warning alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
