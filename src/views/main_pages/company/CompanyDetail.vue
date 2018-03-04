@@ -76,7 +76,7 @@
             </div>
 
             <div v-html="current_company.description"></div>
-            <div class="text-center">
+            <div class="text-center mt-3">
               <a class="btn btn-primary text-white" :href="current_company.website" target="_blank">See More</a>
             </div>
           </div>
