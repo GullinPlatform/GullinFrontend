@@ -38,7 +38,7 @@
 
       <div class="row">
         <div class="col-sm-6 col-lg-3 col-xs-12" v-for="company in company_list">
-          <div class="card m-b-20">
+          <div class="card company-card m-b-20">
             <div class="card-body">
               <h4 class="card-title">
                 <router-link :to="{name: 'token_sale_detail', params:{id:company.name}}" class="text-primary">{{company.name}}</router-link>
@@ -55,7 +55,7 @@
               <img class="card-img-top img-fluid" :src="company.display_img">
             </router-link>
             <div class="card-body">
-              <p class="card-text">{{company.short_description}}</p>
+              <div class="card-text company-text mb-2">{{company.short_description}}</div>
               <router-link :to="{name: 'token_sale_detail', params:{id:company.name}, query:{p:true}}" class="btn btn-primary btn-block">Participate</router-link>
             </div>
           </div>
@@ -162,5 +162,33 @@
 <style>
   .breadcrumb-item.active {
     color: #3bafda;
+  }
+  .company-card {
+    height: 28em;
+  }
+
+  .company-text {
+    height: 6em;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 1448px) {
+    .company-card {
+      height: 27em !important;
+    }
+    .company-text {
+      height: 4em !important;
+    }
+  }
+
+  @media (max-width: 990px) {
+    .company-card {
+      height: 32em !important;
+    }
+    .company-text {
+      height: 4em !important;
+    }
   }
 </style>
