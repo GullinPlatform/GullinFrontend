@@ -273,7 +273,7 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group row justify-content-md-center" v-if="id_type!='passport'">
+              <div class="form-group row justify-content-md-center" v-if="id_type!='PP'">
                 <div class="col-md-4">
                   <label class="col-form-label">Back of your ID</label>
                   <div class="dropzone-area" v-if="!id_back">
