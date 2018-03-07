@@ -34,7 +34,7 @@ const apiCall = (method, url, form_data, params) => {
 export default {
   listCompanies(type) {
     if (!type) {
-      return apiCall('get', 'list/all/')
+      return apiCall('get', 'list/default/')
     }
     return apiCall('get', 'list/' + type + '/')
   },

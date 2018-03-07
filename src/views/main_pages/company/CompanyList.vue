@@ -92,7 +92,14 @@
     methods: {
       loadCompanyList() {
         this.loading = true
-        if (this.$route.name === 'token_sale_list_active' || this.$route.name === 'token_sale_list') {
+
+        if (this.$route.name === 'token_sale_list') {
+          this.$store.dispatch('listCompanies', '')
+            .then(() => {
+              this.loading = false
+            })
+        }
+        if (this.$route.name === 'token_sale_list_active') {
           this.$store.dispatch('listCompanies', 'active')
             .then(() => {
               this.loading = false
@@ -163,6 +170,7 @@
   .breadcrumb-item.active {
     color: #3bafda;
   }
+
   .company-card {
     height: 28em;
   }
@@ -178,6 +186,7 @@
     .company-card {
       height: 27em !important;
     }
+
     .company-text {
       height: 4em !important;
     }
@@ -187,6 +196,7 @@
     .company-card {
       height: 32em !important;
     }
+
     .company-text {
       height: 4em !important;
     }
