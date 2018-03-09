@@ -28,6 +28,6 @@ export const app = new Vue({
   beforeCreate() {
     setInterval(function () {
       store.dispatch('refresh')
-    }, 100000)
+    }, 2400000)
   },
 })
