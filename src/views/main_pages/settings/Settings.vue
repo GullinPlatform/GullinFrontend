@@ -272,8 +272,6 @@
               <label class="col-sm-3 col-xs-12 col-form-label">Nationality</label>
               <div class="col-xl-3 col-lg-6">
                 <select class="form-control" v-model="nationality" :disabled="verification_level>2">
-                  <option value="">Choose Nationality</option>
-                  <option value="Taiwan">Taiwan</option>
                   <option value="Afghanistan">Afghanistan</option>
                   <option value="Albania">Albania</option>
                   <option value="Algeria">Algeria</option>
@@ -490,6 +488,7 @@
                   <option value="Sweden">Sweden</option>
                   <option value="Switzerland">Switzerland</option>
                   <option value="Syria">Syria</option>
+                  <option value="Taiwan">Taiwan</option>
                   <option value="Tajikistan">Tajikistan</option>
                   <option value="Thailand">Thailand</option>
                   <option value="Macedonia">Macedonia</option>
@@ -579,7 +578,6 @@
               <div class="col-xl-3 col-lg-6">
                 <select class="form-control" name="country" v-model="country" v-validate="'required'">
                   <option value="">Choose Country</option>
-                  <option value="Taiwan">Taiwan</option>
                   <option value="Afghanistan">Afghanistan</option>
                   <option value="Albania">Albania</option>
                   <option value="Algeria">Algeria</option>
@@ -796,6 +794,7 @@
                   <option value="Sweden">Sweden</option>
                   <option value="Switzerland">Switzerland</option>
                   <option value="Syria">Syria</option>
+                  <option value="Taiwan">Taiwan</option>
                   <option value="Tajikistan">Tajikistan</option>
                   <option value="Thailand">Thailand</option>
                   <option value="Macedonia">Macedonia</option>
