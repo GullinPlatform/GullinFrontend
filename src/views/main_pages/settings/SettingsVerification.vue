@@ -236,6 +236,8 @@
             <div class="form-group row justify-content-md-center mt-4">
               <div class="col-xl-4 col-lg-6">
                 <button class="btn btn-primary btn-block" @click="update_name_birthday()">Next Step</button>
+                <p class="text-danger">{{error_message}}</p>
+
               </div>
             </div>
           </div>
@@ -261,19 +263,16 @@
                       <i class="fa fa-cloud-upload"> </i>
                       <span>Drop file here or click to select</span>
                     </div>
-                    <input type="file" @change="onFileChange(type='id_front', $event)">
+                    <input type="file" accept="image/*" @change="onFileChange(type='id_front', $event)">
                   </div>
                   <div v-else>
-                    <button type="button" class="mb-1 btn btn-outline-secondary">{{id_front.name}}</button>
-                    <button type="button" class="mb-1 btn btn-outline-secondary" @click="removeFile(type='id_front')">
-              <span>
-                  <i class="fa fa-times"></i>
-              </span>
-                    </button>
+                    <button type="button" class="mb-1 btn btn-outline-secondary">{{id_front_file_name}}</button>
+                    <button type="button" class="mb-1 btn btn-outline-secondary" @click="removeFile(type='id_front')"><span><i class="fa fa-times"></i></span></button>
                   </div>
+                  <img id="id_front" :src="id_front" class="canvas">
                 </div>
               </div>
-              <div class="form-group row justify-content-md-center" v-if="id_type!='PP'">
+              <div class="form-group row justify-content-md-center" v-if="id_type!=='PP'">
                 <div class="col-md-4">
                   <label class="col-form-label">Back of your ID</label>
                   <div class="dropzone-area" v-if="!id_back">
@@ -281,16 +280,13 @@
                       <i class="fa fa-cloud-upload"> </i>
                       <span>Drop file here or click to select</span>
                     </div>
-                    <input type="file" @change="onFileChange(type='id_back', $event)">
+                    <input type="file" accept="image/*" @change="onFileChange(type='id_back', $event)">
                   </div>
                   <div v-else>
-                    <button type="button" class="mb-1 btn btn-outline-secondary">{{id_back.name}}</button>
-                    <button type="button" class="mb-1 btn btn-outline-secondary" @click="removeFile(type='id_back')">
-              <span>
-                  <i class="fa fa-times"></i>
-              </span>
-                    </button>
+                    <button type="button" class="mb-1 btn btn-outline-secondary">{{id_back_file_name}}</button>
+                    <button type="button" class="mb-1 btn btn-outline-secondary" @click="removeFile(type='id_back')"><span><i class="fa fa-times"></i></span></button>
                   </div>
+                  <img id="id_back" :src="id_back" class="canvas">
                 </div>
               </div>
               <div class="form-group row justify-content-md-center">
@@ -301,22 +297,20 @@
                       <i class="fa fa-cloud-upload"> </i>
                       <span>Drop file here or click to select</span>
                     </div>
-                    <input type="file" id="resume" @change="onFileChange(type='id_holding', $event)">
+                    <input type="file" accept="image/*" @change="onFileChange(type='id_holding', $event)">
                   </div>
                   <div v-else>
-                    <button type="button" class="mb-1 btn btn-outline-secondary">{{id_holding.name}}</button>
-                    <button type="button" class="mb-1 btn btn-outline-secondary" @click="removeFile(type='id_holding')">
-              <span>
-                  <i class="fa fa-times"></i>
-              </span>
-                    </button>
+                    <button type="button" class="mb-1 btn btn-outline-secondary">{{id_holding_file_name}}</button>
+                    <button type="button" class="mb-1 btn btn-outline-secondary" @click="removeFile(type='id_holding')"><span><i class="fa fa-times"></i></span></button>
                   </div>
+                  <img id="id_holding" :src="id_holding" class="canvas">
                 </div>
               </div>
             </div>
             <div class="form-group row justify-content-md-center mt-4">
               <div class="col-xl-4 col-lg-6">
                 <button class="btn btn-primary btn-block" :disabled="!id_type&&!id_holding" @click="upload_id()">Next Step</button>
+                <p class="text-danger">{{error_message}}</p>
               </div>
             </div>
           </div>
@@ -419,8 +413,11 @@
 
         id_type: '',
         id_front: '',
+        id_front_file_name: '',
         id_back: '',
+        id_back_file_name: '',
         id_holding: '',
+        id_holding_file_name: '',
 
         step: 1,
 
@@ -448,14 +445,15 @@
         this.$store.dispatch('updateMe', form_data)
           .then(() => {
             this.step += 1
+            this.error_message = ''
           })
           .catch((error) => {
             this.error_message = error.data.error
           })
       },
-
       upload_id() {
         if (!this.id_type && !this.id_holding) return
+        this.error_message = ''
 
         const form_data = new FormData()
         form_data.append('official_id_type', this.id_type)
@@ -468,19 +466,66 @@
           .then(() => {
             this.step += 1
           })
+          .catch((error) => {
+            this.error_message = error.data
+          })
       },
+
       onFileChange(type, e) {
-        const files = e.target.files || e.dataTransfer.files
-        if (!files.length) return
-        if (type === 'id_front') this.id_front = files[0]
-        else if (type === 'id_back') this.id_back = files[0]
-        else if (type === 'id_holding') this.id_holding = files[0]
+        // get file list by event listener
+        let files = e.target.files || e.dataTransfer.files
+        // if no files then return
+        if (!e.target.files && !e.dataTransfer.files) return
+        // else file is the first element in file list
+        const file = files[0]
+
+        // if file size is larger than 4mb, return and show error message
+        if (file.size >= 4000000) {
+          this.error_message = 'The image size is larger than the 4MB.'
+          return
+        } else if (file.size <= 400000) {
+          this.error_message = 'The image size is smaller than the 400KB.'
+          return
+        }
+        // init file reader for convert base64 data
+        const reader = new FileReader()
+        if (type === 'id_front') {
+          // convert image to base64 and save to id_front field
+          const self = this
+          reader.addEventListener('load', function () {
+            self.id_front = reader.result
+          }, false)
+          reader.readAsDataURL(file)
+          // file name
+          this.id_front_file_name = file.name
+        }
+        else if (type === 'id_back') {
+          // convert image to base64 and save to id_back field
+          const self = this
+          reader.addEventListener('load', function () {
+            self.id_back = reader.result
+          }, false)
+          reader.readAsDataURL(file)
+          // file name
+          this.id_back_file_name = file.name
+        }
+        else if (type === 'id_holding') {
+          // convert image to base64 and save to id_holding field
+          const self = this
+          reader.addEventListener('load', function () {
+            self.id_holding = reader.result
+          }, false)
+          reader.readAsDataURL(file)
+          // file name
+          this.id_holding_file_name = file.name
+        }
       },
       removeFile(type) {
         if (type === 'id_front') this.id_front = null
         else if (type === 'id_back') this.id_back = null
         else if (type === 'id_holding') this.id_holding = null
       },
+
       accreditedInvestorVerification() {
         this.$store.dispatch('accreditedInvestorVerification')
           .then(() => {
@@ -596,5 +641,9 @@
   .dropzone-text span {
     display: block;
     line-height: 1.9;
+  }
+
+  .canvas {
+    width: 100%;
   }
 </style>
