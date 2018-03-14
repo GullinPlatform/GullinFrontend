@@ -26,7 +26,17 @@
             </router-link>
           </li>
         </ul>
-        <div class="tab-content px-3" v-if="verification_level<3">
+        <div class="tab-content px-3" v-if="me_wallet.balances[0].balance<0.1">
+          <div class="form-group row justify-content-md-center mt-4">
+            <div class="col-xl-6 col-lg-6">
+              <div class="alert alert-warning text-center">
+                You must have at least 0.1 ETH in your wallet to perform the verification.<br>
+                <router-link :to="{name:'wallet'}"><b>Deposit Now</b></router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content px-3" v-else-if="verification_level<3">
           <div class="row justify-content-md-center">
             <div class="col-md-6">
               <div class="text-center">
@@ -884,7 +894,7 @@
             </div>
           </div>
         </div>
-        <div class="tab-content px-3 text-center" v-if="verification_level===3 ||step===4">
+        <div class="tab-content px-3 text-center" v-else-if="verification_level===3 ||step===4">
           <div class="form-group row justify-content-md-center mt-4">
             <div class=" col-lg-6">
               <div class="alert alert-success">
@@ -893,7 +903,7 @@
             </div>
           </div>
         </div>
-        <div class="tab-content px-3" v-if="verification_level===4">
+        <div class="tab-content px-3" v-else-if="verification_level===4">
           <div class="form-group row justify-content-md-center mt-4">
             <div class="col-xl-4 col-lg-6">
               <div class="alert alert-success text-center">
@@ -905,7 +915,7 @@
             </div>
           </div>
         </div>
-        <div class="tab-content px-3" v-if="verification_level===5">
+        <div class="tab-content px-3" v-else-if="verification_level===5">
           <div class="form-group row justify-content-md-center mt-4">
             <div class="col-xl-4 col-lg-6">
               <div class="alert alert-success text-center">
@@ -914,7 +924,7 @@
             </div>
           </div>
         </div>
-        <div class="tab-content px-3" v-if="verification_level===6">
+        <div class="tab-content px-3" v-else-if="verification_level===6">
           <div class="form-group row justify-content-md-center mt-4">
             <div class="col-xl-4 col-lg-6">
               <div class="alert alert-success text-center">
