@@ -107,8 +107,8 @@
               <tr v-for="balance in balances">
                 <td>{{balance.token.token_name}}</td>
                 <td>{{balance.token.token_code}}</td>
-                <td>{{Number(balance.balance).toFixed(3)}}</td>
-                <td>${{Number(eth_price*balance.balance*balance.token.price).toFixed(2)}}</td>
+                <td>{{Number(balance.balance).toFixed(4)}}</td>
+                <td>${{Number(eth_price*balance.balance*balance.token.price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}}</td>
                 <td>
                   <router-link v-if="balance.token.token_code !== 'ETH'" :to="{name:'token_sale_detail', params:{id:balance.token.token_code}}">Detail</router-link>
                 </td>
