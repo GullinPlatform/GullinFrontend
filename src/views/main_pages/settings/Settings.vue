@@ -546,37 +546,37 @@
               <label class="col-sm-3 col-xs-12 col-form-label">Street Address 1</label>
               <div class="col-xl-6 col-lg-8">
                 <input type="text" class="form-control" name="address1" placeholder="Street Address 1" v-model="address1"
-                       v-validate="'required'">
+                       v-validate="'required'" :disabled="verification_level===3">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-3 col-sm-5 col-xs-12 col-form-label">Street Address 2 (Optional)</label>
               <div class="col-xl-6 col-lg-8">
-                <input type="text" class="form-control" name="address2" placeholder="Street Address 2 (Optional)" v-model="address2">
+                <input type="text" class="form-control" name="address2" placeholder="Street Address 2 (Optional)" v-model="address2" :disabled="verification_level===3">
               </div>
             </div>
             <div class="form-group row" :class="{'has-danger': errors.has('city')}">
               <label class="col-sm-3 col-xs-12 col-form-label">City</label>
               <div class="col-xl-6 col-lg-8">
-                <input type="text" class="form-control" name="city" placeholder="City" v-model="city" v-validate="'required'">
+                <input type="text" class="form-control" name="city" placeholder="City" v-model="city" v-validate="'required'" :disabled="verification_level===3">
               </div>
             </div>
             <div class="form-group row" :class="{'has-danger': errors.has('state')}">
               <label class="col-sm-3 col-xs-12 col-form-label">State / Province</label>
               <div class="col-xl-6 col-lg-8">
-                <input type="text" class="form-control" name="state" placeholder="State / Province" v-model="state" v-validate="'required'">
+                <input type="text" class="form-control" name="state" placeholder="State / Province" v-model="state" v-validate="'required'" :disabled="verification_level===3">
               </div>
             </div>
             <div class="form-group row" :class="{'has-danger': errors.has('zipcode')}">
               <label class="col-sm-3 col-xs-12 col-form-label">Zip Code / Postcode</label>
               <div class="col-xl-6 col-lg-8">
-                <input type="text" class="form-control" name="zipcode" placeholder="Zip Code / Postcode" v-model="zipcode" v-validate="'required|numeric'">
+                <input type="text" class="form-control" name="zipcode" placeholder="Zip Code / Postcode" v-model="zipcode" v-validate="'required|numeric'" :disabled="verification_level===3">
               </div>
             </div>
             <div class="form-group row" :class="{'has-danger': errors.has('country')}">
               <label class="col-sm-3 col-xs-12 col-form-label">Country</label>
               <div class="col-xl-3 col-lg-6">
-                <select class="form-control" name="country" v-model="country" v-validate="'required'">
+                <select class="form-control" name="country" v-model="country" v-validate="'required'" :disabled="verification_level===3">
                   <option value="">Choose Country</option>
                   <option value="Afghanistan">Afghanistan</option>
                   <option value="Albania">Albania</option>
@@ -831,10 +831,12 @@
             </div>
             <div class="form-group row">
               <label class="col-sm-3"></label>
-              <div class="col-xl-6 col-lg-8">
-                <button class="btn btn-primary" @click="update_address()">Save</button>
+              <div class="col-xl-6 col-lg-8 ">
+                <button class="btn btn-primary" @click="update_address()" :disabled="verification_level===3">Save</button>
                 <p class="text-success m-0">{{address_success_message}}</p>
                 <p class="text-danger m-0">{{address_error_message}}</p>
+                <p class="text-primary m-0" v-if="verification_level===3"><i class="fa fa-info-circle"></i> You cannot change your address because your identity is currently being verified.
+                </p>
               </div>
             </div>
           </div>
