@@ -178,9 +178,6 @@
         const d = new Date()
         let hour = d.getHours()
         for (let i = 0; i < 24; i += 1) {
-          // let hour_with_label
-          // if (hour > 11) hour_with_label = hour + 'pm'
-          // else hour_with_label = hour + 'am'
           list_hours.unshift(hour + ':00')
           hour -= 1
           if (hour === -1) hour += 24
