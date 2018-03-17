@@ -817,7 +817,7 @@
               <div class="col-xl-6 col-md-10">
                 <label class="col-form-label">ID Type</label>
                 <select class="form-control" v-model="id_type">
-                  <option value="">ID Type</option>
+                  <option value="">-- Please Choice --</option>
                   <option value="ID">Photo ID</option>
                   <option value="PP">Passport</option>
                   <option value="DL">Driver License</option>
@@ -1100,8 +1100,8 @@
         if (file.size >= 4000000) {
           this.error_message = 'The image size is larger than the 4MB.'
           return
-        } else if (file.size <= 400000) {
-          this.error_message = 'The image size is smaller than the 400KB.'
+        } else if (file.size <= 100000) {
+          this.error_message = 'The image size is smaller than the 100KB.'
           return
         } else {
           this.error_message = ''
