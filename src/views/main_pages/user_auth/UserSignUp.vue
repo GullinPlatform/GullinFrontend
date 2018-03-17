@@ -9,12 +9,12 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group" :class="{'has-danger': errors.has('first_name')}">
-              <input class="form-control" type="text" name="first_name" placeholder="First Name" v-model="first_name" v-validate="'required|alpha_dash|alpha_spaces'">
+              <input class="form-control" type="text" name="first_name" placeholder="First Name" v-model="first_name" v-validate="'required'">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group" :class="{'has-danger': errors.has('last_name')}">
-              <input class="form-control" type="text" name="last_name" placeholder="Last Name" v-model="last_name" v-validate="'required|alpha_dash|alpha_spaces'">
+              <input class="form-control" type="text" name="last_name" placeholder="Last Name" v-model="last_name" v-validate="'required'">
             </div>
           </div>
         </div>
