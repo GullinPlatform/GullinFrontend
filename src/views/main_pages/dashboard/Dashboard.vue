@@ -221,7 +221,7 @@
                     },
                   }],
                 },
-                elements: { point: { radius: 2 } },
+                elements: { point: { radius: 1 } },
                 legend: { display: false },
                 tooltips: {
                   callbacks: {
