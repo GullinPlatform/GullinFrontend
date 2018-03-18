@@ -441,8 +441,7 @@
         verification_level: 'verification_level',
       }),
       level() {
-        // return this.verification_level + 2
-        return 3
+        return this.verification_level + 2
       },
     },
     methods: {
