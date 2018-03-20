@@ -92,7 +92,7 @@
                   </tr>
                   <tr>
                     <td>Price</td>
-                    <td> {{current_token_detail.price}} ETH</td>
+                    <td> {{current_token_detail.price}} {{current_token_detail.price_unit}}</td>
                   </tr>
                   <tr>
                     <td>Total Supply</td>
@@ -304,7 +304,7 @@
                   </tr>
                   <tr>
                     <td>Price</td>
-                    <td> {{current_token_detail.price}} ETH / {{current_token_detail.token_code}}</td>
+                    <td> {{current_token_detail.price}} {{current_token_detail.price_unit}} / {{current_token_detail.token_code}}</td>
                   </tr>
                   <tr>
                     <td>Threshold</td>
