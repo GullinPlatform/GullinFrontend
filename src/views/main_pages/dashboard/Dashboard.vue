@@ -25,7 +25,7 @@
         <div class="col-sm-12">
           <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            You have successfully submitted your identity verification application, please wait us up to 24 hours to process it
+            You have successfully submitted your identity verification application, please wait up to 24 hours to process it
           </div>
         </div>
       </div>

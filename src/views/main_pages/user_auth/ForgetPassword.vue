@@ -112,7 +112,7 @@
     name: 'ForgetPassword',
     data() {
       return {
-        step: 3,
+        step: 1,
         email_or_phone: '',
 
         code: '',
