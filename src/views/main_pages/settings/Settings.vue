@@ -44,8 +44,45 @@
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Password</label>
               <div class="col-xl-6 col-lg-8">
-                <button class="btn btn-outline-secondary">Change</button>
+                <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#change_password_modal">Change</button>
               </div>
+              <!--begin::Modal-->
+              <div id="change_password_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog h-100 d-flex flex-column justify-content-center my-0">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title text-center"><b>Change Password</b></h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row form-group">
+                        <div class="col-12">
+                          <label class="control-label">Current Password</label>
+                          <input v-model="current_password" type="password" class="form-control">
+                        </div>
+                      </div>
+                      <div class="row form-group">
+                        <div class="col-md-12">
+                          <label class="control-label">New Password</label>
+                          <input v-model="new_password" type="password" class="form-control">
+                        </div>
+                      </div>
+                      <div class="row form-group">
+                        <div class="col-md-12">
+                          <label class="control-label">New Password Repeat</label>
+                          <input v-model="new_password2" type="password" class="form-control">
+                        </div>
+                      </div>
+                      <div class="text-center">
+                        <button class="btn btn-primary" @click="change_password()">Change</button>
+                        <button class="btn btn-secondary ml-3" data-dismiss="modal">Cancel</button>
+                        <p class="text-success m-0 mt-1">{{change_password_success_message}}</p>
+                        <p class="text-danger m-0 mt-1">{{change_password_error_message}}</p>
+                      </div>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div>
+              <!--end::Modal-->
             </div>
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">ETH Address</label>
@@ -848,11 +885,16 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { SHA256 } from './../../../utils'
 
   export default {
     name: 'Settings',
     data() {
       return {
+        current_password: '',
+        new_password: '',
+        new_password2: '',
+
         first_name: '',
         last_name: '',
 
@@ -874,6 +916,9 @@
 
         personal_detail_success_message: '',
         personal_detail_error_message: '',
+
+        change_password_success_message: '',
+        change_password_error_message: '',
       }
     },
     computed: {
@@ -886,6 +931,33 @@
       }),
     },
     methods: {
+      change_password() {
+        if (this.new_password !== this.new_password2) {
+          this.change_password_error_message = 'New password doesn\'t match'
+          return
+        }
+
+        const form_data = {
+          current_password: SHA256(this.current_password),
+          new_password: SHA256(this.new_password),
+        }
+        this.$store.dispatch('changePassword', form_data)
+          .then(() => {
+            let sec = 3
+            const self = this
+            setInterval(function () {
+              self.change_password_success_message = 'Password updated, please login use your new password in ' + sec + ' seconds'
+              sec -= 1
+              if (sec === -1){
+                $('#change_password_modal').modal('hide')
+                self.$store.dispatch('logout')
+              }
+            }, 1000)
+          })
+          .catch(() => {
+            this.change_password_error_message = 'Wrong current password'
+          })
+      },
       update_personal_detail() {
         if (this.verification_level >= 3) return
         const form_data = {

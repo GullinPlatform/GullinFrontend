@@ -66,9 +66,7 @@ const actions = {
   },
   logout({ commit }) {
     return userApi.logout()
-      .then(() => {
-        commit(types.LOGOUT)
-      })
+      .then(() => commit(types.LOGOUT))
   },
   refresh({ commit }) {
     return userApi.refresh()
@@ -83,30 +81,24 @@ const actions = {
   },
   forgotPasswordSendCode({ commit }, params) {
     return userApi.forgotPasswordSendCode(params)
-      .then(() => {
-        return Promise.resolve()
-      })
-      .catch(error => {
-        return Promise.reject(error)
-      })
+      .then(() => Promise.resolve())
+      .catch(error => Promise.reject(error))
   },
-  forgotPasswordVerifyCode({ commit },form_data) {
+  forgotPasswordVerifyCode({ commit }, form_data) {
     return userApi.forgotPasswordVerifyCode(form_data)
-      .then(() => {
-        return Promise.resolve()
-      })
-      .catch(error => {
-        return Promise.reject(error)
-      })
+      .then(() => Promise.resolve())
+      .catch(error => Promise.reject(error))
   },
-  forgotPasswordUpdate({ commit },form_data) {
+  forgotPasswordUpdate({ commit }, form_data) {
     return userApi.forgotPasswordUpdate(form_data)
-      .then(() => {
-        return Promise.resolve()
-      })
-      .catch(error => {
-        return Promise.reject(error)
-      })
+      .then(() => Promise.resolve())
+      .catch(error => Promise.reject(error))
+  },
+  // Change Password
+  changePassword({ commit }, form_data) {
+    return userApi.changePassword(form_data)
+      .then(() => Promise.resolve())
+      .catch(error => Promise.reject(error))
   },
   // Load Data
   getMe({ commit }) {

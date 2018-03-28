@@ -67,6 +67,10 @@ export default {
   getLog() {
     return apiCall('get', 'me/log/')
   },
+  // Change Password
+  changePassword(form_data) {
+    return apiCall('post', 'me/change_password/', form_data)
+  },
 
   // Sign Up Follow Up
   confirmEmail(form_data) {
@@ -93,10 +97,6 @@ export default {
   //   return apiCall('post', 'email_verify/', form_data)
   // },
 
-  // Change Password
-  changePassword() {
-    return apiCall('get', 'change_pass/')
-  },
 
   // Forget Password
   forgetPasswordSendEmail(email) {
