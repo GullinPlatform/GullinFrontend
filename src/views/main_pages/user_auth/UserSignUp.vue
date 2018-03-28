@@ -83,6 +83,7 @@
         email: '',
         password: '',
         check: true,
+        refer_source: '',
 
         verified: '',
         error_message: '',
@@ -106,6 +107,7 @@
             first_name: this.first_name,
             last_name: this.last_name,
             verified: this.verified,
+            refer_source: this.refer_source,
           }
 
           this.$store.dispatch('signup', form_data)
@@ -131,6 +133,12 @@
         this.loading = false
       },
     },
+    mounted() {
+      if (this.$route.query.from) {
+        this.refer_source = this.$route.query.from
+      }
+      console.log(this.$route.query)
+    }
   }
 
 </script>
