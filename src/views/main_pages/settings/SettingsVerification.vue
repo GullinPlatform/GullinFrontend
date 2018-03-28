@@ -1071,9 +1071,9 @@
         this.uploading = true
         const form_data = new FormData()
         form_data.append('official_id_type', this.id_type)
-        form_data.append('official_id_front', this.id_front)
-        form_data.append('official_id_back', this.id_back)
-        form_data.append('user_holding_official_id', this.id_holding)
+        form_data.append('official_id_front_base64', this.id_front)
+        form_data.append('official_id_back_base64', this.id_back)
+        form_data.append('user_holding_official_id_base64', this.id_holding)
         form_data.append('investor_user', this.me.id)
 
         this.$store.dispatch('uploadID', form_data)
