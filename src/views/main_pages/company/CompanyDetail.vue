@@ -273,6 +273,11 @@
                     <input v-model="private_key" type="text" class="form-control" placeholder="Private Key" :disabled="isRestricted()">
                   </div>
                 </div>
+                <div class="text-center">
+                  <button v-if="!show_invest_summary" type="button" class="btn" @click="investPreCheck()"
+                          :class="{'btn-secondary':isRestricted(), 'btn-primary':!isRestricted()}">Participate
+                  </button>
+                </div>
               </div>
               <div class="col-md-6">
                 <div class="alert alert-primary" v-if="!isRestricted()">
@@ -360,10 +365,6 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button v-if="!show_invest_summary" type="button" class="btn" @click="investPreCheck()"
-                      :class="{'btn-secondary':isRestricted(), 'btn-primary':!isRestricted()}">Participate
-              </button>
-
               <button v-if="show_invest_summary&&!transaction_success" type="button" class="btn btn-secondary" @click="show_invest_summary=false">Back</button>
               <button v-if="show_invest_summary&&!transaction_success" type="button" class="btn" :class="{'btn-secondary':tx_loading, 'btn-primary':!tx_loading}" @click="sendEth()">
                 <span v-show="tx_loading">Sending Transaction</span>
