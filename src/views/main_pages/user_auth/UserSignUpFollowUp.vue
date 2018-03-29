@@ -340,7 +340,7 @@
     </div>
     <div class="card-box" v-else-if="level===3">
       <div class="alert alert-danger">
-        Notice: This is the <b>ONLY</b> time you can see your private key. Please save it to your local device safely.
+        IMPORTANT: This is the <b>ONLY</b> time you can see your <b>private key</b> on Gullin, and your wallet info is not stored on our server. Please save it safely.
       </div>
       <div class="form-group text-center mt-4" v-if="!wallet_generated">
         <div class="col-xs-12">
@@ -349,12 +349,13 @@
         <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
       </div>
       <div class="modal-body" v-else>
-        <h3>Your Wallet Info</h3>
+        <h3>Your Gullin Wallet</h3>
         <br>
-        <h4>Address</h4>
+        <h4>Address (Public Key)</h4>
         <p style="word-break:break-all;">{{new_wallet_address}}</p>
         <h4>Private Key</h4>
         <p style="word-break:break-all;">{{new_wallet_private_key}}</p>
+        <a target="_blank" href="https://gullin.zendesk.com/hc/en-us/articles/360002535234-What-are-public-and-private-keys-"><i class="fa fa-question-circle-o"></i> What is the public key and private key?</a>
         <hr>
         <div class="form-group text-center mt-4">
           <div class="col-xs-12" v-if="!pdf_saved">
@@ -441,7 +442,8 @@
         verification_level: 'verification_level',
       }),
       level() {
-        return this.verification_level + 2
+        // return this.verification_level + 2
+        return 3
       },
     },
     methods: {
