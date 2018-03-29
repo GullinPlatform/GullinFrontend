@@ -114,6 +114,11 @@ export default new Router({
     name: 'user_signup',
     beforeEnter: isNotAuthenticated,
   }, {
+    path: '/buy-token-now',
+    component: UserSignUpView,
+    name: 'url_for_luke',
+    beforeEnter: isNotAuthenticated,
+  }, {
     path: '/signup/followup',
     component: UserSignUpFollowUpView,
     name: 'user_signup_followup',
