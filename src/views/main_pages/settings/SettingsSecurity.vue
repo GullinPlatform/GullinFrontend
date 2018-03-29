@@ -28,8 +28,7 @@
         </ul>
         <div class="tab-content px-3">
           <h4 class="text-dark header-title my-3"><b>Logs</b></h4>
-
-          <table class="table" v-if="loaded">
+          <table class="table" v-if="loaded" >
             <thead>
             <tr>
               <th>Time</th>
@@ -86,4 +85,5 @@
   .tabs-bordered li a.router-link-exact-active {
     border-bottom: 2px solid #2B2E58 !important;
   }
+
 </style>

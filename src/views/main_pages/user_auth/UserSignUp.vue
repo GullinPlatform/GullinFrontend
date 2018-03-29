@@ -47,7 +47,6 @@
             </div>
           </div>
         </div>
-
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
             <button class="btn btn-primary btn-custom w-md" @click="register()" :disabled="errors.any() || loading">
@@ -55,7 +54,6 @@
             </button>
           </div>
           <span class="text-danger" v-show="error_message">{{ error_message }}</span>
-
         </div>
         <div class="form-group row m-t-30">
           <div class="col-12 text-center">
@@ -85,7 +83,6 @@
         check: true,
         refer_source: '',
 
-        verified: '',
         error_message: '',
         loading: false,
       }
@@ -106,7 +103,6 @@
             password: SHA256(this.password),
             first_name: this.first_name,
             last_name: this.last_name,
-            verified: this.verified,
             refer_source: this.refer_source,
           }
 
