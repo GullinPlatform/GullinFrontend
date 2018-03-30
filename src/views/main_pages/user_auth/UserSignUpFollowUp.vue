@@ -40,7 +40,7 @@
             </span>
           </div>
         </div>
-        <span class="text-muted"> Didn't receive code? Send Again.</span>
+        <span class="text-muted"> Didn't receive code? <a href="#" @click="resendConfirmEmail()" v-if="!email_resend">Send Again.</a><span v-else>New Email Sent</span></span>
         <br>
         <span v-show="error_message" class="text-danger"><i class="fa fa-warning"></i> {{ error_message }}</span>
       </div>
@@ -355,7 +355,8 @@
         <p style="word-break:break-all;">{{new_wallet_address}}</p>
         <h4>Private Key</h4>
         <p style="word-break:break-all;">{{new_wallet_private_key}}</p>
-        <a target="_blank" href="https://gullin.zendesk.com/hc/en-us/articles/360002535234-What-are-public-and-private-keys-"><i class="fa fa-question-circle-o"></i> What is the public key and private key?</a>
+        <a target="_blank" href="https://gullin.zendesk.com/hc/en-us/articles/360002535234-What-are-public-and-private-keys-"><i class="fa fa-question-circle-o"></i> What is the public key and private
+          key?</a>
         <hr>
         <div class="form-group text-center mt-4">
           <div class="col-xs-12" v-if="!pdf_saved">
@@ -417,6 +418,8 @@
     data() {
       return {
         email_code: '',
+        email_resend: false,
+
         phone_code: '',
 
         phone_number: '',
@@ -442,8 +445,7 @@
         verification_level: 'verification_level',
       }),
       level() {
-        // return this.verification_level + 2
-        return 3
+        return this.verification_level + 2
       },
     },
     methods: {
@@ -454,6 +456,15 @@
         this.$store.dispatch('confirmEmail', form_data)
           .then(() => {
             this.error_message = ''
+          })
+          .catch((error) => {
+            this.error_message = error.data.error
+          })
+      },
+      resendConfirmEmail() {
+        this.$store.dispatch('resendConfirmEmail')
+          .then(() => {
+            this.email_resend = true
           })
           .catch((error) => {
             this.error_message = error.data.error

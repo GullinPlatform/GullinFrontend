@@ -76,6 +76,9 @@ export default {
   confirmEmail(form_data) {
     return apiCall('patch', 'followup/email/', form_data)
   },
+  resendConfirmEmail() {
+    return apiCall('post', 'followup/resend/', { email: true })
+  },
   addPhone(form_data) {
     return apiCall('post', 'followup/phone/', form_data)
   },
@@ -91,11 +94,6 @@ export default {
   accreditedInvestorVerification() {
     return apiCall('post', 'verify/aiv/')
   },
-
-
-  // resendConfirmEmail(form_data) {
-  //   return apiCall('post', 'email_verify/', form_data)
-  // },
 
 
   // Forget Password

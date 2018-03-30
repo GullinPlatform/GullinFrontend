@@ -136,6 +136,11 @@ const actions = {
       })
       .catch(error => Promise.reject(error))
   },
+  resendConfirmEmail({}) {
+    return userApi.resendConfirmEmail()
+      .then(() => Promise.resolve())
+      .catch(error => Promise.reject(error))
+  },
   addPhone({ dispatch, commit }, form_data) {
     return userApi.addPhone(form_data)
       .then(() => {
