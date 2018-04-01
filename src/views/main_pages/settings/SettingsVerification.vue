@@ -811,7 +811,7 @@
           </div>
           <div v-show="step===3">
             <div class="row justify-content-md-center">
-              <div class="alert alert-success col-xl-5 col-md-9 text-center">The ID you upload must match the nationality you filled in step 1</div>
+              <div class="alert alert-danger col-xl-5 col-md-9 text-center">The ID you upload must match the nationality you filled in step 1</div>
             </div>
             <div class="form-group row justify-content-md-center">
               <div class="col-xl-6 col-md-10">
@@ -1069,12 +1069,13 @@
         }
         this.error_message = ''
         this.uploading = true
-        const form_data = new FormData()
-        form_data.append('official_id_type', this.id_type)
-        form_data.append('official_id_front_base64', this.id_front)
-        form_data.append('official_id_back_base64', this.id_back)
-        form_data.append('user_holding_official_id_base64', this.id_holding)
-        form_data.append('investor_user', this.me.id)
+        const form_data = {
+          'official_id_type': this.id_type,
+          'official_id_front_base64': this.id_front,
+          'official_id_back_base64': this.id_back,
+          'user_holding_official_id_base64': this.id_holding,
+          'investor_user': this.me.id
+        }
 
         this.$store.dispatch('uploadID', form_data)
           .then(() => {
