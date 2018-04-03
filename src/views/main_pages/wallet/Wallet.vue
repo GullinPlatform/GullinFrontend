@@ -37,9 +37,9 @@
                 <qrcode :value="me_wallet.eth_address" :options="{ size: 150 }"/>
                 <hr>
                 <!--<a-->
-                  <!--:href="'https://buy.coinbase.com?code=95f65a41-4643-58a4-8eb2-fda57ada4392&address=' + me_wallet.eth_address +'&prefill_email='+me.user.email+ '&redirect_uri=https://app.gullin.io/wallet'"-->
-                  <!--target="_blank">-->
-                  <!--Buy with Coinbase-->
+                <!--:href="'https://buy.coinbase.com?code=95f65a41-4643-58a4-8eb2-fda57ada4392&address=' + me_wallet.eth_address +'&prefill_email='+me.user.email+ '&redirect_uri=https://app.gullin.io/wallet'"-->
+                <!--target="_blank">-->
+                <!--Buy with Coinbase-->
                 <!--</a>-->
                 <!--<hr>-->
                 <div class="text-center">
@@ -264,11 +264,12 @@
         }
       },
       maxWithdrawAmount() {
+        // First check eth balance
         if (this.eth_balance < 0.000021) {
           this.transaction_failed = true
           this.error_message = 'Your Balance is lower than 0.000021, the minimal transaction fee for ETH.'
         }
-        else {
+        if (this.unit === 'ETH') {
           this.amount = this.eth_balance - 0.000021
         }
       }
