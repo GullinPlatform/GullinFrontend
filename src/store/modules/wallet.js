@@ -217,8 +217,8 @@ const actions = {
         const transaction_data = {
           to: data.to_address,
           value: web3.utils.toHex(web3.utils.toWei(data.value, 'ether')),
-          gasLimit: web3.utils.toHex('22000'),
-          gasPrice: web3.utils.toHex('10000000000'),
+          gasLimit: web3.utils.toHex('21000'),
+          gasPrice: web3.utils.toHex('1000000000'),
           data: '0x',
           nonce: nonce,
         }
@@ -249,8 +249,8 @@ const actions = {
         const transaction_data = {
           to: data.contract_address,
           value: '0x00',
-          gasLimit: web3.utils.toHex('100000'),
-          gasPrice: web3.utils.toHex('20000000000'),
+          gasLimit: web3.utils.toHex('21000'),
+          gasPrice: web3.utils.toHex('1000000000'),
           data: abi_data,
           nonce: nonce,
         }

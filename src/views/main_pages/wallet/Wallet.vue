@@ -264,12 +264,12 @@
         }
       },
       maxWithdrawAmount() {
-        if (this.eth_balance < 0.00021) {
+        if (this.eth_balance < 0.000021) {
           this.transaction_failed = true
-          this.error_message = 'Your Balance is lower than 0.00021, the minimal transaction fee for ETH.'
+          this.error_message = 'Your Balance is lower than 0.000021, the minimal transaction fee for ETH.'
         }
         else {
-          this.amount = this.eth_balance - 0.00021
+          this.amount = this.eth_balance - 0.000021
         }
       }
     },
